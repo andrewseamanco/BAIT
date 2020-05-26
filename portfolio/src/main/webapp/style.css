@@ -1,9 +1,53 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+body, html {
+  height: 100%;
 }
 
-#greeting-container {
-  margin-top: 20px;
+.bg {
+    background-image: url("/images/mountain.JPG");
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+#home_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Garamond';
+    Background-color: black;
+    border-style: solid;
+    padding: 20px;
+    text-align: center;
+}
+
+#home_content p:hover {
+    text-decoration: underline;
+}
+
+/* #navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #3E3736;
+}
+
+#links p{
+    margin-left: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+
+#links p:hover {
+    text-decoration: none;
+    color: #85827b;
+} */
