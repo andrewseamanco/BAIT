@@ -25,6 +25,11 @@ body, html {
     text-align: center;
 }
 
+#home_content a {
+    text-decoration: none;
+    color: white;
+}
+
 #home_content p:hover {
     text-decoration: underline;
 }
