@@ -3,7 +3,7 @@ body, html {
 }
 
 .background {
-    background-image: url("/images/mountain.JPG");
+    background-image: url(/images/mountain.JPG);
     filter: blur(4px);
     -webkit-filter: blur(4px);
     height: 100%;
