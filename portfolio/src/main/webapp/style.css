@@ -3,26 +3,25 @@ body, html {
 }
 
 .background {
+    background: url(/images/mountain.JPG) 0 0 no-repeat;
     background-image: url(/images/mountain.JPG);
-    filter: blur(4px);
-    -webkit-filter: blur(4px);
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    filter: blur(4px);
+    height: 100%;
+    -webkit-filter: blur(4px);
 }
 
 #home-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-family: 'Garamond';
     background-color: black;
     border-style: solid;
+    color: white;
+    font-family: 'Garamond';
+    top: 50%;
+    left: 50%;
     padding: 20px;
+    position: absolute;
     text-align: center;
+    transform: translate(-50%, -50%);
 }
 
 #home-content ul {
