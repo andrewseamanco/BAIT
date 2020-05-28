@@ -12,24 +12,24 @@ body, html {
     background-size: cover;
 }
 
-#home_content {
+#home-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
     font-family: 'Garamond';
-    Background-color: black;
+    background-color: black;
     border-style: solid;
     padding: 20px;
     text-align: center;
 }
 
-#home_content ul {
+#home-content ul {
     list-style-type: square;
 }
 
-#home_content li:hover {
+#home-content li:hover {
     text-decoration: underline;
 }
 
