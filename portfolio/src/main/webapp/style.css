@@ -25,7 +25,11 @@ body, html {
     text-align: center;
 }
 
-#home_content p:hover {
+#home_content ul {
+    list-style-type: square;
+}
+
+#home_content li:hover {
     text-decoration: underline;
 }
 
