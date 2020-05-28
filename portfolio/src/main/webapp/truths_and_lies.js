@@ -39,8 +39,8 @@ const lies = [
     ['I submitted a video that was breifly featured on The Tonght Show', '/images/two_truth_one_lie_imgs/tonight_show.jpg'],
     ['I worked at an amusement park for a while', '/images/two_truth_one_lie_imgs/amusement_park.jpg'],
     ['I worked on Obama\'s presidential campaign', '/images/two_truth_one_lie_imgs/Obama.jpg'],
-    ['I have an archnemesis', '/images/two_truth_one_lie_imgs/archnemesis'],
-    ['My dog is named after a contemporary philosopher', '/images/two_truth_one_lie_imgs/Parthenon'],
+    ['I have an archnemesis', '/images/two_truth_one_lie_imgs/archnemesis.jpg'],
+    ['My dog is named after a contemporary philosopher', '/images/two_truth_one_lie_imgs/Parthenon.jpg'],
     ['I made up a language that completely excludes the letter \'e\'', '/images/two_truth_one_lie_imgs/E.png'],
     ['I am actually a decent cook', '/images/two_truth_one_lie_imgs/egg.jpg'],
     ['I have never lost a game of UNO (ever)', '/images/two_truth_one_lie_imgs/UNO.jpg'],
@@ -49,5 +49,5 @@ const lies = [
     ['I am banned from a flower shop in Wyoming', '/images/two_truth_one_lie_imgs/flower.jpg'],
     ['I am still up to date on all the new Percy Jackson books', '/images/two_truth_one_lie_imgs/percy_jackson.jpg'],
     ['I was good friends with a contestant on The Bachelor', '/images/two_truth_one_lie_imgs/rose.jpg'],
-    ['I am really good at the Ukelele', '/images/two_truth_one_lie_imgs/ukelele']
+    ['I am really good at the Ukelele', '/images/two_truth_one_lie_imgs/ukelele.jpg']
 ]
