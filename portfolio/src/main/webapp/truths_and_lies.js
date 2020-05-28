@@ -32,7 +32,6 @@ const truths = [
     'I recieved 14 Varsity Letters in High School',
     'I performed standup comedy in my fifth grade talent show',
     'I was terrified of a children\'s book called the Mosely Bug',
-    'I was born forcefully (tongs were required)',
     'My first crush was Sam from iCarly',
     'I would like to be a contestant on CBS Survivor'
 ]
