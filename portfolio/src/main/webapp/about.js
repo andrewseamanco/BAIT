@@ -14,19 +14,25 @@ function loadInTruth() {
     }
 
     if (firstPlace==0) {
-        document.getElementById("first_txt").innerHTML = truths[firstTruth];
+        document.getElementById("first_txt").innerHTML = truths[firstTruth][0];
+        document.getElementById("first_img").src = truths[firstTruth][1];
     } else if (firstPlace==1) {
-        document.getElementById("second_txt").innerHTML = truths[firstTruth];
+        document.getElementById("second_txt").innerHTML = truths[firstTruth][0];
+        document.getElementById("second_img").src = truths[firstTruth][1];
     } else if (firstPlace==2) {
-        document.getElementById("third_txt").innerHTML = truths[firstTruth];
+        document.getElementById("third_txt").innerHTML = truths[firstTruth][0];
+        document.getElementById("third_img").src = truths[firstTruth][1];
     }
 
     if (secondPlace == 0) {
-        document.getElementById("first_txt").innerHTML = truths[secondTruth];
+        document.getElementById("first_txt").innerHTML = truths[secondTruth][0];
+        document.getElementById("first_img").src = truths[secondTruth][1];
     } else if (secondPlace==1) {
-        document.getElementById("second_txt").innerHTML = truths[secondTruth];
+        document.getElementById("second_txt").innerHTML = truths[secondTruth][0];
+        document.getElementById("second_img").src = truths[secondTruth][1];
     } else if (secondPlace==2) {
-        document.getElementById("third_txt").innerHTML = truths[secondTruth];
+        document.getElementById("third_txt").innerHTML = truths[secondTruth][0];
+        document.getElementById("third_img").src = truths[secondTruth][1];
     }
 }
 
