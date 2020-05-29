@@ -96,3 +96,33 @@ input[type=radio]:checked + label>img {
     
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    background-color: rgba(0,0,0,.3);
+    height:100%;
+    left:0;
+    top:0;
+    width: 100%;
+    z-index: 1;
+}
+
+#modal-content {
+    background-color: white;
+    text-align: center;
+    width: 60%;
+
+}
+
+#modal-content span{
+    float: right;
+    color: rgb(158, 158, 158);
+    font-size: 25px;
+    text-align: left;
+    margin-left: 5%;
+}
+
+#modal-content span:hover {
+    color: black;
+    cursor: pointer;
+}

@@ -44,10 +44,14 @@
                     </div>
                 </div>
             <button id="two_truths" type="submit" onClick=next()>Start</button>
-            <button id="tutorial" onclick="openTutorial()">How to Play</tutorial>
+            <button id="tutorial" onclick="open_tutorial()">How to Play</button>
             <div id="tutorial" class="modal">
-                <div class="modal-content">
-                    <p>Sup dawg. Here's how it works</p>
+                <div id="modal-content" class="modal">
+                    <span>&times;</span>
+                    <h2>Instructions:</h2>
+                    <p>Setup: To start you will be presented with three statements about me. <br />
+                       Two of these statements are true facts, but mixed in is a lie. </p>
+                    <p>Objective: Chose the lie by clicking on the correct image.</p>
                 </div>
             </div>
         </div>
@@ -63,5 +67,6 @@
     </div>
     </div>
     <script src="about.js"></script>
+    <script src="tutorial.js"></script>
   </body>
 </html>
