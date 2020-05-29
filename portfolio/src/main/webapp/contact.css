@@ -26,18 +26,8 @@ html, body {
     background-color: black;
 }
 
-#message {
-    flex-grow: 1;
-}
-
-#message, #footer {
+#footer {
     flex-shrink: 0;
-}
-
-#message {
-    align-content: center;
-    background-color: yellow;
-    width: 100%;
 }
 
 #footer {
