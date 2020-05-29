@@ -1,6 +1,3 @@
-let answer = 0;
-
-
 function loadInFact(index, fact_index, isTruth) {
     let fact = isTruth ? truths[fact_index] : lies[fact_index];
 
@@ -51,16 +48,15 @@ function loadInLie(truth_indeces) {
     return lie_index;
 }
 
-function loadInNewQuestion() {
-    let truthLocations = loadInTruth();
-    answer = loadInLie(truthLocations);
-}
-
-function next()  {
+function next(answer)  {
     let q_num = document.getElementById("question_num");
     if (q_num.innerHTML=="Press Start to Begin!") {
         document.getElementById("question_num").innerHTML = 1;
-        loadInNewQuestion();
+
+        //load in new question
+        let truth_indeces = loadInTruth();
+        answer = loadInLie(truth_indeces);
+
         document.getElementById("two_truths").innerHTML = "Next";
     } else {
         let chosenAnswer = -1;
@@ -70,13 +66,17 @@ function next()  {
                 chosenAnswer = chosenRadio.value;
             }
         }
-        if (selectedAnswer != -1) {
+        if (chosenAnswer != -1) {
+            console.log(answer);
             if (answer == chosenAnswer) {
                 alert("This is the lie!");
             } else {
                 alert("This is the truth!");
             }
-            loadInNewQuestion();
         }
-    }
+    } 
+    let truth_indeces = loadInTruth();
+    answer = loadInLie(truth_indeces);
+
+    return answer;
 }
