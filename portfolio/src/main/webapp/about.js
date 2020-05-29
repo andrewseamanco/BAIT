@@ -63,15 +63,15 @@ function next()  {
         loadInNewQuestion();
         document.getElementById("two_truths").innerHTML = "Next";
     } else {
-        let selectedAnswer = -1;
+        let chosenAnswer = -1;
         let chosenRadios = document.querySelectorAll("input[name='chosen_answer']");
         for (chosenRadio of chosenRadios) {
             if(chosenRadio.checked) {
-                selectedAnswer = chosenRadio.value;
+                chosenAnswer = chosenRadio.value;
             }
         }
-        if (selectedAnswer!=-1) {
-            if (answer==selectedAnswer) {
+        if (selectedAnswer != -1) {
+            if (answer == chosenAnswer) {
                 alert("This is the lie!");
             } else {
                 alert("This is the truth!");
