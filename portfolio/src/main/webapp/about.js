@@ -4,7 +4,7 @@ function loadInTruth() {
 
     let firstTruth = Math.floor(Math.random() * truths.length);
     let secondTruth = Math.floor(Math.random() * truths.length);
-    while (firstTruth == secondTruth && truths.length != 1) {
+    while (firstTruth == secondTruth) {
         secondTruth = Math.floor(Math.random() * truths.length);
     }
 
