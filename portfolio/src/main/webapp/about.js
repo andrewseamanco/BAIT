@@ -55,7 +55,7 @@ function next()  {
     if (q_num.innerHTML=="Press Start to Begin!") {
         document.getElementById("question-num").innerHTML = 1;
 
-        document.getElementById("two-truths-btn").innerHTML = "Next";
+        document.getElementById("advance-game-btn").innerHTML = "Next";
 
     } else {
         let chosenAnswer = -1;
