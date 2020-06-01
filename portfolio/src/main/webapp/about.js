@@ -46,16 +46,16 @@ function loadInTruth() {
         secondTruthValue = Math.floor(Math.random() * truths.length);
     }
 
-    let firstTruthIndex = Math.floor(Math.random() * 3);
-    let secondTruthIndex = Math.floor(Math.random() * 3);
-    while (firstTruthIndex == secondTruthIndex) {
-        secondTruthIndex = Math.floor(Math.random() * 3);
+    let firstTruthElementIndex = Math.floor(Math.random() * 3);
+    let secondTruthElementIndex = Math.floor(Math.random() * 3);
+    while (firstTruthElementIndex == secondTruthElementIndex) {
+        secondTruthElementIndex = Math.floor(Math.random() * 3);
     }
 
-    loadInFact(firstTruthIndex, firstTruthValue, true);
-    loadInFact(secondTruthIndex, secondTruthValue, true);
+    loadInFact(firstTruthElementIndex, firstTruthValue, true);
+    loadInFact(secondTruthElementIndex, secondTruthValue, true);
 
-    return [firstTruthIndex, secondTruthIndex];
+    return [firstTruthElementIndex, secondTruthElementIndex];
 }
 
 /**
@@ -67,12 +67,12 @@ function loadInTruth() {
  */
 function loadInLie(truthIndices) {
     //determine the location without a truth value
-    let lie_index = (3 - (truthIndices[0] + truthIndices[1]));
+    let lieElementIndex = (3 - (truthIndices[0] + truthIndices[1]));
     
-    let lie_value = Math.floor(Math.random() * lies.length);
-    loadInFact(lie_index, lie_value, false);
+    let lieValue = Math.floor(Math.random() * lies.length);
+    loadInFact(lieElementIndex, lieValue, false);
 
-    return lie_index;
+    return lieElementIndex;
 }
 
 /**
