@@ -13,10 +13,10 @@ let answer = -1;
  */
 
 
-function loadInFact(index, factIndex, isTruth) {
+function loadInFact(elementIndex, factIndex, isTruth) {
     let fact = isTruth ? truths[factIndex] : lies[factIndex];
 
-    switch(index) {
+    switch(elementIndex) {
         case 0:
             document.getElementById('first-claim-text').innerHTML = fact[0];
             document.getElementById('first-claim-image').src = fact[1];
