@@ -25,28 +25,28 @@
 
                 <div class="truth-and-lies-question">
                     <label>
-                        <input type="radio" name="chosen_answer" id="first_answer" value="0">
-                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="first-img">
+                        <input type="radio" name="selected_answer" id="first-claim-selected" value="0">
+                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="first-claim-image">
                     </label>
-                    <p id="first-txt"></p>
+                    <p id="first-claim-text"></p>
                 </div>
                 <div class="truth-and-lies-question">
                     <label>
-                        <input type="radio" name="chosen_answer" id="second_answer" value="1"/>
-                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="second-img">
+                        <input type="radio" name="selected_answer" id="second-claim-selected" value="1"/>
+                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="second-claim-image">
                     </label>
-                    <p id="second-txt"></p>
+                    <p id="second-claim-text"></p>
                 </div>
                 <div class="truth-and-lies-question">
                     <label>
-                        <input type="radio" name="chosen_answer" id="third_answer" value="2"/>
-                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="third-img">
+                        <input type="radio" name="selected-answer" id="third-claim-selected" value="2"/>
+                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="third-claim-image">
                     </label>
-                    <p id="third-txt"></p>
+                    <p id="third-claim-text"></p>
                 </div>
             </div>
-            <button id="two-truths-btn" type="submit" onClick=next()>Start</button>
-            <button id="tutorial" onclick="open_tutorial()">How to Play</button>
+            <button id="advance-game-btn" type="submit" onClick=next()>Start</button>
+            <button id="tutorial-button" onclick="openTutorial()">How to Play</button>
             <div id="tutorial" class="modal">
                 <div id="modal-content" class="modal">
                     <span>&times;</span>
