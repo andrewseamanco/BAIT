@@ -1,5 +1,18 @@
 let answer = -1;
 
+/**
+ * Gets the image and text from the position stored in index and 
+ * populates it with the fact stored in factIndex.  Populates a truth
+ * if isTruth is true and a lie otherwise
+ * 
+ *@param {number} index the position we will populate the fact
+ *@param {number} factIndex the position in the array of the 
+ * fact that will be populated
+ *@param {boolean} isTruth true if we will populate a truth; 
+ * false if we will populate a lie
+ */
+
+
 function loadInFact(index, factIndex, isTruth) {
     let fact = isTruth ? truths[factIndex] : lies[factIndex];
 
@@ -19,6 +32,12 @@ function loadInFact(index, factIndex, isTruth) {
     }
 }
 
+/**
+ * Populates the page with two true facts in randomized indexes
+ * 
+ *@return {Array} an array populated with two numbers containing
+ * locations of the true facts
+ */
 function loadInTruth() {
 
     let first_truth_value = Math.floor(Math.random() * truths.length);
@@ -39,7 +58,13 @@ function loadInTruth() {
     return [first_truth_index, second_truth_index];
 }
 
-
+/**
+ * Loads in a lie [used after loadInTruth]
+ * 
+ *@param {Array} truthIndices indices where true facts have 
+ * been populated
+ * @return {number} index populated by lie
+ */
 function loadInLie(truthIndices) {
     //determine the location without a truth value
     let lie_index = (3 - (truthIndices[0] + truthIndices[1]));
@@ -50,6 +75,11 @@ function loadInLie(truthIndices) {
     return lie_index;
 }
 
+/**
+ * Advances the game to the next question. Loads in the first question 
+ * game has not yet started. Otherwise, checks answer against user 
+ * selected anwer and alerts if a lie or truth has been chosen.
+ */
 function next()  {
     let game_status = document.getElementById('game-status');
     if (game_status.innerHTML=='Press Start to Begin!') {
@@ -76,5 +106,4 @@ function next()  {
     } 
     const truth_indices = loadInTruth();
     answer = loadInLie(truth_indices);
-    //Hello
 }
