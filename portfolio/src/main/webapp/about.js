@@ -1,4 +1,4 @@
-let answer = -1;
+let correctAnswer = -1;
 
 /**
  * Gets the image and text from the position stored in index and 
@@ -94,8 +94,7 @@ function next()  {
             }
         }
         if (chosenAnswer != -1) {
-            console.log(answer);
-            if (answer == chosenAnswer) {
+            if (correctAnswer == chosenAnswer) {
                 alert('This is the lie!');
             } else {
                 alert('This is the truth!');
@@ -103,5 +102,5 @@ function next()  {
         }
     } 
     const truthIndices = loadInTruth();
-    answer = loadInLie(truthIndices);
+    correctAnswer = loadInLie(truthIndices);
 }
