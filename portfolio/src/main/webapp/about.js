@@ -5,16 +5,16 @@ function loadInFact(index, fact_index, isTruth) {
 
     switch(index) {
         case 0:
-            document.getElementById("first-txt").innerHTML = fact[0];
-            document.getElementById("first-img").src = fact[1];
+            document.getElementById("first-claim-txt").innerHTML = fact[0];
+            document.getElementById("first-claim-img").src = fact[1];
             break;
         case 1:
-            document.getElementById("second-txt").innerHTML = fact[0];
-            document.getElementById("second-img").src = fact[1];
+            document.getElementById("second-claim-txt").innerHTML = fact[0];
+            document.getElementById("second-claim-img").src = fact[1];
             break;
         case 2:
-            document.getElementById("third-txt").innerHTML = fact[0];
-            document.getElementById("third-img").src = fact[1];
+            document.getElementById("third-claim-txt").innerHTML = fact[0];
+            document.getElementById("third-claim-img").src = fact[1];
             break;
     }
 }
@@ -59,7 +59,7 @@ function next()  {
 
     } else {
         let chosenAnswer = -1;
-        let chosenRadios = document.querySelectorAll("input[name='chosen_answer']");
+        let chosenRadios = document.querySelectorAll("input[name='selected_answer']");
         for (chosenRadio of chosenRadios) {
             if(chosenRadio.checked) {
                 chosenAnswer = chosenRadio.value;
