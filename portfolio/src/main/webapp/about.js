@@ -5,16 +5,16 @@ function loadInFact(index, fact_index, isTruth) {
 
     switch(index) {
         case 0:
-            document.getElementById("first-claim-txt").innerHTML = fact[0];
-            document.getElementById("first-claim-img").src = fact[1];
+            document.getElementById("first-claim-text").innerHTML = fact[0];
+            document.getElementById("first-claim-image").src = fact[1];
             break;
         case 1:
-            document.getElementById("second-claim-txt").innerHTML = fact[0];
-            document.getElementById("second-claim-img").src = fact[1];
+            document.getElementById("second-claim-text").innerHTML = fact[0];
+            document.getElementById("second-claim-image").src = fact[1];
             break;
         case 2:
-            document.getElementById("third-claim-txt").innerHTML = fact[0];
-            document.getElementById("third-claim-img").src = fact[1];
+            document.getElementById("third-claim-text").innerHTML = fact[0];
+            document.getElementById("third-claim-image").src = fact[1];
             break;
     }
 }
