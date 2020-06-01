@@ -40,22 +40,22 @@ function loadInFact(elementIndex, factIndex, isTruth) {
  */
 function loadInTruth() {
 
-    let first_truth_value = Math.floor(Math.random() * truths.length);
-    let second_truth_value = Math.floor(Math.random() * truths.length);
-    while (first_truth_value == second_truth_value) {
-        second_truth_value = Math.floor(Math.random() * truths.length);
+    let firstTruthValue = Math.floor(Math.random() * truths.length);
+    let secondTruthValue = Math.floor(Math.random() * truths.length);
+    while (firstTruthValue == secondTruthValue) {
+        secondTruthValue = Math.floor(Math.random() * truths.length);
     }
 
-    let first_truth_index = Math.floor(Math.random() * 3);
-    let second_truth_index = Math.floor(Math.random() * 3);
-    while (first_truth_index == second_truth_index) {
-        second_truth_index = Math.floor(Math.random() * 3);
+    let firstTruthIndex = Math.floor(Math.random() * 3);
+    let secondTruthIndex = Math.floor(Math.random() * 3);
+    while (firstTruthIndex == secondTruthIndex) {
+        secondTruthIndex = Math.floor(Math.random() * 3);
     }
 
-    loadInFact(first_truth_index, first_truth_value, true);
-    loadInFact(second_truth_index, second_truth_value, true);
+    loadInFact(firstTruthIndex, firstTruthValue, true);
+    loadInFact(secondTruthIndex, secondTruthValue, true);
 
-    return [first_truth_index, second_truth_index];
+    return [firstTruthIndex, secondTruthIndex];
 }
 
 /**
@@ -81,9 +81,9 @@ function loadInLie(truthIndices) {
  * selected anwer and alerts if a lie or truth has been chosen.
  */
 function next()  {
-    let game_status = document.getElementById('game-status');
-    if (game_status.innerHTML=='Press Start to Begin!') {
-        game_status.innerHTML = 1;
+    let gameStatus = document.getElementById('game-status');
+    if (gameStatus.innerHTML=='Press Start to Begin!') {
+        gameStatus.innerHTML = 1;
 
         document.getElementById('advance-game-btn').innerHTML = 'Next';
 
@@ -104,6 +104,6 @@ function next()  {
             }
         }
     } 
-    const truth_indices = loadInTruth();
-    answer = loadInLie(truth_indices);
+    const truthIndices = loadInTruth();
+    answer = loadInLie(truthIndices);
 }
