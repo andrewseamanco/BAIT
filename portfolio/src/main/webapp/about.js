@@ -1,7 +1,7 @@
 let answer = -1;
 
-function loadInFact(index, fact_index, isTruth) {
-    let fact = isTruth ? truths[fact_index] : lies[fact_index];
+function loadInFact(index, factIndex, isTruth) {
+    let fact = isTruth ? truths[factIndex] : lies[factIndex];
 
     switch(index) {
         case 0:
@@ -40,9 +40,9 @@ function loadInTruth() {
 }
 
 
-function loadInLie(truth_indeces) {
+function loadInLie(truthIndeces) {
     //determine the location without a truth value
-    let lie_index = (3 - (truth_indeces[0] + truth_indeces[1]));
+    let lie_index = (3 - (truthIndeces[0] + truthIndeces[1]));
     
     let lie_value = Math.floor(Math.random() * lies.length);
     loadInFact(lie_index, lie_value, false);
