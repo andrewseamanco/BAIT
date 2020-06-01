@@ -51,15 +51,15 @@ function loadInLie(truthIndices) {
 }
 
 function next()  {
-    let q_num = document.getElementById('question-num');
-    if (q_num.innerHTML=='Press Start to Begin!') {
-        document.getElementById('question-num').innerHTML = 1;
+    let game_status = document.getElementById('game-status');
+    if (game_status.innerHTML=='Press Start to Begin!') {
+        game_status.innerHTML = 1;
 
         document.getElementById('advance-game-btn').innerHTML = 'Next';
 
     } else {
         let chosenAnswer = -1;
-        let chosenRadios = document.querySelectorAll('input[name="selected_answer"]');
+        const chosenRadios = document.querySelectorAll('input[name="selected_answer"]');
         for (chosenRadio of chosenRadios) {
             if(chosenRadio.checked) {
                 chosenAnswer = chosenRadio.value;
