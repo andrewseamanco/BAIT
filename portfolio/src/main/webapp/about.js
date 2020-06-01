@@ -1,18 +1,20 @@
+let answer = -1;
+
 function loadInFact(index, fact_index, isTruth) {
     let fact = isTruth ? truths[fact_index] : lies[fact_index];
 
     switch(index) {
         case 0:
-            document.getElementById("first_txt").innerHTML = fact[0];
-            document.getElementById("first_img").src = fact[1];
+            document.getElementById("first-txt").innerHTML = fact[0];
+            document.getElementById("first-img").src = fact[1];
             break;
         case 1:
-            document.getElementById("second_txt").innerHTML = fact[0];
-            document.getElementById("second_img").src = fact[1];
+            document.getElementById("second-txt").innerHTML = fact[0];
+            document.getElementById("second-img").src = fact[1];
             break;
         case 2:
-            document.getElementById("third_txt").innerHTML = fact[0];
-            document.getElementById("third_img").src = fact[1];
+            document.getElementById("third-txt").innerHTML = fact[0];
+            document.getElementById("third-img").src = fact[1];
             break;
     }
 }
@@ -48,16 +50,13 @@ function loadInLie(truth_indeces) {
     return lie_index;
 }
 
-function next(answer)  {
-    let q_num = document.getElementById("question_num");
+function next()  {
+    let q_num = document.getElementById("question-num");
     if (q_num.innerHTML=="Press Start to Begin!") {
-        document.getElementById("question_num").innerHTML = 1;
+        document.getElementById("question-num").innerHTML = 1;
 
-        //load in new question
-        let truth_indeces = loadInTruth();
-        answer = loadInLie(truth_indeces);
+        document.getElementById("two-truths-btn").innerHTML = "Next";
 
-        document.getElementById("two_truths").innerHTML = "Next";
     } else {
         let chosenAnswer = -1;
         let chosenRadios = document.querySelectorAll("input[name='chosen_answer']");
@@ -77,6 +76,4 @@ function next(answer)  {
     } 
     let truth_indeces = loadInTruth();
     answer = loadInLie(truth_indeces);
-
-    return answer;
 }
