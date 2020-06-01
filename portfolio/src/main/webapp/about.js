@@ -84,9 +84,7 @@ function next()  {
     let gameStatus = document.getElementById('game-status');
     if (gameStatus.innerHTML=='Press Start to Begin!') {
         gameStatus.innerHTML = 1;
-
         document.getElementById('advance-game-btn').innerHTML = 'Next';
-
     } else {
         let chosenAnswer = -1;
         const chosenRadios = document.querySelectorAll('input[name="selected-answer"]');
