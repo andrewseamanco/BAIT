@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link rel="stylesheet" href="about.css">
+    <script src="truths_and_lies.js"></script>
+  </head>
+  <body>
+    <div class="about-content">
+        <div id="header">
+            <a href="index.html"> <img src=/images/profile.jpg /> </a>
+            <div class="left">
+                <a href="#"> <p> About </p> </a>
+                <a href="survey.html"> <p> Survey </p> </a>
+                <a href="contact.html"> <p> Contact </p> </a>
+            </div>
+        </div>
+        <h3>Want to get to know me? Let's play Two Truths One Lie</h3>
+        <div id="truth-and-lies-game">
+            <label id="game-status">Press Start to Begin!</label>
+            <div id="questions">
+
+                <!-- These fields will be populated by the about.js file -->
+
+                <div class="truth-and-lies-question">
+                    <label>
+                        <input type="radio" name="selected-answer" id="first-claim-selected" value="0">
+                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="first-claim-image">
+                    </label>
+                    <p id="first-claim-text"></p>
+                </div>
+                <div class="truth-and-lies-question">
+                    <label>
+                        <input type="radio" name="selected-answer" id="second-claim-selected" value="1"/>
+                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="second-claim-image">
+                    </label>
+                    <p id="second-claim-text"></p>
+                </div>
+                <div class="truth-and-lies-question">
+                    <label>
+                        <input type="radio" name="selected-answer" id="third-claim-selected" value="2"/>
+                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="third-claim-image">
+                    </label>
+                    <p id="third-claim-text"></p>
+                </div>
+            </div>
+            <button id="advance-game-btn" type="submit" onClick=next()>Start</button>
+            <button id="tutorial-button" onclick="openTutorial()">How to Play</button>
+            <div id="tutorial" class="modal">
+                <div id="modal-content" class="modal">
+                    <span>×</span>
+                    <h2>Instructions:</h2>
+                    <p>Setup: To start you will be presented with three statements about me. <br />
+                    Two of these statements are true facts, but mixed in is a lie. </p>
+                    <p>Objective: Choose the lie by clicking on the correct image.</p>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <p> © Andrew Seaman 2020</p> 
+            <div class="left">
+                <a href="https://github.com/andrewseamanco"> <img src="/images/GitHub-Mark-64px.png"> </a>
+                <a href="https://www.facebook.com/andrew.seaman.9210"> <img src="/images/f-logo.png"> </a>
+                <a href="mailto:andrew.seamanco@gmail.com"> <img src="https://pluspng.com/img-png/gmail-vector-png--1600.png"> </a>
+                <a href="https://www.linkedin.com/in/andrew-seaman-42ab53168?trk=people-guest_people_search-card"> <img src="/images/linkedin.png" /> </a>
+            </div>
+        </div>
+    </div>
+    <script src="about.js"></script>
+    <script src="tutorial.js"></script>
+  </body>
+</html>
