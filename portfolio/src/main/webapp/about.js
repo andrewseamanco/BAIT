@@ -59,7 +59,7 @@ function next()  {
 
     } else {
         let chosenAnswer = -1;
-        const chosenRadios = document.querySelectorAll('input[name="selected_answer"]');
+        const chosenRadios = document.querySelectorAll('input[name="selected-answer"]');
         for (chosenRadio of chosenRadios) {
             if(chosenRadio.checked) {
                 chosenAnswer = chosenRadio.value;
@@ -76,4 +76,5 @@ function next()  {
     } 
     const truth_indices = loadInTruth();
     answer = loadInLie(truth_indices);
+    //Hello
 }
