@@ -1,7 +1,7 @@
 
 
 body, html {
-    background-image: url(/images/community-image.JPG);
+    background: #000000 url(/images/community-image.JPG) no-repeat 0 0;
     background-size: cover;
 }
 
