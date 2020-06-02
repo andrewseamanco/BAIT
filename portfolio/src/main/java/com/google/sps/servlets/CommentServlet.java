@@ -31,14 +31,14 @@ public class CommentServlet extends HttpServlet {
   private String getUsername(HttpServletRequest request) {
     String username = request.getParameter("username");
 
-    // Sanatize input here
+    //TODO: Sanatize input here
     return username;
   }
 
   private String getComment(HttpServletRequest request) {
     String comment = request.getParameter("comment");
 
-    // Sanatize input here
+    //TODO: Sanatize input here
     return comment;
   }
 }
