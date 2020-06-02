@@ -6,8 +6,7 @@ import java.util.List;
 public class Conversation {
   private final List<Comment> commentList = new ArrayList<Comment>();
 
-    public void addComment(Comment comment) {
-        commentList.add(comment);
-    }
-
+  public void addComment(Comment comment) {
+    commentList.add(comment);
+  }
 }
