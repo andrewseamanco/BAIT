@@ -23,15 +23,12 @@ public class CommentServlet extends HttpServlet {
 
   @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // If the user sends another POST request after the game is over, then start a new game.
-    String username = getUsername(request);
-    String comment = getComment(request);
+        String username = getUsername(request);
+        String comment = getComment(request);
+        Comment comment = new Comment(username, comment, false);
 
-    Comment comment = new Comment(username, comment, false);
-
-    converse.addComment(comment);
-
-    response.sendRedirect("/community.html");
+        converse.addComment(comment);
+        response.sendRedirect("/community.html");
     }
 
     private String getUsername(HttpServletRequest request) {
