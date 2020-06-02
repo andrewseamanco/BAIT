@@ -7,7 +7,7 @@ let correctAnswer = -1;
  */
 function advanceGame()  {
     let gameStatus = document.getElementById('game-status');
-    if (gameStatus.innerHTML=='Press Start to Begin!') {
+    if (gameStatus.innerHTML === 'Press Start to Begin!') {
         gameStatus.innerHTML = 1;
         document.getElementById('advance-game-btn').innerHTML = 'Next';
     } else {
@@ -19,7 +19,7 @@ function advanceGame()  {
             }
         }
         if (chosenAnswer != -1) {
-            if (correctAnswer == chosenAnswer) {
+            if (correctAnswer === chosenAnswer) {
                 alert('This is the lie!');
             } else {
                 alert('This is the truth!');
@@ -40,13 +40,13 @@ function loadInTruth() {
 
     let firstTruthValue = Math.floor(Math.random() * truths.length);
     let secondTruthValue = Math.floor(Math.random() * truths.length);
-    while (firstTruthValue == secondTruthValue) {
+    while (firstTruthValue === secondTruthValue) {
         secondTruthValue = Math.floor(Math.random() * truths.length);
     }
 
     let firstTruthElementIndex = Math.floor(Math.random() * 3);
     let secondTruthElementIndex = Math.floor(Math.random() * 3);
-    while (firstTruthElementIndex == secondTruthElementIndex) {
+    while (firstTruthElementIndex === secondTruthElementIndex) {
         secondTruthElementIndex = Math.floor(Math.random() * 3);
     }
 
