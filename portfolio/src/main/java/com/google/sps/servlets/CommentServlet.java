@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/comments")
 public class DataServlet extends HttpServlet {
 
-  private Conversation = new Conversation();
+  private Conversation converse = new Conversation();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+    response.setContentType("application/json");
+    String json = new Gson().toJson(converse);
+    response.getWriter().println(json);
   }
 
   @Override
