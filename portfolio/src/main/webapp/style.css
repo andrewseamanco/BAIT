@@ -36,3 +36,8 @@ body, html {
 #home-content li:hover {
     text-decoration: underline;
 }
+
+#home_content p:hover {
+    text-decoration: underline;
+}
+
