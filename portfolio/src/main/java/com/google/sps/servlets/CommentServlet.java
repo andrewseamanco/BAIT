@@ -22,9 +22,7 @@ public class CommentServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String username = getUsername(request);
-    String commentText = getComment(request);
-    Comment comment = new Comment(username, commentText);
+    Comment comment = new Comment(getUsername(request), getComment(request));;
 
     conversation.addComment(comment);
     response.sendRedirect("/community.html");
