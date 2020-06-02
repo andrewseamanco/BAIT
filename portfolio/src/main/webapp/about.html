@@ -16,9 +16,8 @@
                 <a href="contact.html"> <p> Contact </p> </a>
             </div>
         </div>
-        <h3>Want to get to know me? Let's play Two Truths One Lie</h3>
         <div id="truth-and-lies-game">
-            <label id="game-status">Press Start to Begin!</label>
+            <label id="game-status"></label>
             <div id="questions">
 
                 <!-- These fields will be populated by the about.js file -->
@@ -26,27 +25,29 @@
                 <div class="truth-and-lies-question">
                     <label>
                         <input type="radio" name="selected-answer" id="first-claim-selected" value="0">
-                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="first-claim-image">
+                        <img src="/images/two_truth_one_lie_imgs/question.jpg" id="first-claim-image">
                     </label>
                     <p id="first-claim-text"></p>
                 </div>
                 <div class="truth-and-lies-question">
                     <label>
                         <input type="radio" name="selected-answer" id="second-claim-selected" value="1"/>
-                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="second-claim-image">
+                        <img src="/images/two_truth_one_lie_imgs/question.jpg" id="second-claim-image">
                     </label>
                     <p id="second-claim-text"></p>
                 </div>
                 <div class="truth-and-lies-question">
                     <label>
                         <input type="radio" name="selected-answer" id="third-claim-selected" value="2"/>
-                        <img src="/images/two_truth_one_lie_imgs/stars.jpg" id="third-claim-image">
+                        <img src="/images/two_truth_one_lie_imgs/question.jpg" id="third-claim-image">
                     </label>
                     <p id="third-claim-text"></p>
                 </div>
             </div>
-            <button id="advance-game-button" type="submit" onClick=advanceGame()>Start</button>
-            <button id="tutorial-button" onclick="openTutorial()">How to Play</button>
+            <div id="buttons">
+                <button class="button" id="advance-game-button" type="submit" onClick=advanceGame()>Play Two Truths One Lie</button> <br />
+                <button class="button" id="tutorial-button" onclick="openTutorial()">How to Play</button>
+            </div>
             <div id="tutorial" class="modal">
                 <div id="modal-content" class="modal">
                     <span>×</span>
