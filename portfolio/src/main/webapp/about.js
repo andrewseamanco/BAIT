@@ -5,21 +5,21 @@ let correctAnswer = -1;
  * game has not yet started. Otherwise, checks answer against user 
  * selected anwer and alerts if a lie or truth has been chosen.
  */
-function next()  {
+function advanceGame()  {
     let gameStatus = document.getElementById('game-status');
-    if (gameStatus.innerHTML=='Press Start to Begin!') {
+    if (gameStatus.innerHTML === 'Press Start to Begin!') {
         gameStatus.innerHTML = 1;
-        document.getElementById('advance-game-btn').innerHTML = 'Next';
+        document.getElementById('advance-game-button').innerHTML = 'Next';
     } else {
         let chosenAnswer = -1;
         const chosenRadios = document.querySelectorAll('input[name="selected-answer"]');
         for (chosenRadio of chosenRadios) {
-            if(chosenRadio.checked) {
+            if (chosenRadio.checked) {
                 chosenAnswer = chosenRadio.value;
             }
         }
         if (chosenAnswer != -1) {
-            if (correctAnswer == chosenAnswer) {
+            if (correctAnswer === chosenAnswer) {
                 alert('This is the lie!');
             } else {
                 alert('This is the truth!');
@@ -33,20 +33,20 @@ function next()  {
 /**
  * Populates the page with two true facts in randomized indexes
  * 
- *@return {Array} an array populated with two numbers containing
+ * @return {Array} an array populated with two numbers containing
  * locations of the true facts
  */
 function loadInTruth() {
 
     let firstTruthValue = Math.floor(Math.random() * truths.length);
     let secondTruthValue = Math.floor(Math.random() * truths.length);
-    while (firstTruthValue == secondTruthValue) {
+    while (firstTruthValue === secondTruthValue) {
         secondTruthValue = Math.floor(Math.random() * truths.length);
     }
 
     let firstTruthElementIndex = Math.floor(Math.random() * 3);
     let secondTruthElementIndex = Math.floor(Math.random() * 3);
-    while (firstTruthElementIndex == secondTruthElementIndex) {
+    while (firstTruthElementIndex === secondTruthElementIndex) {
         secondTruthElementIndex = Math.floor(Math.random() * 3);
     }
 
@@ -62,10 +62,10 @@ function loadInTruth() {
  * populates it with the fact stored in factIndex.  Populates a truth
  * if isTruth is true and a lie otherwise
  * 
- *@param {number} index the position we will populate the fact
- *@param {number} factIndex the position in the array of the 
+ * @param {number} index the position we will populate the fact
+ * @param {number} factIndex the position in the array of the 
  * fact that will be populated
- *@param {boolean} isTruth true if we will populate a truth; 
+ * @param {boolean} isTruth true if we will populate a truth; 
  * false if we will populate a lie
  */
 
