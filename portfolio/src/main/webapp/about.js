@@ -33,7 +33,7 @@ function advanceGame()  {
 /**
  * Populates the page with two true facts in randomized indexes
  * 
- *@return {Array} an array populated with two numbers containing
+ * @return {Array} an array populated with two numbers containing
  * locations of the true facts
  */
 function loadInTruth() {
@@ -62,10 +62,10 @@ function loadInTruth() {
  * populates it with the fact stored in factIndex.  Populates a truth
  * if isTruth is true and a lie otherwise
  * 
- *@param {number} index the position we will populate the fact
- *@param {number} factIndex the position in the array of the 
+ * @param {number} index the position we will populate the fact
+ * @param {number} factIndex the position in the array of the 
  * fact that will be populated
- *@param {boolean} isTruth true if we will populate a truth; 
+ * @param {boolean} isTruth true if we will populate a truth; 
  * false if we will populate a lie
  */
 
