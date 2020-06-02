@@ -21,13 +21,13 @@ public class CommentServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
-  @Override
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = getUsername(request);
-        String comment = getComment(request);
-        Comment comment = new Comment(username, comment, false);
+        String commentText = getComment(request);
+        Comment comment = new Comment(username, commentText);
 
-        converse.addComment(comment);
+        conversation.addComment(comment);
         response.sendRedirect("/community.html");
     }
 
