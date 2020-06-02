@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Community Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="comment-form-section">
+        <h2>Here are all the wonderful things people have to say about this website</h2>
+        <form action="/comments" method="POST">
+            <p>Username:</p>
+            <input name="username" />
+
+            <p>Comment</p>
+            <input name="comment" />
+            <br />
+
+            <input type="submit" />
+        </form>
+    </div>
+    <div id="submitted-comments">
+    </div>
+  </body>
