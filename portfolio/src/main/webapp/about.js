@@ -5,7 +5,7 @@ let correctAnswer = -1;
  * game has not yet started. Otherwise, checks answer against user 
  * selected anwer and alerts if a lie or truth has been chosen.
  */
-function next()  {
+function advanceGame()  {
     let gameStatus = document.getElementById('game-status');
     if (gameStatus.innerHTML=='Press Start to Begin!') {
         gameStatus.innerHTML = 1;
