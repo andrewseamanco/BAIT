@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/comments")
 public class CommentServlet extends HttpServlet {
 
-  private Conversation converse = new Conversation();
+  private Conversation conversation = new Conversation();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    String json = new Gson().toJson(converse);
+    String json = new Gson().toJson(conversation);
     response.getWriter().println(json);
   }
 
