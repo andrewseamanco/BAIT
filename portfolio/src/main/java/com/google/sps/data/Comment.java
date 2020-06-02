@@ -1,13 +1,11 @@
 package com.google.sps.data;
 
 public class Comment {
-    private String username;
-    private String commentText;
-    private boolean isAdmin;
+    private final String username;
+    private final String commentText;
 
-    public Comment (String username, String commentText, boolean isAdmin) {
+    public Comment (String username, String commentText) {
         this.username = username;
         this.commentText = commentText;
-        this.isAdmin = isAdmin;
     }
 }

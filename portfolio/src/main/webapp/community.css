@@ -6,6 +6,10 @@ body, html {
     background-size: cover;
 }
 
+#community-content {
+    background-color: green;
+}
+
 #submitted-comments {
     background-color: lavender;
 }
