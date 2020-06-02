@@ -27,9 +27,9 @@ public class CommentServlet extends HttpServlet {
     String username = getUsername(request);
     String comment = getComment(request);
 
-    Comment comm = new Comment(username, comment, false);
+    Comment comment = new Comment(username, comment, false);
 
-    converse.addComment(comm);
+    converse.addComment(comment);
 
     response.sendRedirect("/community.html");
     }
