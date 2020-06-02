@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Conversation {
-    private final ArrayList comment-list = new ArrayList<String>();
+  private final List<Comment> commentList = new ArrayList<Comment>();
 
-    public void addComment(String comment) {
-        comment-list.add(comment);
+    public void addComment(Comment comment) {
+        commentList.add(comment);
     }
 
 }

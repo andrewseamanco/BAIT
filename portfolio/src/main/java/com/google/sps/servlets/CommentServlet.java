@@ -1,6 +1,8 @@
 package com.google.sps.servlets;
 
+import com.google.sps.data.Comment;
 import com.google.sps.data.Conversation;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/comments")
-public class DataServlet extends HttpServlet {
+public class CommentServlet extends HttpServlet {
 
   private Conversation converse = new Conversation();
 
@@ -25,7 +27,9 @@ public class DataServlet extends HttpServlet {
     String username = getUsername(request);
     String comment = getComment(request);
 
-    conversation.addComment("comment");
+    Comment comm = new Comment(username, comment, false);
+
+    converse.addComment(comm);
 
     response.sendRedirect("/community.html");
     }
