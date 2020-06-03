@@ -29,6 +29,15 @@ body, html {
     color: white;
 }
 
+#home-content ul {
+    list-style-type: square;
+}
+
+#home-content li:hover {
+    text-decoration: underline;
+}
+
 #home_content p:hover {
     text-decoration: underline;
 }
+

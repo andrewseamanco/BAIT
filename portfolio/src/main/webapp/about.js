@@ -6,26 +6,24 @@ let correctAnswer = -1;
  * selected anwer and alerts if a lie or truth has been chosen.
  */
 function advanceGame()  {
-    let gameStatus = document.getElementById('game-status');
-    if (gameStatus.innerHTML === 'Press Start to Begin!') {
-        gameStatus.innerHTML = 1;
-        document.getElementById('advance-game-button').innerHTML = 'Next';
-    } else {
-        let chosenAnswer = -1;
-        const chosenRadios = document.querySelectorAll('input[name="selected-answer"]');
-        for (chosenRadio of chosenRadios) {
-            if (chosenRadio.checked) {
-                chosenAnswer = chosenRadio.value;
-            }
+    let chosenAnswer = -1;
+    const advanceGameButton = document.getElementById("advance-game-button");
+    if (advanceGameButton.innerHTML === "Play Two Truths One Lie") {
+        advanceGameButton.innerHTML = "Next";
+    }
+    const chosenRadios = document.querySelectorAll('input[name="selected-answer"]');
+    for (chosenRadio of chosenRadios) {
+        if (chosenRadio.checked) {
+            chosenAnswer = chosenRadio.value;
         }
-        if (chosenAnswer != -1) {
-            if (correctAnswer === chosenAnswer) {
-                alert('This is the lie!');
-            } else {
-                alert('This is the truth!');
-            }
+    }``
+    if (chosenAnswer != -1) {
+        if (correctAnswer == chosenAnswer) {
+            alert('This is the lie!');
+        } else {
+            alert('This is the truth!');
         }
-    } 
+    }
     const truthIndices = loadInTruth();
     correctAnswer = loadInLie(truthIndices);
 }
