@@ -8,7 +8,7 @@ let correctAnswer = -1;
 function advanceGame()  {
     let chosenAnswer = -1;
     const advanceGameButton = document.getElementById("advance-game-button");
-    if (advanceGameButton.innerHTML==="Play Two Truths One Lie") {
+    if (advanceGameButton.innerHTML === "Play Two Truths One Lie") {
         advanceGameButton.innerHTML = "Next";
     }
     const chosenRadios = document.querySelectorAll('input[name="selected-answer"]');
@@ -16,9 +16,7 @@ function advanceGame()  {
         if (chosenRadio.checked) {
             chosenAnswer = chosenRadio.value;
         }
-    }
-    console.log(chosenAnswer);
-    console.log(correctAnswer);
+    }``
     if (chosenAnswer != -1) {
         if (correctAnswer == chosenAnswer) {
             alert('This is the lie!');
