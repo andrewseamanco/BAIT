@@ -1,5 +1,13 @@
 package com.google.sps.servlets;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import com.google.sps.data.Conversation;
@@ -15,16 +23,37 @@ public class CommentServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Comment> commentList = new ArrayList<>(); 
+    for (Entity entity: results.asIterable()) {
+        String username = (String) entity.getProperty("username");
+        String commentText = (String) entity.getProperty("commentText");
+        commentList.add(new Comment(username, commentText));
+        System.out.println(commentList);
+    }
+    
     response.setContentType("application/json");
-    String json = new Gson().toJson(conversation);
+    String json = new Gson().toJson(commentList);
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Comment comment = new Comment(getUsername(request), getComment(request));;
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("username", getUsername(request));
+    commentEntity.setProperty("commentText", getComment(request));
+    commentEntity.setProperty("timestamp", System.currentTimeMillis());
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
+    datastore.put(commentEntity);
+
+    Comment comment = new Comment(getUsername(request), getComment(request));
     conversation.addComment(comment);
+
     response.sendRedirect("/community.html");
   }
 
