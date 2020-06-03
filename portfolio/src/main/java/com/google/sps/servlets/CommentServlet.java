@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/comments")
 public class CommentServlet extends HttpServlet {
-  private Conversation conversation = new Conversation();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -30,9 +29,10 @@ public class CommentServlet extends HttpServlet {
 
     List<Comment> commentList = new ArrayList<>(); 
     for (Entity entity: results.asIterable()) {
+        long id = entity.getKey().getId();
         String username = (String) entity.getProperty("username");
         String commentText = (String) entity.getProperty("commentText");
-        commentList.add(new Comment(username, commentText));
+        commentList.add(new Comment(username, commentText, id));
         System.out.println(commentList);
     }
     
@@ -50,9 +50,6 @@ public class CommentServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     datastore.put(commentEntity);
-
-    Comment comment = new Comment(getUsername(request), getComment(request));
-    conversation.addComment(comment);
 
     response.sendRedirect("/community.html");
   }
