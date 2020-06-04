@@ -50,17 +50,13 @@ public class CommentServlet extends HttpServlet {
 @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String requestedNumString = request.getParameter("quantity");
-    int requestedNumInt = 5;
-
-    if (requestedNumString!=null) {
-        requestedNumInt = Integer.parseInt(rn);
-    }
+    int requestedNumInt = Integer.parseInt(requestedNumString);
 
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    List<Entity> commentEntityList = results.asList(FetchOptions.Builder.withLimit(requestedNumIt));
+    List<Entity> commentEntityList = results.asList(FetchOptions.Builder.withLimit(requestedNumInt));
     List<Comment> commentList = new ArrayList<>();
 
     for (Entity entity : commentEntityList) {
