@@ -60,9 +60,9 @@ public class CommentServlet extends HttpServlet {
     List<Comment> commentList = new ArrayList<>();
 
     for (Entity entity : commentEntityList) {
-         long id = entity.getKey().getId();
-         String username = (String) entity.getProperty("username");
-         String commentText = (String) entity.getProperty("commentText");
+        long id = entity.getKey().getId();
+        String username = (String) entity.getProperty("username");
+        String commentText = (String) entity.getProperty("commentText");
         commentList.add(new Comment(username, commentText, id));
     }
 
