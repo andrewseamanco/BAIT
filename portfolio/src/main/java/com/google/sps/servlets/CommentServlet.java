@@ -2,6 +2,7 @@ package com.google.sps.servlets;
 
 import java.util.ArrayList;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
@@ -57,14 +58,13 @@ public class CommentServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     List<Entity> commentEntityList = results.asList(FetchOptions.Builder.withLimit(requestedNumInt));
-    List<Comment> commentList = new ArrayList<>();
 
-    for (Entity entity : commentEntityList) {
-        long id = entity.getKey().getId();
-        String username = (String) entity.getProperty("username");
-        String commentText = (String) entity.getProperty("commentText");
-        commentList.add(new Comment(username, commentText, id));
-    }
+    List<Comment> commentList = commentEntityList
+                            .stream()
+                            .map(entity -> new Comment((String) entity.getProperty("username"),
+                                                   (String) entity.getProperty("commentText"),
+                                                   entity.getKey().getId()))
+                            .collect(toList());
 
     response.setContentType("application/json");
     String json = new Gson().toJson(commentList);
