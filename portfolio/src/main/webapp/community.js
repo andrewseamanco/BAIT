@@ -1,25 +1,41 @@
 function renderComments() {
 let quantity = document.getElementById("quantity").value;
   fetch('/comments?quantity=' + quantity).then(response => response.json()).then((conversation) => {
-    console.log(conversation);
-
+    
     let commentSection = document.getElementById('submitted-comments');
     while (commentSection.lastChild) {
         commentSection.removeChild(commentSection.lastChild);
     }
 
+    let commentCount = 0;
     conversation.forEach((comment) => {
-        createComment(comment);
+        createComment(comment, commentCount%2);
+        commentCount++;
     });
   });
 }
 
-function createComment(comment) {
+function createComment(comment, color) {
     const commentSection = document.getElementById('submitted-comments');
     const commentDivElement = document.createElement('div');
     const usernameElement = document.createElement('p');
     const commentElement = document.createElement('p');
     const exitButtonElement = document.createElement('button');
+
+    let commentDivClasses = new Array(2);
+    commentDivClasses[0] = 'comment-div';
+
+    exitButtonElement.className = 'left';
+
+    if (color===0) {
+        commentDivClasses[1] = "lavender";
+    } else {
+        commentDivClasses[1] = "lavender-blush";
+    }
+
+    console.log(commentDivClasses);
+
+    commentDivElement.classList.add(...commentDivClasses);
 
     usernameElement.innerHTML = comment.username + " says:";
     commentElement.innerHTML = comment.commentText;
@@ -36,5 +52,6 @@ function createComment(comment) {
     commentDivElement.appendChild(usernameElement);
     commentDivElement.appendChild(commentElement);
     commentDivElement.appendChild(exitButtonElement);
+    commentDivElement.appendChild(document.createElement("br"));
     commentSection.appendChild(commentDivElement);
 }

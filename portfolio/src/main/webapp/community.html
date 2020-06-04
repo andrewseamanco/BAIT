@@ -17,20 +17,22 @@
                     <a href="#"> <p> Contact </p> </a>
                 </div>
             </div>
-            <h2>Here are all the wonderful things people have to say about this website</h2>
-            <form action="/comments" method="POST">
-                <p>Username:</p>
-                <input name="username" />
+            <div id="form">
+                <h2>Community Page</h2>
+                <form action="/comments" method="POST">
+                    <p>Username:</p>
+                    <input name="username" />
 
-                <p>Comment</p>
-                <input name="comment" />
-                <br />
+                    <p>Comment</p>
+                    <input name="comment" />
+                    <br />
 
-                <input type="submit" />
-            </form>
-            <form>
-                <input type="number" id="quantity" name="quantity" min="1" max="20" value="5">
-            </form>
+                    <input type="submit" />
+                </form>
+                <form>
+                    <input type="number" id="quantity" name="quantity" min="1" max="20" value="5">
+                </form>
+            </div>
         </div>
 
         <!-- Comments will be loaded in this div -->

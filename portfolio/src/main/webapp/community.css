@@ -3,16 +3,8 @@
 body, html {
     background: #000000 url(/images/community-image.JPG) no-repeat 0 0;
     background-size: cover;
-    font-family: 'Avenir';
+    font-family: "Arial Black", Gadget, sans-serif;
     margin: 0;
-}
-
-#community-content {
-    background-color: green;
-}
-
-#submitted-comments {
-    background-color: lavender;
 }
 
 /* header styles */
@@ -62,3 +54,30 @@ body, html {
     margin-left: auto;
 }
 
+
+/* end */
+
+.comment-div {
+    display: flex;
+    margin: 10px 10% 10px 10%;
+    justify-content: space-around;
+}
+
+.lavender {
+    background-color: #E6E6FA;
+}
+
+.lavender-blush {
+    background-color: #FFF0F5;
+}
+
+.lime-green {
+    background-color: #00FF00;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
