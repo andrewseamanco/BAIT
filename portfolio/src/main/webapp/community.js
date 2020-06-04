@@ -35,9 +35,14 @@ function createComment(comment, color) {
 
     commentDivElement.classList.add(...commentDivClasses);
 
-    usernameElement.innerHTML = comment.username + " says:";
-    commentElement.innerHTML = comment.commentText;
-    exitButtonElement.innerHTML = "×";
+    let usernameText = document.createTextNode(comment.username + " says: "); 
+    usernameElement.appendChild(usernameText); 
+
+    let commentText = document.createTextNode(comment.commentText);
+    commentElement.appendChild(commentText);
+
+    let exitText = document.createTextNode("×");
+    exitButtonElement.appendChild(exitText);
 
     exitButtonElement.addEventListener('click', () => {
         const params = new URLSearchParams;
