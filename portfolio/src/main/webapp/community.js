@@ -33,8 +33,6 @@ function createComment(comment, color) {
         commentDivClasses[1] = "lavender-blush";
     }
 
-    console.log(commentDivClasses);
-
     commentDivElement.classList.add(...commentDivClasses);
 
     usernameElement.innerHTML = comment.username + " says:";
