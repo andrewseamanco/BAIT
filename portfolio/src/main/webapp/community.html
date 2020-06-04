@@ -6,7 +6,7 @@
     <script src="community.js"></script>
     <link rel="stylesheet" href="community.css">
   </head>
-  <body onload="renderComments()">
+  <body onChange="renderComments()">
     <div id="community-content">
         <div id="comment-form-section">
             <div id="header">
@@ -27,6 +27,9 @@
                 <br />
 
                 <input type="submit" />
+            </form>
+            <form>
+                <input type="number" id="quantity" name="quantity" min="1" max="20" value="5">
             </form>
         </div>
 

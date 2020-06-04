@@ -2,6 +2,7 @@ package com.google.sps.servlets;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -10,7 +11,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
-import com.google.sps.data.Conversation;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,27 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/comments")
 public class CommentServlet extends HttpServlet {
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-
-    List<Comment> commentList = new ArrayList<>(); 
-    for (Entity entity: results.asIterable()) {
-        long id = entity.getKey().getId();
-        String username = (String) entity.getProperty("username");
-        String commentText = (String) entity.getProperty("commentText");
-        commentList.add(new Comment(username, commentText, id));
-        System.out.println(commentList);
-    }
-    
-    response.setContentType("application/json");
-    String json = new Gson().toJson(commentList);
-    response.getWriter().println(json);
-  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -66,5 +45,33 @@ public class CommentServlet extends HttpServlet {
 
     //TODO: Sanatize input here
     return comment;
+  }
+
+@Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String rn = request.getParameter("quantity");
+    int requestedNum = 5;
+
+    if (rn!=null) {
+        requestedNum = Integer.parseInt(rn);
+    }
+
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Entity> commentEntityList = results.asList(FetchOptions.Builder.withLimit(requestedNum));
+    List<Comment> commentList = new ArrayList<>();
+
+    for (Entity entity : commentEntityList) {
+         long id = entity.getKey().getId();
+         String username = (String) entity.getProperty("username");
+         String commentText = (String) entity.getProperty("commentText");
+        commentList.add(new Comment(username, commentText, id));
+    }
+
+    response.setContentType("application/json");
+    String json = new Gson().toJson(commentList);
+    response.getWriter().println(json);
   }
 }

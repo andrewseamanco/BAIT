@@ -1,8 +1,15 @@
 function renderComments() {
-  fetch('/comments').then(response => response.json()).then((conversation) => {
-    const commentSection = document.getElementById('submitted-comments');
+let quantity = document.getElementById("quantity").value;
+  fetch('/comments?quantity=' + quantity).then(response => response.json()).then((conversation) => {
+    console.log(conversation);
+
+    let commentSection = document.getElementById('submitted-comments');
+    while (commentSection.lastChild) {
+        commentSection.removeChild(commentSection.lastChild);
+    }
+
     conversation.forEach((comment) => {
-      createComment(comment);
+        createComment(comment);
     });
   });
 }
