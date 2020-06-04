@@ -49,7 +49,7 @@ public class CommentServlet extends HttpServlet {
 
 @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String requestedNumString = request.getParameter("quantity");
+    String requestedNumString = request.getParameter("commentRequestedNum");
     int requestedNumInt = Integer.parseInt(requestedNumString);
 
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);

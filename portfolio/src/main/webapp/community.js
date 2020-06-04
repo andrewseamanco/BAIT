@@ -1,6 +1,6 @@
 function renderComments() {
-let quantity = document.getElementById("quantity").value;
-  fetch('/comments?quantity=' + quantity).then(response => response.json()).then((conversation) => {
+let commentRequestedNum= document.getElementById("commentRequestedNum").value;
+  fetch('/comments?commentRequestedNum=' + commentRequestedNum).then(response => response.json()).then((conversation) => {
     
     let commentSection = document.getElementById('submitted-comments');
     while (commentSection.lastChild) {
