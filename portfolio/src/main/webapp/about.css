@@ -17,7 +17,7 @@ html, body {
 #header {
     align-items: center;
     background-color: rgb(192, 192, 192);
-    background-image: linear-gradient(rgb(192, 192, 192), rgb(129, 129, 129));
+    background-image: url(/images/waves.png);
     display: flex;
     flex-direction: row;
     padding: 10px;
@@ -63,7 +63,7 @@ input[type=radio]:checked + img {
 #footer {
     align-items: center;
     background-color: rgb(192, 192, 192);
-    background-image: linear-gradient(rgb(192, 192, 192), rgb(129, 129, 129));
+    background-image: url(/images/small-waves.png);
     color: black;
     display: flex;
     flex-direction: row;
