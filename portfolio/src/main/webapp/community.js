@@ -43,7 +43,7 @@ function createComment(comment, color) {
   exitButtonElement.appendChild(exitText);
 
   exitButtonElement.addEventListener('click', () => {
-    const params = new URLSearchParams;
+    const params = new URLSearchParams();
     params.append('id', comment.id);
     fetch('/delete-comment', {method: 'POST', body: params});
 
