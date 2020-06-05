@@ -29,11 +29,7 @@ function createComment(comment, color) {
 
   exitButtonElement.className = 'left';
 
-  if (color === 0) {
-    commentDivClasses[1] = 'lavender';
-  } else {
-    commentDivClasses[1] = 'lavender-blush';
-  }
+  commentDivClasses[1] = color===0 ? 'lavender' : "lavender-blush";
 
   commentDivElement.classList.add(...commentDivClasses);
 
