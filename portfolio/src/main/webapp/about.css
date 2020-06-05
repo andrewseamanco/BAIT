@@ -7,7 +7,6 @@ html, body {
 
 .about-content {
     align-items: stretch;
-
     color: white;
     display: flex;
     flex-direction: column;

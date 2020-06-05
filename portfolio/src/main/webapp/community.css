@@ -1,10 +1,17 @@
-
-
 body, html {
     background: #000000 url(/images/community-image.JPG) no-repeat 0 0;
     background-size: cover;
     font-family: "Arial Black", Gadget, sans-serif;
     margin: 0;
+    height: 100%
+}
+
+#community-content {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
 }
 
 /* header styles */
@@ -36,25 +43,6 @@ body, html {
     text-decoration: underline;
 }
 
-/* footer styles */
-
-#footer {
-    flex-shrink: 0;
-}
-
-#footer img {
-    height: 32px;
-    padding: 3px;
-    width: 32px;
-}
-
-.left {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-}
-
-
 /* end */
 
 .comment-div {
@@ -81,3 +69,31 @@ body, html {
     align-items: center;
     justify-content: center;
 }
+
+/* footer styles */
+
+#footer {
+    align-items: center;
+    background-color: rgb(192, 192, 192);
+    background-image: linear-gradient(rgb(192, 192, 192), rgb(129, 129, 129));
+    color: black;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 5px;
+}
+
+#footer img {
+    height: 32px;
+    padding: 3px;
+    width: 32px;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+
+
+/* end */
