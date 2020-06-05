@@ -56,3 +56,20 @@ function createComment(comment, color) {
   commentDivElement.appendChild(document.createElement('br'));
   commentSection.appendChild(commentDivElement);
 }
+
+function deleteAllComments() {
+    let commentSection = document.getElementById('submitted-comments');
+    while (commentSection.lastChild) {
+      commentSection.removeChild(commentSection.lastChild);
+    }
+
+    fetch('/comments?commentRequestedNum='+Number.MAX_SAFE_INTEGER)
+      .then(response => response.json())
+      .then((conversation) => {
+      conversation.forEach((comment) => {
+        const params = new URLSearchParams();
+        params.append('id', comment.id);
+        fetch('/delete-comment', {method: 'POST', body: params});
+    });
+    });
+}
