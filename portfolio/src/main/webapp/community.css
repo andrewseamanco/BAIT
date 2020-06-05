@@ -5,6 +5,16 @@ body, html {
     background-size: cover;
     font-family: "Arial Black", Gadget, sans-serif;
     margin: 0;
+    height: 100%;
+}
+
+#community-content {
+    align-items: stretch;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
 }
 
 /* header styles */
@@ -12,7 +22,7 @@ body, html {
 #header {
     align-items: center;
     background-color: rgb(192, 192, 192);
-    background-image: linear-gradient(rgb(192, 192, 192), rgb(129, 129, 129));
+    background-image: url(/images/waves.png);
     display: flex;
     flex-direction: row;
     padding: 10px;
@@ -39,6 +49,17 @@ body, html {
 /* footer styles */
 
 #footer {
+    align-items: center;
+    background-color: rgb(192, 192, 192);
+    background-image: url(/images/small-waves.png);
+    color: black;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 5px;
+}
+
+#footer {
     flex-shrink: 0;
 }
 
@@ -48,11 +69,6 @@ body, html {
     width: 32px;
 }
 
-.left {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-}
 
 
 /* end */
@@ -80,4 +96,10 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
 }
