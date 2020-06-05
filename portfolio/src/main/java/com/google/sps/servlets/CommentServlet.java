@@ -35,17 +35,11 @@ public class CommentServlet extends HttpServlet {
   }
 
   private String getUsername(HttpServletRequest request) {
-    String username = request.getParameter("username");
-
-    // TODO: Sanatize input here
-    return username;
+    return request.getParameter("username");
   }
 
   private String getComment(HttpServletRequest request) {
-    String comment = request.getParameter("comment");
-
-    // TODO: Sanatize input here
-    return comment;
+    return request.getParameter("comment");
   }
 
   @Override
