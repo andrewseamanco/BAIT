@@ -1,5 +1,3 @@
-
-
 body, html {
     background: #000000 url(/images/community-image.JPG) no-repeat 0 0;
     background-size: cover;
@@ -10,7 +8,6 @@ body, html {
 
 #community-content {
     align-items: stretch;
-    color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,8 +43,6 @@ body, html {
     text-decoration: underline;
 }
 
-/* footer styles */
-
 #footer {
     align-items: center;
     background-color: rgb(192, 192, 192);
@@ -68,8 +63,6 @@ body, html {
     padding: 3px;
     width: 32px;
 }
-
-
 
 /* end */
 
@@ -102,4 +95,3 @@ body, html {
     display: flex;
     flex-direction: row;
     margin-left: auto;
-}
