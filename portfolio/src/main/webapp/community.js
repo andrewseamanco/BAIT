@@ -18,7 +18,6 @@ function renderComments() {
 }
 
 function deleteAllComments() {
-    console.log("HI");
     fetch('/comments', {
         method: 'DELETE'
     })
