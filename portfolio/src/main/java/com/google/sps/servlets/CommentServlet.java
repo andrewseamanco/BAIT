@@ -9,9 +9,12 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.api.users.UserService;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +26,17 @@ import javax.servlet.http.HttpServletResponse;
 public class CommentServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    PrintWriter out = response.getWriter();
+
+    if (!userService.isUserLoggedIn()) {
+        out.print("<p>Please login before posting a comment </p>");
+        response.sendRedirect("/Login");
+        return;
+    }
+
     Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("username", getUsername(request));
+    commentEntity.setProperty("username", getUsername(userService.getCurrentUser().getUserId()));
     commentEntity.setProperty("commentText", getComment(request));
     commentEntity.setProperty("timestamp", System.currentTimeMillis());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -63,5 +75,24 @@ public class CommentServlet extends HttpServlet {
     response.setContentType("application/json");
     String json = new Gson().toJson(commentList);
     response.getWriter().println(json);
+  }
+
+    private String getUsername(String id) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query query =
+            new Query("user")
+                .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+        PreparedQuery results = datastore.prepare(query);
+        Entity entity = results.asSingleEntity();
+
+        if (entity == null) {
+            return null;
+        }
+
+        System.out.println("======NOT+NULLLLLLL=======");
+
+
+        String nickname = (String) entity.getProperty("username");
+        return nickname;
   }
 }

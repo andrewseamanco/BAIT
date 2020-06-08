@@ -17,6 +17,8 @@ function renderComments() {
       });
 }
 
+
+
 function createComment(comment, color) {
   const commentSection = document.getElementById('submitted-comments');
   const commentDivElement = document.createElement('div');
