@@ -17,6 +17,18 @@ function renderComments() {
       });
 }
 
+function deleteAllComments() {
+    console.log("HI");
+    fetch('/comments', {
+        method: 'DELETE'
+    })
+
+    let commentSection = document.getElementById('submitted-comments');
+    while (commentSection.lastChild) {
+        commentSection.removeChild(commentSection.lastChild);
+    }
+}
+
 
 
 function createComment(comment, color) {
@@ -57,21 +69,4 @@ function createComment(comment, color) {
   commentDivElement.appendChild(exitButtonElement);
   commentDivElement.appendChild(document.createElement('br'));
   commentSection.appendChild(commentDivElement);
-}
-
-function deleteAllComments() {
-    let commentSection = document.getElementById('submitted-comments');
-    while (commentSection.lastChild) {
-      commentSection.removeChild(commentSection.lastChild);
-    }
-
-    fetch('/comments?commentRequestedNum='+Number.MAX_SAFE_INTEGER)
-      .then(response => response.json())
-      .then((conversation) => {
-      conversation.forEach((comment) => {
-        const params = new URLSearchParams();
-        params.append('id', comment.id);
-        fetch('/delete-comment', {method: 'POST', body: params});
-    });
-    });
 }

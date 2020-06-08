@@ -4,6 +4,8 @@ import static java.util.stream.Collectors.toList;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -95,4 +97,24 @@ public class CommentServlet extends HttpServlet {
         String nickname = (String) entity.getProperty("username");
         return nickname;
   }
+
+  @Override
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    boolean deleteAll = true;
+    if (deleteAll) {
+        Query query = new Query("Comment");
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+
+    List<Key> commentKeys = new ArrayList<>();
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            Key taskEntityKey = KeyFactory.createKey("Comment", id);
+            commentKeys.add(taskEntityKey);
+        }
+
+        datastore.delete(commentKeys);
+    }
+}
 }
