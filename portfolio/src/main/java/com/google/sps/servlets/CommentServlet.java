@@ -31,6 +31,10 @@ public class CommentServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     PrintWriter out = response.getWriter();
 
+    final String USERNAME_FIELD = getUsername(userService.getCurrentUser().getUserId());
+    final String COMMENT_TEXT_FIELD = request.getParameter("comment");
+    final long TIMESTAMP_FIELD = System.currentTimeMillis();
+
     if (!userService.isUserLoggedIn()) {
       out.print("<p>Please login before posting a comment </p>");
       response.sendRedirect("/login");
@@ -38,9 +42,9 @@ public class CommentServlet extends HttpServlet {
     }
 
     Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("username", getUsername(userService.getCurrentUser().getUserId()));
-    commentEntity.setProperty("commentText", getComment(request));
-    commentEntity.setProperty("timestamp", System.currentTimeMillis());
+    commentEntity.setProperty("username", USERNAME_FIELD);
+    commentEntity.setProperty("commentText", COMMENT_TEXT_FIELD);
+    commentEntity.setProperty("timestamp", TIMESTAMP_FIELD);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     datastore.put(commentEntity);
@@ -48,8 +52,26 @@ public class CommentServlet extends HttpServlet {
     response.sendRedirect("/community.html");
   }
 
-  private String getComment(HttpServletRequest request) {
-    return request.getParameter("comment");
+    private String getUsername(String id) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("User").setFilter(
+        new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+
+    if (entity==null) {
+        return getRandomUsername();
+    }
+
+
+    String username = (String) entity.getProperty("username");
+    return entity!=null ? (String) entity.getProperty("username") : getRandomUsername();
+  }
+
+  private String getRandomUsername() {
+      String[] adjectives = {"Fantastic", "Random", "Honorable", "Jaded", "Fake", "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark"};
+      String[] nouns = {"Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle", "Week", "Republic", "Knowledge", "Economics"};
+      return adjectives[(int)(Math.random()*adjectives.length)] + "_" + nouns[(int)(Math.random()*nouns.length)];
   }
 
   @Override
@@ -75,28 +97,6 @@ public class CommentServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
-  private String getUsername(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("User").setFilter(
-        new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-
-    if (entity==null) {
-        return getRandomUsername();
-    }
-
-
-    String username = (String) entity.getProperty("username");
-    return entity!=null ? (String) entity.getProperty("username") : getRandomUsername();
-  }
-
-  private String getRandomUsername() {
-      String[] adjectives = {"Fantastic", "Random", "Honorable", "Jaded", "Fake", "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark"};
-      String[] nouns = {"Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle", "Week", "Republic", "Knowledge", "Economics"};
-      return adjectives[(int)(Math.random()*adjectives.length)] + "_" + nouns[(int)(Math.random()*nouns.length)];
-  }
-
   @Override
   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
       Query query = new Query("Comment");
@@ -107,8 +107,7 @@ public class CommentServlet extends HttpServlet {
       List<Key> commentKeys = new ArrayList<>();
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
-        Key taskEntityKey = KeyFactory.createKey("Comment", id);
-        commentKeys.add(taskEntityKey);
+        commentKeys.add(KeyFactory.createKey("Comment", id));
       }
 
       datastore.delete(commentKeys);

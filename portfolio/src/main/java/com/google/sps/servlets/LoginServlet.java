@@ -36,18 +36,21 @@ public class LoginServlet extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
     UserService userService = UserServiceFactory.getUserService();
+
+    final String USERNAME_FIELD = request.getParameter("username");
+    final String ID_FIELD = userService.getCurrentUser().getUserId();
+
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/login");
       return;
     }
-    String username = request.getParameter("username");
-    String id = userService.getCurrentUser().getUserId();
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity newUser = new Entity("User", id);
-    newUser.setProperty("id", id);
-    newUser.setProperty("username", username);
+    Entity newUser = new Entity("User", ID_FIELD);
+    newUser.setProperty("id", ID_FIELD);
+    newUser.setProperty("username", USERNAME_FIELD);
 
     datastore.put(newUser);
 
