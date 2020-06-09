@@ -33,7 +33,7 @@ public class CommentServlet extends HttpServlet {
 
     if (!userService.isUserLoggedIn()) {
       out.print("<p>Please login before posting a comment </p>");
-      response.sendRedirect("/Login");
+      response.sendRedirect("/login");
       return;
     }
 
@@ -46,10 +46,6 @@ public class CommentServlet extends HttpServlet {
     datastore.put(commentEntity);
 
     response.sendRedirect("/community.html");
-  }
-
-  private String getUsername(HttpServletRequest request) {
-    return request.getParameter("username");
   }
 
   private String getComment(HttpServletRequest request) {
