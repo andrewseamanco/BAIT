@@ -82,12 +82,19 @@ public class CommentServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
 
-    if (entity == null) {
-      return null;
+    if (entity==null) {
+        return getRandomUsername();
     }
 
+
     String username = (String) entity.getProperty("username");
-    return username;
+    return entity!=null ? (String) entity.getProperty("username") : getRandomUsername();
+  }
+
+  private String getRandomUsername() {
+      String[] adjectives = {"Fantastic", "Random", "Honorable", "Jaded", "Fake", "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark"};
+      String[] nouns = {"Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle", "Week", "Republic", "Knowledge", "Economics"};
+      return adjectives[(int)(Math.random()*adjectives.length)] + "_" + nouns[(int)(Math.random()*nouns.length)];
   }
 
   @Override
@@ -107,3 +114,5 @@ public class CommentServlet extends HttpServlet {
       datastore.delete(commentKeys);
   }
 }
+
+
