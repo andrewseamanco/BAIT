@@ -95,10 +95,7 @@ public class CommentServlet extends HttpServlet {
   }
 
   @Override
-  public void doDelete(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
-    boolean deleteAll = true;
-    if (deleteAll) {
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
       Query query = new Query("Comment");
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -112,6 +109,5 @@ public class CommentServlet extends HttpServlet {
       }
 
       datastore.delete(commentKeys);
-    }
   }
 }
