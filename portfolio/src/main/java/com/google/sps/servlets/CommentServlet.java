@@ -77,7 +77,7 @@ public class CommentServlet extends HttpServlet {
 
   private String getUsername(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("user").setFilter(
+    Query query = new Query("User").setFilter(
         new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
@@ -86,8 +86,8 @@ public class CommentServlet extends HttpServlet {
       return null;
     }
 
-    String nickname = (String) entity.getProperty("username");
-    return nickname;
+    String username = (String) entity.getProperty("username");
+    return username;
   }
 
   @Override
