@@ -42,8 +42,6 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         String username = request.getParameter("username");
-        System.out.println("username:================");
-        System.out.println(username);
         String id = userService.getCurrentUser().getUserId();
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

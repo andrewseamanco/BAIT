@@ -91,9 +91,6 @@ public class CommentServlet extends HttpServlet {
             return null;
         }
 
-        System.out.println("======NOT+NULLLLLLL=======");
-
-
         String nickname = (String) entity.getProperty("username");
         return nickname;
   }
