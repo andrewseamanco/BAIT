@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
       String logoutUrl = userService.createLogoutURL("/");
       out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
       out.println("<p>Username:");
-      out.println("<form method=\"POST\" action=\"Login\">");
+      out.println("<form method=\"POST\" action=\"login\">");
       out.println("<input name=\"username\" >");
       out.println("<br />");
       out.println("<button>Submit</button>");
