@@ -7,6 +7,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import static com.google.sps.data.Keys.USERNAME_KEY;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
@@ -39,8 +40,8 @@ public class LoginServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
 
-    final String USERNAME_FIELD = request.getParameter("username");
-    final String ID_FIELD = userService.getCurrentUser().getUserId();
+    final String usernameField = request.getParameter(USERNAME_KEY);
+    final String idField = userService.getCurrentUser().getUserId();
 
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/login");
@@ -48,9 +49,9 @@ public class LoginServlet extends HttpServlet {
     }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity newUser = new Entity("User", ID_FIELD);
-    newUser.setProperty("id", ID_FIELD);
-    newUser.setProperty("username", USERNAME_FIELD);
+    Entity newUser = new Entity("User", idField);
+    newUser.setProperty("id", idField);
+    newUser.setProperty("username", usernameField);
 
     datastore.put(newUser);
 

@@ -15,6 +15,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
+import static com.google.sps.data.Keys.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -31,9 +32,9 @@ public class CommentServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     PrintWriter out = response.getWriter();
 
-    final String USERNAME_FIELD = getUsername(userService.getCurrentUser().getUserId());
-    final String COMMENT_TEXT_FIELD = request.getParameter("comment");
-    final long TIMESTAMP_FIELD = System.currentTimeMillis();
+    final String usernameField = getUsername(userService.getCurrentUser().getUserId());
+    final String commentTextField = request.getParameter(COMMENT_TEXT_KEY);
+    final long timestampField = System.currentTimeMillis();
 
     if (!userService.isUserLoggedIn()) {
       out.print("<p>Please login before posting a comment </p>");
@@ -41,10 +42,10 @@ public class CommentServlet extends HttpServlet {
       return;
     }
 
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("username", USERNAME_FIELD);
-    commentEntity.setProperty("commentText", COMMENT_TEXT_FIELD);
-    commentEntity.setProperty("timestamp", TIMESTAMP_FIELD);
+    Entity commentEntity = new Entity(COMMENT_KEY);
+    commentEntity.setProperty(USERNAME_KEY, usernameField);
+    commentEntity.setProperty(COMMENT_TEXT_KEY, commentTextField);
+    commentEntity.setProperty("timestamp", timestampField);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     datastore.put(commentEntity);
@@ -64,8 +65,8 @@ public class CommentServlet extends HttpServlet {
     }
 
 
-    String username = (String) entity.getProperty("username");
-    return entity!=null ? (String) entity.getProperty("username") : getRandomUsername();
+    String username = (String) entity.getProperty(USERNAME_KEY);
+    return entity!=null ? (String) entity.getProperty(USERNAME_KEY) : getRandomUsername();
   }
 
   private String getRandomUsername() {
@@ -78,7 +79,7 @@ public class CommentServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int requestedNumInt = Integer.parseInt(request.getParameter("commentRequestedNum"));
 
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query(COMMENT_KEY).addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
@@ -88,8 +89,8 @@ public class CommentServlet extends HttpServlet {
     List<Comment> commentList =
         commentEntityList.stream()
             .map(entity
-                -> new Comment((String) entity.getProperty("username"),
-                    (String) entity.getProperty("commentText"), entity.getKey().getId()))
+                -> new Comment((String) entity.getProperty(USERNAME_KEY),
+                    (String) entity.getProperty(COMMENT_TEXT_KEY), entity.getKey().getId()))
             .collect(toList());
 
     response.setContentType("application/json");
@@ -99,7 +100,7 @@ public class CommentServlet extends HttpServlet {
 
   @Override
   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      Query query = new Query("Comment");
+      Query query = new Query(COMMENT_KEY);
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       PreparedQuery results = datastore.prepare(query);
@@ -107,7 +108,7 @@ public class CommentServlet extends HttpServlet {
       List<Key> commentKeys = new ArrayList<>();
       for (Entity entity : results.asIterable()) {
         long id = entity.getKey().getId();
-        commentKeys.add(KeyFactory.createKey("Comment", id));
+        commentKeys.add(KeyFactory.createKey(COMMENT_KEY, id));
       }
 
       datastore.delete(commentKeys);
