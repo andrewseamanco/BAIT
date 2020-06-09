@@ -40,18 +40,15 @@ public class LoginServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
 
-    final String usernameField = request.getParameter(USERNAME_KEY);
-    final String idField = userService.getCurrentUser().getUserId();
-
     if (!userService.isUserLoggedIn()) {
       response.sendRedirect("/login");
       return;
     }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity newUser = new Entity("User", idField);
-    newUser.setProperty("id", idField);
-    newUser.setProperty("username", usernameField);
+    Entity newUser = new Entity("User", userService.getCurrentUser().getUserId());
+    newUser.setProperty("id", userService.getCurrentUser().getUserId());
+    newUser.setProperty(USERNAME_KEY, request.getParameter(USERNAME_KEY));
 
     datastore.put(newUser);
 

@@ -56,13 +56,7 @@ public class CommentServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
 
-    if (entity==null) {
-        return getRandomUsername();
-    }
-
-
-    String username = (String) entity.getProperty(USERNAME_KEY);
-    return entity!=null ? (String) entity.getProperty(USERNAME_KEY) : getRandomUsername();
+    return entity == null ? getRandomUsername() : (String) entity.getProperty(USERNAME_KEY);
   }
 
   private String getRandomUsername() {
