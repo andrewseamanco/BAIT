@@ -4,15 +4,15 @@ import static java.util.stream.Collectors.toList;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -32,9 +32,9 @@ public class CommentServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
 
     if (!userService.isUserLoggedIn()) {
-        out.print("<p>Please login before posting a comment </p>");
-        response.sendRedirect("/Login");
-        return;
+      out.print("<p>Please login before posting a comment </p>");
+      response.sendRedirect("/Login");
+      return;
     }
 
     Entity commentEntity = new Entity("Comment");
@@ -79,39 +79,39 @@ public class CommentServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
-    private String getUsername(String id) {
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query =
-            new Query("user")
-                .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
-        PreparedQuery results = datastore.prepare(query);
-        Entity entity = results.asSingleEntity();
+  private String getUsername(String id) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("user").setFilter(
+        new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
 
-        if (entity == null) {
-            return null;
-        }
+    if (entity == null) {
+      return null;
+    }
 
-        String nickname = (String) entity.getProperty("username");
-        return nickname;
+    String nickname = (String) entity.getProperty("username");
+    return nickname;
   }
 
   @Override
-  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  public void doDelete(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
     boolean deleteAll = true;
     if (deleteAll) {
-        Query query = new Query("Comment");
+      Query query = new Query("Comment");
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        PreparedQuery results = datastore.prepare(query);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      PreparedQuery results = datastore.prepare(query);
 
-    List<Key> commentKeys = new ArrayList<>();
-        for (Entity entity : results.asIterable()) {
-            long id = entity.getKey().getId();
-            Key taskEntityKey = KeyFactory.createKey("Comment", id);
-            commentKeys.add(taskEntityKey);
-        }
+      List<Key> commentKeys = new ArrayList<>();
+      for (Entity entity : results.asIterable()) {
+        long id = entity.getKey().getId();
+        Key taskEntityKey = KeyFactory.createKey("Comment", id);
+        commentKeys.add(taskEntityKey);
+      }
 
-        datastore.delete(commentKeys);
+      datastore.delete(commentKeys);
     }
-}
+  }
 }
