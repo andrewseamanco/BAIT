@@ -32,10 +32,6 @@ public class CommentServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     PrintWriter out = response.getWriter();
 
-    final String usernameField = getUsername(userService.getCurrentUser().getUserId());
-    final String commentTextField = request.getParameter(COMMENT_TEXT_KEY);
-    final long timestampField = System.currentTimeMillis();
-
     if (!userService.isUserLoggedIn()) {
       out.print("<p>Please login before posting a comment </p>");
       response.sendRedirect("/login");
@@ -43,9 +39,9 @@ public class CommentServlet extends HttpServlet {
     }
 
     Entity commentEntity = new Entity(COMMENT_KEY);
-    commentEntity.setProperty(USERNAME_KEY, usernameField);
-    commentEntity.setProperty(COMMENT_TEXT_KEY, commentTextField);
-    commentEntity.setProperty("timestamp", timestampField);
+    commentEntity.setProperty(USERNAME_KEY, getUsername(userService.getCurrentUser().getUserId()));
+    commentEntity.setProperty(COMMENT_TEXT_KEY, request.getParameter(COMMENT_TEXT_KEY));
+    commentEntity.setProperty(TIMESTAMP_KEY, System.currentTimeMillis());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     datastore.put(commentEntity);
