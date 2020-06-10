@@ -7,7 +7,9 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import static com.google.sps.data.Keys.USERNAME_KEY;
+import static com.google.sps.data.Keys.USERNAME_ENTITY_PROPERTY;
+import static com.google.sps.data.Keys.ID_ENTITY_PROPERTY;
+import static com.google.sps.data.Keys.USER_ENTITY;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
@@ -46,9 +48,9 @@ public class LoginServlet extends HttpServlet {
     }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity newUser = new Entity("User", userService.getCurrentUser().getUserId());
-    newUser.setProperty("id", userService.getCurrentUser().getUserId());
-    newUser.setProperty(USERNAME_KEY, request.getParameter(USERNAME_KEY));
+    Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
+    newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
+    newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
 
     datastore.put(newUser);
 
