@@ -100,8 +100,7 @@ public class CommentServlet extends HttpServlet {
 
       List<Key> commentKeys = new ArrayList<>();
       for (Entity entity : results.asIterable()) {
-        long id = entity.getKey().getId();
-        commentKeys.add(KeyFactory.createKey(COMMENT_ENTITY, id));
+        commentKeys.add(KeyFactory.createKey(COMMENT_ENTITY, entity.getKey().getId()));
       }
 
       datastore.delete(commentKeys);
