@@ -67,7 +67,7 @@ public class CommentServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int requestedNumInt = Integer.parseInt(request.getParameter("commentRequestedNum"));
+    int requestedNumInt = Integer.parseInt(request.getParameter(COMMENT_NUM_REQUESTED));
 
     Query query = new Query(COMMENT_ENTITY).addSort(TIMESTAMP_ENTITY_PROPERTY, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
