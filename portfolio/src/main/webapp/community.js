@@ -17,6 +17,17 @@ function renderComments() {
       });
 }
 
+function deleteAllComments() {
+  fetch('/comments', {method: 'DELETE'});
+
+  let commentSection = document.getElementById('submitted-comments');
+  while (commentSection.lastChild) {
+    commentSection.removeChild(commentSection.lastChild);
+  }
+}
+
+
+
 function createComment(comment, color) {
   const commentSection = document.getElementById('submitted-comments');
   const commentDivElement = document.createElement('div');
@@ -29,7 +40,7 @@ function createComment(comment, color) {
 
   exitButtonElement.className = 'left';
 
-  commentDivClasses[1] = color === 0 ? 'lavender' : "lavender-blush";
+  commentDivClasses[1] = color === 0 ? 'lavender' : 'lavender-blush';
 
   commentDivElement.classList.add(...commentDivClasses);
 
@@ -45,6 +56,7 @@ function createComment(comment, color) {
   exitButtonElement.addEventListener('click', () => {
     const params = new URLSearchParams();
     params.append('id', comment.id);
+
     fetch('/delete-comment', {method: 'POST', body: params});
 
     commentDivElement.remove();
