@@ -1,5 +1,6 @@
 package com.google.sps.servlets;
 
+import static com.google.sps.data.Keys.*;
 import static java.util.stream.Collectors.toList;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -15,7 +16,6 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
-import static com.google.sps.data.Keys.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -39,8 +39,10 @@ public class CommentServlet extends HttpServlet {
     }
 
     Entity commentEntity = new Entity(COMMENT_ENTITY);
-    commentEntity.setProperty(USERNAME_ENTITY_PROPERTY, getUsername(userService.getCurrentUser().getUserId()));
-    commentEntity.setProperty(COMMENT_TEXT_ENTITY_PROPERTY, request.getParameter(COMMENT_TEXT_ENTITY_PROPERTY));
+    commentEntity.setProperty(
+        USERNAME_ENTITY_PROPERTY, getUsername(userService.getCurrentUser().getUserId()));
+    commentEntity.setProperty(
+        COMMENT_TEXT_ENTITY_PROPERTY, request.getParameter(COMMENT_TEXT_ENTITY_PROPERTY));
     commentEntity.setProperty(TIMESTAMP_ENTITY_PROPERTY, System.currentTimeMillis());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -49,30 +51,35 @@ public class CommentServlet extends HttpServlet {
     response.sendRedirect("/community.html");
   }
 
-    private String getUsername(String id) {
+  private String getUsername(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query(USER_ENTITY).setFilter(
-        new Query.FilterPredicate(ID_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, id));
+    Query query = new Query(USER_ENTITY)
+                      .setFilter(new Query.FilterPredicate(
+                          ID_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
 
-    return entity == null ? getRandomUsername() : (String) entity.getProperty(USERNAME_ENTITY_PROPERTY);
+    return entity == null ? getRandomUsername()
+                          : (String) entity.getProperty(USERNAME_ENTITY_PROPERTY);
   }
 
   private String getRandomUsername() {
+    List<String> adjectives = Arrays.asList("Fantastic", "Random", "Honorable", "Jaded", "Fake",
+        "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark");
+    List<String> nouns = Arrays.asList("Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle",
+        "Week", "Republic", "Knowledge", "Economics");
 
-      List<String> adjectives = Arrays.asList("Fantastic", "Random", "Honorable", "Jaded", "Fake", "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark");
-      List<String> nouns = Arrays.asList("Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle", "Week", "Republic", "Knowledge", "Economics");
-
-      Random random = new Random();
-      return adjectives.get(random.getNextInt(adjectives.size())) + "_" + nouns.get(random.nextInt(nouns.size()));
+    Random random = new Random();
+    return adjectives.get(random.getNextInt(adjectives.size())) + "_"
+        + nouns.get(random.nextInt(nouns.size()));
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     int requestedNumInt = Integer.parseInt(request.getParameter(COMMENT_REQUESTED_NUM));
 
-    Query query = new Query(COMMENT_ENTITY).addSort(TIMESTAMP_ENTITY_PROPERTY, SortDirection.DESCENDING);
+    Query query =
+        new Query(COMMENT_ENTITY).addSort(TIMESTAMP_ENTITY_PROPERTY, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
@@ -83,7 +90,8 @@ public class CommentServlet extends HttpServlet {
         commentEntityList.stream()
             .map(entity
                 -> new Comment((String) entity.getProperty(USERNAME_ENTITY_PROPERTY),
-                    (String) entity.getProperty(COMMENT_TEXT_ENTITY_PROPERTY), entity.getKey().getId()))
+                    (String) entity.getProperty(COMMENT_TEXT_ENTITY_PROPERTY),
+                    entity.getKey().getId()))
             .collect(toList());
 
     response.setContentType("application/json");
@@ -92,19 +100,18 @@ public class CommentServlet extends HttpServlet {
   }
 
   @Override
-  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      Query query = new Query(COMMENT_ENTITY);
+  public void doDelete(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    Query query = new Query(COMMENT_ENTITY);
 
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-      PreparedQuery results = datastore.prepare(query);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-      List<Key> commentKeys = new ArrayList<>();
-      for (Entity entity : results.asIterable()) {
-        commentKeys.add(KeyFactory.createKey(COMMENT_ENTITY, entity.getKey().getId()));
-      }
+    List<Key> commentKeys = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      commentKeys.add(KeyFactory.createKey(COMMENT_ENTITY, entity.getKey().getId()));
+    }
 
-      datastore.delete(commentKeys);
+    datastore.delete(commentKeys);
   }
 }
-
-
