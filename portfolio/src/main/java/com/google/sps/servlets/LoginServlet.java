@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
 
     if (!userService.isUserLoggedIn()) {
       String loginUrl = userService.createLoginURL("/login");
+      out.println("<h2>Log In Or Sign Up!</h2>");
       out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
     } else {
       String logoutUrl = userService.createLogoutURL("/");

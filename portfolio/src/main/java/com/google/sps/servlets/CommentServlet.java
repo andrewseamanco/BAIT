@@ -60,14 +60,17 @@ public class CommentServlet extends HttpServlet {
   }
 
   private String getRandomUsername() {
-      String[] adjectives = {"Fantastic", "Random", "Honorable", "Jaded", "Fake", "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark"};
-      String[] nouns = {"Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle", "Week", "Republic", "Knowledge", "Economics"};
-      return adjectives[(int)(Math.random()*adjectives.length)] + "_" + nouns[(int)(Math.random()*nouns.length)];
+
+      List<String> adjectives = Arrays.asList("Fantastic", "Random", "Honorable", "Jaded", "Fake", "Haunted", "Fighting", "Nappy", "Feirce", "Jealous", "Shark");
+      List<String> nouns = Arrays.asList("Goldfish", "Keyboard", "Pollution", "Bathroom", "Vehicle", "Week", "Republic", "Knowledge", "Economics");
+
+      Random random = new Random();
+      return adjectives.get(random.getNextInt(adjectives.size())) + "_" + nouns.get(random.nextInt(nouns.size()));
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int requestedNumInt = Integer.parseInt(request.getParameter(COMMENT_NUM_REQUESTED));
+    int requestedNumInt = Integer.parseInt(request.getParameter(COMMENT_REQUESTED_NUM));
 
     Query query = new Query(COMMENT_ENTITY).addSort(TIMESTAMP_ENTITY_PROPERTY, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
