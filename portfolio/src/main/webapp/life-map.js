@@ -1,4 +1,4 @@
-  let birthContent = '<div id="content">'+
+  const birthContent = '<div id="content">'+
       '<h1 id="firstHeading">Step 1: The Hospital Where I was Born</h1>'+
       '<div id="bodyContent">'+
       '<p>On April 19, 2000, I was born at Littleton Adventist Hospital ' +
@@ -15,7 +15,7 @@
       '</div>'+
       '</div>';
 
-  let childhoodHomeContent = '<div id="childhoodHomeContent">' +
+  const childhoodHomeContent = '<div id="childhoodHomeContent">' +
         '<h1 id="header">Step 2: My Childhood Home </h1>' + 
         '<div id="bodyContent">' +
         '<p>I spent a lot of time kicking around on a piece of ground in my home town right here in ' +
@@ -27,7 +27,7 @@
         '</div>' +
         '</div>';
 
-let elementarySchoolContent = '<div id="elementarySchoolContent">' +
+const elementarySchoolContent = '<div id="elementarySchoolContent">' +
         '<h1 id="header">Step 3: My Childhood Elementary School </h1>' +
         '<p> I attended Elementary School at All Souls Catholic School.  In order to make sure that we ' +
         'had school spirit, our mascot was the spirits!  Yep you heard it here, the All Soulds Spirits. ' +
@@ -38,7 +38,7 @@ let elementarySchoolContent = '<div id="elementarySchoolContent">' +
         'throwing them against the table.'
         '</div>';
 
-let taekwondoeContent = '<div id="taekwondoContent">' +
+const taekwondoeContent = '<div id="taekwondoContent">' +
         '<h1 id="header">Step 4: Various Activities </h1>' +
         '<p> Around this time my parents were trying to figure out the type of kid that I would be.  To accomplish '+
         'these ends, my parents enrolled me in a bunch of athletic activities.  Unfortunately, or fortunately because ' +
@@ -53,7 +53,7 @@ let taekwondoeContent = '<div id="taekwondoContent">' +
         'in the neck really hard by accident.  That was my last taekwondo experience. </p>' +
         '</div>';
 
-let footballContent = '<div id="footballContent">' +
+const footballContent = '<div id="footballContent">' +
         '<h1 id="header">Step 4: Various Activities </h1>' +
         '<p> Since I did not in fact become the Karate (or Taekwondo?) Kid, my parents, inspired by the movie ' +
         'remember the Titans enrolled me in football.  At this time in my life I was definitely not focused on ' +
