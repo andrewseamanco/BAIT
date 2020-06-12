@@ -1,12 +1,14 @@
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    max-height: 100%;
+}
 
-      #map {
-        height: 100%;
-      }
+#map {
+    height: 100%;
+      flex-grow: 1;
+}
 
       /* header styles */
 
@@ -38,6 +40,17 @@
 }
 
 /* footer styles */
+
+#footer {
+    align-items: center;
+    background-color: rgb(192, 192, 192);
+    background-image: linear-gradient(rgb(192, 192, 192), rgb(129, 129, 129));
+    color: black;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 5px;
+}
 
 #footer {
     flex-shrink: 0;

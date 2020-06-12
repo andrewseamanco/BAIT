@@ -18,7 +18,6 @@ function advanceGame() {
       chosenAnswer = chosenRadio.value;
     }
   }
-  ``
   if (chosenAnswer != -1) {
     if (correctAnswer == chosenAnswer) {
       alert('This is the lie!');
