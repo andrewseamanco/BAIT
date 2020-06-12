@@ -68,7 +68,7 @@ const footballContent = '<div id="footballContent">' +
 
 
 function createMap() {
-    let map = new google.maps.Map(document.getElementById('map'), {
+    const map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 39.577216, lng: -104.987153150},
     zoom: 8
     });
@@ -82,8 +82,8 @@ function createMap() {
 
 
 function addLifeEvent(map, eventCoordinates, eventText) {
-    let marker = new google.maps.Marker({position: eventCoordinates, map: map});
-    let info = new google.maps.InfoWindow({
+    const marker = new google.maps.Marker({position: eventCoordinates, map: map});
+    const info = new google.maps.InfoWindow({
         content: eventText
     }); 
     marker.addListener('click', function() {
