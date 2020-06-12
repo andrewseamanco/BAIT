@@ -1,16 +1,16 @@
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0;
     max-height: 100%;
+    padding: 0;
 }
 
 #map {
+    flex-grow: 1;
     height: 100%;
-      flex-grow: 1;
 }
 
-      /* header styles */
+/* header styles */
 
 #header {
     align-items: center;
