@@ -1,5 +1,3 @@
-let
-
 const birthContent = '<div id="content">' +
     '<h1 id="firstHeading">Step 1: The Hospital Where I was Born</h1>' +
     '<div id="bodyContent">' +
