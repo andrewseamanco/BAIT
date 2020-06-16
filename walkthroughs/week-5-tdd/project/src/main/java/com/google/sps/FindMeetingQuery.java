@@ -34,25 +34,14 @@ public final class FindMeetingQuery implements Comparator<Event> {
     Collection<TimeRange> mandatoryAvailableTimes = new ArrayList<TimeRange>();
     Collection<TimeRange> optionalAvailableTimes = new ArrayList<TimeRange>();
     for (int i = 0; i < eventList.size(); i++) {
-        checkIfEventConflicts(mandatoryAvailableTimes, eventList.get(i), request, true, mandatoryStart);
-        checkIfEventConflicts(optionalAvailableTimes, eventList.get(i), request, false, optionalStart);
-        TimeRange eventRange = eventList.get(i).getWhen();
-        if (mandatoryStart < eventRange.end() && hasAttendees(eventList.get(i).getAttendees(), request, true)) {
-            mandatoryStart = eventRange.end();
-        } if (optionalStart < eventRange.end() && hasAttendees(eventList.get(i).getAttendees(), request, false)) {
-            optionalStart = eventRange.end();
-        }
+        mandatoryStart = checkIfEventConflicts(mandatoryAvailableTimes, eventList.get(i), request, false, mandatoryStart);
+        optionalStart = checkIfEventConflicts(optionalAvailableTimes, eventList.get(i), request, true, optionalStart);
     }
+    addFinalRange(mandatoryStart, request, mandatoryAvailableTimes);
+    addFinalRange(optionalStart, request, optionalAvailableTimes);
     TimeRange range = TimeRange.fromStartEnd(mandatoryStart, TimeRange.END_OF_DAY,true);
-    if (range.duration() >= request.getDuration()) {
-        mandatoryAvailableTimes.add(range);
-    }
-    TimeRange optionalRange = TimeRange.fromStartEnd(optionalStart, TimeRange.END_OF_DAY,true);
-    if (optionalRange.duration() >= request.getDuration()) {
-        optionalAvailableTimes.add(optionalRange);
-    }
 
-    return optionalAvailableTimes.isEmpty() ? mandatoryAvailableTimes : optionalAvailableTimes;
+    return (optionalAvailableTimes.isEmpty() && !request.getAttendees().isEmpty()) ? mandatoryAvailableTimes : optionalAvailableTimes;
   }
 
     public int compare(Event a, Event b) { 
@@ -63,18 +52,20 @@ public final class FindMeetingQuery implements Comparator<Event> {
     public static boolean hasAttendees(Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
         Collection<String> attendees = request.getAttendees();
         Collection<String> optionalAttendees = request.getOptionalAttendees();
-        // if (checkingOptional) {
-        //     attendees.addAll(optionalAttendees);
-        // }
         for (String attendee : attendees) {
             if (eventAttendees.contains(attendee)) {
                 return true;
+            }  
+        } if (checkingOptional) {
+            for (String optionalAttendee : optionalAttendees) {
+                if (eventAttendees.contains(optionalAttendee)) {
+                    return true;
+                }
             }
-        }
-        return false;
+        } return false;
     }
 
-    public static void checkIfEventConflicts(Collection<TimeRange> availableTimes, Event event, MeetingRequest request, boolean optional, int start) {
+    public static int checkIfEventConflicts(Collection<TimeRange> availableTimes, Event event, MeetingRequest request, boolean optional, int start) {
         if (hasAttendees(event.getAttendees(), request, optional)) {
             TimeRange eventRange = event.getWhen();
 
@@ -85,8 +76,15 @@ public final class FindMeetingQuery implements Comparator<Event> {
                 }
             }
             if (start < eventRange.end()) {
-                start = eventRange.end();
+                return eventRange.end();
             }
+        } return start;
+    }
+
+    public static void addFinalRange(int timeOfLastMeeting, MeetingRequest request, Collection<TimeRange> availableTimes) {
+        TimeRange range = TimeRange.fromStartEnd(timeOfLastMeeting, TimeRange.END_OF_DAY,true);
+        if (range.duration() >= request.getDuration()) {
+            availableTimes.add(range);
         }
     }
 }
