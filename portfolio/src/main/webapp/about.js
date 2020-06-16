@@ -1,7 +1,7 @@
 let correctAnswer = -1;
 
 /**
- * Advances the game to the next question. Loads in the first question
+ * Advances the game to the next question. Loads in the first question if
  * game has not yet started. Otherwise, checks answer against user
  * selected anwer and alerts if a lie or truth has been chosen.
  */
