@@ -25,7 +25,7 @@
             <a href="https://www.linkedin.com/in/andrew-seaman-42ab53168?trk=people-guest_people_search-card"> <img src="/images/linkedin.png" /> </a>
         </div>
     </div>
-    <script src="text/birth-content">
+    <script src="text/birth-content" id="birth-content">
         <div id="content">
             <h1 id="firstHeading">Step 1: The Hospital Where I was Born</h1>
             <div id="bodyContent">
@@ -43,7 +43,7 @@
             </div>
         </div>
     </script>
-    <script id="childhood-home-conent" src="text/childhood-home-content">
+    <script src="text/childhood-home-content" id="childhood-home-conent" src="text/childhood-home-content">
         <div id="childhoodHomeContent">
             <h1 id="header">Step 2: My Childhood Home </h1>
             <div id="bodyContent">
@@ -56,7 +56,7 @@
             </div>
         </div>
     </script>
-    <script id="elementary-school-content" name="text/elementary-school-content">
+    <script src="text/elementary-school-content" id="elementary-school-content" name="text/elementary-school-content">
         <div>
             <h1 id="header">Step 3: My Childhood Elementary School </h1>
             <p> I attended Elementary School at All Souls Catholic School.  In order to make sure that we 
@@ -68,22 +68,38 @@
             throwing them against the table.
         </div>
     </script>
-    <script id="">
-'<div id="taekwondoContent">' +
-    '<h1 id="header">Step 4: Various Activities </h1>' +
-    '<p> Around this time my parents were trying to figure out the type of kid that I would be.  To accomplish ' +
-    'these ends, my parents enrolled me in a bunch of athletic activities.  Unfortunately, or fortunately because ' +
-    'otherwise you would not be reading about the wonders of childhood taekwondo, my cousins had become ' +
-    'very invested in taekwondoe before me.  Taekwondo is, at a professional level, a martial arts style that ' +
-    'is characterized by fast kicking, head height kicks and other kickass techniques.  However, for third grader ' +
-    'American beginners taking lessons from a dojo next to a hair salon, it mostly meant doing "moves" around ' +
-    'a square made with duck tape in my basement for a few hours every day.  The only "cool" part if you can really ' +
-    'characterize anything that I was doing around that time as cool was breaking through plastic boards.  A fun bonus aside ' +
-    'story is in fifth grade - long after I had quit after only achieving a purple belt - my friend got really into ' +
-    'taekwondo.  When it came to board breaking the instructor held the board a little bit too high and I punched him ' +
-    'in the neck really hard by accident.  That was my last taekwondo experience. </p>' +
-    '</div>';
+    <script src="text/taekwondo-content" id="taekwondo-content">
+        <div>
+            <h1 id="header">Step 4: Various Activities </h1>
+            <p> Around this time my parents were trying to figure out the type of kid that I would be.  To accomplish 
+            these ends, my parents enrolled me in a bunch of athletic activities.  Unfortunately, or fortunately because 
+            otherwise you would not be reading about the wonders of childhood taekwondo, my cousins had become 
+            very invested in taekwondoe before me.  Taekwondo is, at a professional level, a martial arts style that 
+            is characterized by fast kicking, head height kicks and other kickass techniques.  However, for third grader 
+            American beginners taking lessons from a dojo next to a hair salon, it mostly meant doing "moves" around 
+            a square made with duck tape in my basement for a few hours every day.  The only "cool" part if you can really 
+            characterize anything that I was doing around that time as cool was breaking through plastic boards.  A fun bonus aside 
+            story is in fifth grade - long after I had quit after only achieving a purple belt - my friend got really into 
+            taekwondo.  When it came to board breaking the instructor held the board a little bit too high and I punched him 
+            in the neck really hard by accident.  That was my last taekwondo experience. </p>
+        </div>
     </script>
+    <script src="text/football-content" id="football-content">
+        <div>
+            <h1 id="header">Step 4: Various Activities </h1>
+            <p> Since I did not in fact become the Karate (or Taekwondo?) Kid, my parents, inspired by the movie 
+            remember the Titans enrolled me in football.  At this time in my life I was definitely not focused on 
+            the glory of scoring a touchdown or the thrill of making a really good tackle.  Instead I was mostly 
+            just going with the flow - Hukuna Matata style.  Therefore I was the bane of my "football is my life and 
+            if this team doesn\'t make it to the fifth grade superbowl I am going to freak out" coach\'s life. 
+            I pretty much rode the bench except for the ten minutes [mandatory to appease the parents who paid a ridiculous 
+            amount of money for their fifth grader to play D-1 football].  Ironically, during this time I discovered 
+            that I was really good at being coached.  Even though I never played, I ended up in the best shape of my young 
+            life and was ready to actually play some sports that I enjoyed. </p>
+        </div>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script src="life-map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZFz_F3T23TAVOTt8iBJYdYBlfSSfIFZE&callback=createMap"></script>
   </body>
