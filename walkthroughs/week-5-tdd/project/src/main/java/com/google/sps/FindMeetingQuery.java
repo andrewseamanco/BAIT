@@ -42,11 +42,11 @@ public final class FindMeetingQuery implements Comparator<Event> {
     int optionalEnd = TimeRange.START_OF_DAY;
     Collection<TimeRange> mandatoryAvailableTimes = new ArrayList<TimeRange>();
     Collection<TimeRange> optionalAvailableTimes = new ArrayList<TimeRange>();
-    for (int i = 0; i < eventList.size(); i++) {
+    for (Event event : eventList) {
       mandatoryEnd = checkIfEventConflicts(
-          mandatoryAvailableTimes, eventList.get(i), request, false, mandatoryEnd);
+          mandatoryAvailableTimes, event, request, false, mandatoryEnd);
       optionalEnd = checkIfEventConflicts(
-          optionalAvailableTimes, eventList.get(i), request, true, optionalEnd);
+          optionalAvailableTimes, event, request, true, optionalEnd);
     }
     addFinalRange(mandatoryEnd, request, mandatoryAvailableTimes);
     addFinalRange(optionalEnd, request, optionalAvailableTimes);
