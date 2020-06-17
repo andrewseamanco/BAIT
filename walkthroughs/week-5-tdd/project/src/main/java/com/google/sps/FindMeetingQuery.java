@@ -124,8 +124,15 @@ public final class FindMeetingQuery implements Comparator<Event> {
     return end;
   }
 
-  public static void addFinalRange(
-      int timeOfLastMeeting, MeetingRequest request, Collection<TimeRange> availableTimes) {
+  /**
+   * Adds the time to the collection if the time between the final meeting and the end of the
+   * day if there is enough time
+   * 
+   * @param timeOfLastMeeting the end time of the last meeting
+   * @param request the requested meeting specifications
+   * @param availableTimes the collection of times to add to
+   */
+  public static void addFinalRange(int timeOfLastMeeting, MeetingRequest request, Collection<TimeRange> availableTimes) {
     TimeRange range = TimeRange.fromStartEnd(timeOfLastMeeting, TimeRange.END_OF_DAY, true);
     if (range.duration() >= request.getDuration()) {
       availableTimes.add(range);
