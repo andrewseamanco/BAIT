@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.collectingAndThen;
+import com.google.common.collect.ImmutableList; 
 
 /**
  * Returns a Collection of times which are available for optional attendees and mandatory attendees.
@@ -36,13 +39,12 @@ import java.util.stream.Stream;
  */
 public final class FindMeetingQuery implements Comparator<Event> {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    ImmutableList<Event> eventList = ImmutableList.copyOf(events);
-    Collections.sort(eventList, new FindMeetingQuery());
+    ImmutableList<Event> eventList = events.stream().sorted(new FindMeetingQuery()).collect(collectingAndThen(toList(), ImmutableList::copyOf));
     int mandatoryEnd = TimeRange.START_OF_DAY;
     int optionalEnd = TimeRange.START_OF_DAY;
     Collection<TimeRange> mandatoryAvailableTimes = new ArrayList<TimeRange>();
     Collection<TimeRange> optionalAvailableTimes = new ArrayList<TimeRange>();
-    for (Event event : eventList) {
+    for (Event event: eventList) {
       mandatoryEnd = checkIfEventConflicts(
           mandatoryAvailableTimes, event, request, false, mandatoryEnd);
       optionalEnd = checkIfEventConflicts(
