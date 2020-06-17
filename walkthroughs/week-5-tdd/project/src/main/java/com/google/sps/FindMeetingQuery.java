@@ -25,30 +25,49 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Returns a Collection of times which are available for optional attendees and mandatory attendees.
+ * If optional attendees cannot be fit in, then only returns the times which mandatory attendees can
+ * attend
+ * 
+ * @param events a list of events that may need to be accounted for
+ * @param request the specifications for the meeting to be scheduled
+ * @return a Collection of available times for requested meeting
+*/
 public final class FindMeetingQuery implements Comparator<Event> {
     public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     List<Event> eventList = events.stream().collect(Collectors.toList());
     Collections.sort(eventList, new FindMeetingQuery());
-    int mandatoryStart = TimeRange.START_OF_DAY;
-    int optionalStart = TimeRange.START_OF_DAY;
+    int mandatoryEnd = TimeRange.START_OF_DAY;
+    int optionalEnd = TimeRange.START_OF_DAY;
     Collection<TimeRange> mandatoryAvailableTimes = new ArrayList<TimeRange>();
     Collection<TimeRange> optionalAvailableTimes = new ArrayList<TimeRange>();
     for (int i = 0; i < eventList.size(); i++) {
-        mandatoryStart = checkIfEventConflicts(mandatoryAvailableTimes, eventList.get(i), request, false, mandatoryStart);
-        optionalStart = checkIfEventConflicts(optionalAvailableTimes, eventList.get(i), request, true, optionalStart);
+        mandatoryEnd = checkIfEventConflicts(mandatoryAvailableTimes, eventList.get(i), request, false, mandatoryEnd);
+        optionalEnd = checkIfEventConflicts(optionalAvailableTimes, eventList.get(i), request, true, optionalEnd);
     }
-    addFinalRange(mandatoryStart, request, mandatoryAvailableTimes);
-    addFinalRange(optionalStart, request, optionalAvailableTimes);
-    TimeRange range = TimeRange.fromStartEnd(mandatoryStart, TimeRange.END_OF_DAY,true);
+    addFinalRange(mandatoryEnd, request, mandatoryAvailableTimes);
+    addFinalRange(optionalEnd, request, optionalAvailableTimes);
 
     return (optionalAvailableTimes.isEmpty() && !request.getAttendees().isEmpty()) ? mandatoryAvailableTimes : optionalAvailableTimes;
-  }
+    }
 
+    /**
+     * Comparator which organizes events based off the earliest start time
+    */
     public int compare(Event a, Event b) { 
         //sort by start
         return a.getWhen().start() - b.getWhen().start(); 
     }
 
+    /**
+     * Checks if the set of event attendees has any members from the request
+     * 
+     * @param eventAttendees the set of people attending the event
+     * @param request the specifications of the request used to retrieve attendees and optional attendees
+     * @param checkingOptional a boolean if we are checking for optional attendees
+     * @return if any of the requested attendees exist in the list for eventAttendees
+    */
     public static boolean hasAttendees(Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
         Collection<String> attendees = request.getAttendees();
         Collection<String> optionalAttendees = request.getOptionalAttendees();
@@ -65,20 +84,32 @@ public final class FindMeetingQuery implements Comparator<Event> {
         } return false;
     }
 
-    public static int checkIfEventConflicts(Collection<TimeRange> availableTimes, Event event, MeetingRequest request, boolean optional, int start) {
+    /**
+     * Checks if the time between the event and the last event is enough for the requested meeting time
+     * 
+     * @param availableTimes a collection of times which will work for the request to be added to
+     * @param event the  event which we will check to see if there is enough time between its start and the last 
+     * meeting's end
+     * @param request the specifications for the requested meeting
+     * @param optional a boolean which determines if we are checking optional attendees as well
+     * @param start a number which represents the end of the last meeting
+     *
+     * @return the end of this event if applicable
+    */
+    public static int checkIfEventConflicts(Collection<TimeRange> availableTimes, Event event, MeetingRequest request, boolean optional, int end) {
         if (hasAttendees(event.getAttendees(), request, optional)) {
             TimeRange eventRange = event.getWhen();
 
-            if (start < eventRange.start()) {
-                TimeRange range = TimeRange.fromStartEnd(start, eventRange.start(), false);
+            if (end < eventRange.start()) {
+                TimeRange range = TimeRange.fromStartEnd(end, eventRange.start(), false);
                 if (range.duration() >= request.getDuration()) {
                     availableTimes.add(range);
                 }
             }
-            if (start < eventRange.end()) {
+            if (end < eventRange.end()) {
                 return eventRange.end();
             }
-        } return start;
+        } return end;
     }
 
     public static void addFinalRange(int timeOfLastMeeting, MeetingRequest request, Collection<TimeRange> availableTimes) {
