@@ -36,7 +36,7 @@ import java.util.stream.Stream;
  */
 public final class FindMeetingQuery implements Comparator<Event> {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<Event> eventList = events.stream().collect(Collectors.toList());
+    ImmutableList<Event> eventList = ImmutableList.copyOf(events);
     Collections.sort(eventList, new FindMeetingQuery());
     int mandatoryEnd = TimeRange.START_OF_DAY;
     int optionalEnd = TimeRange.START_OF_DAY;
