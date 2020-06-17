@@ -100,22 +100,14 @@ public final class FindMeetingQuery implements Comparator<Event> {
    * @return If any of the requested attendees exist in the list for eventAttendees
    */
   public static boolean hasAttendees(
-      Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
+    Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
     Collection<String> attendees = request.getAttendees();
     Collection<String> optionalAttendees = request.getOptionalAttendees();
-    for (String attendee : attendees) {
-      if (eventAttendees.contains(attendee)) {
-        return true;
-      }
-    }
     if (checkingOptional) {
-      for (String optionalAttendee : optionalAttendees) {
-        if (eventAttendees.contains(optionalAttendee)) {
-          return true;
-        }
-      }
+        return !Collections.disjoint(attendees, eventAttendees) || !Collections.disjoint(optionalAttendees, eventAttendees);
+    } else {
+        return !Collections.disjoint(attendees, eventAttendees);
     }
-    return false;
   }
 
   /**
