@@ -275,7 +275,7 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void ignoreOptionalAttendee() {
-    // An optional attendee has an all day event.  Therefore we only return mandatory times. 
+    // An optional attendee has an all day event.  Therefore we only return mandatory times.
     // Have each person have different events. We should see two options because each person has
     // split the restricted times.
     //
@@ -289,7 +289,8 @@ public final class FindMeetingQueryTest {
             Arrays.asList(PERSON_A)),
         new Event("Event 2", TimeRange.fromStartDuration(TIME_0900AM, DURATION_30_MINUTES),
             Arrays.asList(PERSON_B)),
-        new Event("Event 3", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true),
+        new Event("Event 3",
+            TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true),
             Arrays.asList(PERSON_C)));
 
     MeetingRequest request =
@@ -308,7 +309,7 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void accountForOptionalAttendee() {
-    // An optional attendee has an 30 minute event.  Since we can include him and the mandatory 
+    // An optional attendee has an 30 minute event.  Since we can include him and the mandatory
     // persons, we should return the beginnning and end of the day.
     //
     // Events  :       |--A--|     |--B--|
@@ -368,11 +369,11 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void optionalGaps() {
-    // Events only contain optional attendees.  The request can be fulfilled, so return the gap in 
+    // Events only contain optional attendees.  The request can be fulfilled, so return the gap in
     // optional attendees schedules.
-    // 
+    //
     // Events  : |---OA---|       |---OB---|
-    // Day     : |-------------------------|  
+    // Day     : |-------------------------|
     // Options :          |-------|
 
     Collection<Event> events = Arrays.asList(
@@ -395,12 +396,12 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void optionalNoGaps() {
-    // Events only contain optional attendees.  The request cannot be fulfilled, so return the no 
+    // Events only contain optional attendees.  The request cannot be fulfilled, so return the no
     // available times.
-    // 
+    //
     // Events  : |-----OA------||----OB----|
-    // Day     : |-------------------------|  
-    // Options : 
+    // Day     : |-------------------------|
+    // Options :
 
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
@@ -418,7 +419,4 @@ public final class FindMeetingQueryTest {
 
     Assert.assertEquals(expected, actual);
   }
-
 }
-
-
