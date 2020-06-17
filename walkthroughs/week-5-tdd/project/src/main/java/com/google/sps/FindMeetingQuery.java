@@ -77,16 +77,23 @@ public final class FindMeetingQuery implements Comparator<Event> {
     if (hasAttendees(event.getAttendees(), request, optional)) {
       TimeRange eventRange = event.getWhen();
 
+      //First check that the end of the last event is before the start of the next
       if (end < eventRange.start()) {
         TimeRange range = TimeRange.fromStartEnd(end, eventRange.start(), false);
+
+        //Check if the time between these two events has a long enough duration
         if (range.duration() >= request.getDuration()) {
           availableTimes.add(range);
         }
       }
+
+      //Return the end of this event if it ends after the event before
       if (end < eventRange.end()) {
         return eventRange.end();
       }
     }
+
+    //Else return the end of the prior event
     return end;
   }
 
