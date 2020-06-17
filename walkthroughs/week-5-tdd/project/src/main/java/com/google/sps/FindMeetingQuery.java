@@ -58,41 +58,6 @@ public final class FindMeetingQuery implements Comparator<Event> {
         : optionalAvailableTimes;
   }
 
-  /**
-   * Comparator which organizes events based off the earliest start time
-   */
-  public int compare(Event a, Event b) {
-    // sort by start
-    return a.getWhen().start() - b.getWhen().start();
-  }
-
-  /**
-   * Checks if the set of event attendees has any members from the request
-   *
-   * @param eventAttendees The set of people attending the event
-   * @param request The specifications of the request used to retrieve attendees and optional
-   *     attendees
-   * @param checkingOptional A boolean if we are checking for optional attendees
-   * @return If any of the requested attendees exist in the list for eventAttendees
-   */
-  public static boolean hasAttendees(
-      Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
-    Collection<String> attendees = request.getAttendees();
-    Collection<String> optionalAttendees = request.getOptionalAttendees();
-    for (String attendee : attendees) {
-      if (eventAttendees.contains(attendee)) {
-        return true;
-      }
-    }
-    if (checkingOptional) {
-      for (String optionalAttendee : optionalAttendees) {
-        if (eventAttendees.contains(optionalAttendee)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
 
   /**
    * Checks if the time between the event and the last event is enough for the requested meeting
@@ -126,6 +91,34 @@ public final class FindMeetingQuery implements Comparator<Event> {
   }
 
   /**
+   * Checks if the set of event attendees has any members from the request
+   *
+   * @param eventAttendees The set of people attending the event
+   * @param request The specifications of the request used to retrieve attendees and optional
+   *     attendees
+   * @param checkingOptional A boolean if we are checking for optional attendees
+   * @return If any of the requested attendees exist in the list for eventAttendees
+   */
+  public static boolean hasAttendees(
+      Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
+    Collection<String> attendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    for (String attendee : attendees) {
+      if (eventAttendees.contains(attendee)) {
+        return true;
+      }
+    }
+    if (checkingOptional) {
+      for (String optionalAttendee : optionalAttendees) {
+        if (eventAttendees.contains(optionalAttendee)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
    * Adds the time to the collection if the time between the final meeting and the end of the
    * day if there is enough time
    * 
@@ -138,5 +131,13 @@ public final class FindMeetingQuery implements Comparator<Event> {
     if (range.duration() >= request.getDuration()) {
       availableTimes.add(range);
     }
+  }
+
+  /**
+   * Comparator which organizes events based off the earliest start time
+   */
+  public int compare(Event a, Event b) {
+    // sort by start
+    return a.getWhen().start() - b.getWhen().start();
   }
 }
