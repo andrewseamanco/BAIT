@@ -38,7 +38,7 @@ import com.google.common.collect.ImmutableList;
  * @return A Collection of available times for requested meeting
  */
 public final class FindMeetingQuery implements Comparator<Event> {
-  private Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     ImmutableList<Event> eventList = events.stream().sorted(new FindMeetingQuery()).collect(collectingAndThen(toList(), ImmutableList::copyOf));
     int mandatoryEnd = TimeRange.START_OF_DAY;
     int optionalEnd = TimeRange.START_OF_DAY;
@@ -135,7 +135,8 @@ public final class FindMeetingQuery implements Comparator<Event> {
   /**
    * Comparator which organizes events based off the earliest start time
    */
-  private int compare(Event a, Event b) {
+  @Override
+  public int compare(Event a, Event b) {
     // sort by start
     return a.getWhen().start() - b.getWhen().start();
   }
