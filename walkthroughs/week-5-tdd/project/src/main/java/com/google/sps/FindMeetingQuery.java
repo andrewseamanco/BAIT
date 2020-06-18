@@ -38,7 +38,7 @@ import com.google.common.collect.ImmutableList;
  * @return A Collection of available times for requested meeting
  */
 public final class FindMeetingQuery implements Comparator<Event> {
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+  private Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     ImmutableList<Event> eventList = events.stream().sorted(new FindMeetingQuery()).collect(collectingAndThen(toList(), ImmutableList::copyOf));
     int mandatoryEnd = TimeRange.START_OF_DAY;
     int optionalEnd = TimeRange.START_OF_DAY;
@@ -72,7 +72,7 @@ public final class FindMeetingQuery implements Comparator<Event> {
    *
    * @return The end of this event if applicable
    */
-  public static int checkIfEventConflicts(Collection<TimeRange> availableTimes, Event event,
+  private static int checkIfEventConflicts(Collection<TimeRange> availableTimes, Event event,
       MeetingRequest request, boolean optional, int end) {
     if (hasAttendees(event.getAttendees(), request, optional)) {
       TimeRange eventRange = event.getWhen();
@@ -106,7 +106,7 @@ public final class FindMeetingQuery implements Comparator<Event> {
    * @param checkingOptional A boolean if we are checking for optional attendees
    * @return If any of the requested attendees exist in the list for eventAttendees
    */
-  public static boolean hasAttendees(
+   private static boolean hasAttendees(
     Set eventAttendees, MeetingRequest request, boolean checkingOptional) {
     Collection<String> attendees = request.getAttendees();
     Collection<String> optionalAttendees = request.getOptionalAttendees();
@@ -125,7 +125,7 @@ public final class FindMeetingQuery implements Comparator<Event> {
    * @param request The requested meeting specifications
    * @param availableTimes The collection of times to add to
    */
-  public static void addFinalRange(int timeOfLastMeeting, MeetingRequest request, Collection<TimeRange> availableTimes) {
+  private static void addFinalRange(int timeOfLastMeeting, MeetingRequest request, Collection<TimeRange> availableTimes) {
     TimeRange range = TimeRange.fromStartEnd(timeOfLastMeeting, TimeRange.END_OF_DAY, true);
     if (range.duration() >= request.getDuration()) {
       availableTimes.add(range);
@@ -135,7 +135,7 @@ public final class FindMeetingQuery implements Comparator<Event> {
   /**
    * Comparator which organizes events based off the earliest start time
    */
-  public int compare(Event a, Event b) {
+  private int compare(Event a, Event b) {
     // sort by start
     return a.getWhen().start() - b.getWhen().start();
   }
