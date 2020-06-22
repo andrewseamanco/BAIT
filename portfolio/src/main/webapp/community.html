@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Community Page</title>
+    <script src="community.js"></script>
+    <link rel="stylesheet" href="community.css">
+  </head>
+  <body onChange="renderComments()" onload="renderComments()">
+    <div id="community-content">
+        <div id="comment-form-section">
+            <div id="header">
+                <a href="index.html"> <img src=/images/profile.jpg /> </a>
+                <div class="left">
+                    <a href="about.html"> <p> About </p> </a>
+                    <a href="survey.html"> <p> Survey </p> </a>
+                    <a href="#"> <p> Community </p> </a>
+                </div>
+            </div>
+            <div id="form">
+                <h2>Community Page</h2>
+                <form action="/comments" method="POST">
+                    <label for="commentText" id="commentText">Comment</label>
+                    <input name="commentText" />
+                    <br />
+
+                    <input type="submit" />
+                </form>
+                <form>
+                    <label>Change the number of visible comments:</label>
+                    <input type="number" id="commentRequestedNum" name="commentRequestedNum" min="1" max="20" value="5">
+                </form>
+                <button onclick="deleteAllComments()">Delete All Comments</button>
+            </div>
+        </div>
+
+        <!-- This div is populated by community js -->
+
+        <div id="submitted-comments">
+        </div>
+
+        <div id="footer">
+            <p> © Andrew Seaman 2020</p> 
+            <div class="left">
+                <a href="https://github.com/andrewseamanco"> <img src="/images/GitHub-Mark-64px.png"> </a>
+                <a href="https://www.facebook.com/andrew.seaman.9210"> <img src="/images/f-logo.png"> </a>
+                <a href="mailto:andrew.seamanco@gmail.com"> <img src="https://pluspng.com/img-png/gmail-vector-png--1600.png"> </a>
+                <a href="https://www.linkedin.com/in/andrew-seaman-42ab53168?trk=people-guest_people_search-card"> <img src="/images/linkedin.png" /> </a>
+            </div>
+        </div>
+    </div>
+  </body>
