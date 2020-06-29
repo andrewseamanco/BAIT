@@ -23,8 +23,8 @@ form li + li {
 }
 
 input, textarea {
-  width: 300px;
   border: 1px solid #999;
+  width: 300px;
 }
 
 input:focus, textarea:focus {

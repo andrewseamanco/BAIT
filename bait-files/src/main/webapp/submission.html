@@ -8,7 +8,7 @@
   <body>
       <h3>What do you know about this person?</h3>
       <p>Fill out as many fields as you can with the information that you have.</p>
-      <form action="/manual-review" method="post">
+      <form action="/submit-profile" method="post">
         <ul>
             <li>
                 <label for="name">Full Name:</label><br>
@@ -35,9 +35,9 @@
 
             <li>
                 <label for="upload-pic">Upload Image:</label><br>
-                <input type="file" id="upload-pic" name="upload-pic">
+                <input type="file" accept="image/*" id="upload-pic" name="upload-pic">
             </li>
-            <li>
+            <l
                 <label for="description">Additional notes:</label><br>
                 <textarea rows="5" cols="50" id="description" name="description"></textarea> 
             </li>
