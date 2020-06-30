@@ -20,21 +20,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 
-@WebServlet("/")
+
+@WebServlet("/register")
 public class LoginServlet extends HttpServlet {
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-    return;
-  }
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     UserService userService = UserServiceFactory.getUserService();
-
-    if (!userService.isUserLoggedIn()) {
-      response.sendRedirect("/");
-      return;
-    }
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
@@ -44,6 +38,9 @@ public class LoginServlet extends HttpServlet {
 
     datastore.put(newUser);
 
-    response.sendRedirect("/profile.html");
+    System.out.println("Put that new user in there");
+
+    RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
+    requestDispatcher.forward(request, response);
   }
 }

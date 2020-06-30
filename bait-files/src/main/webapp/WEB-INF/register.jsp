@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="login.css">
   </head>
   <body>
-      <h1>Hello</h1>
       <p>This is the registration.</p>
-      <form>
+      <form action="/register" method="POST">
           <label>First Name</label>
           <input type="text"/>
           <label>Last Name</label>
           <input type="text"/>
           <label>Username</label>
           <input type="text"/>
+          <input type="submit" />
       </form>
   </body>
 </html>
