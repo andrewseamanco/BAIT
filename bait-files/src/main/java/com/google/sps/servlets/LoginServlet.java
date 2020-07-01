@@ -36,11 +36,30 @@ public class LoginServlet extends HttpServlet {
     newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
     newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
 
-    datastore.put(newUser);
+    if (!usernameTaken(request.getParameter(USERNAME_ENTITY_PROPERTY))) {
+        datastore.put(newUser);
+    } else {
+        PrintWriter out = response.getWriter();
+        response. setContentType("text/html");
+        
+        out.println("Username is already taken.  Please try another username");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
+        requestDispatcher.forward(request, response);
+    }
 
     System.out.println("Put that new user in there");
 
     RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
     requestDispatcher.forward(request, response);
+  }
+
+  public boolean usernameTaken(String username) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query(USER_ENTITY)
+      .setFilter(new Query.FilterPredicate(
+        USERNAME_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, username));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+    return entity!=null;
   }
 }
