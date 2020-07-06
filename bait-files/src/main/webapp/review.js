@@ -3,7 +3,7 @@ function getPanels() {
   for (let i = 0; i < accordian.length; i++) {
     accordian[i].addEventListener('click', function() {
       this.classList.toggle('active');
-      var panel = this.nextElementSibling;
+      const panel = this.nextElementSibling;
       if (panel.style.maxHeight) {
         panel.style.maxHeight = null;
       } else {
