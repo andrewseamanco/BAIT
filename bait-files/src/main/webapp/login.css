@@ -1,0 +1,58 @@
+html, body {
+    background: linear-gradient(45deg, rgb(255,127,80), rgb(135,206,235));
+    height: 100%;
+}
+
+#login-title {
+    font-family: 'Hind', sans-serif;
+    font-size: 3.5em;
+}
+
+#login-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+}
+
+#login-body {
+    height: 100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#bait-mission {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+
+#bait-image {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-image {
+    width: 80%;
+}
+
+#login-button {
+    padding: 1em;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Hind', sans-serif;
+    font-size: 14px;
+    background-color: transparent;
+    border: 7px solid black;
+    color: black;
+    width: 100%;
+}
+
+#login-button:hover {
+    font-weight: bold;
+    background-color: white;
+}

@@ -46,6 +46,7 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession(false);
         UserService userService = UserServiceFactory.getUserService();
 
+
         //Case: User is not logged in
         if (!userService.isUserLoggedIn()) {
             if (request.getRequestURI().endsWith("login")) {
@@ -59,7 +60,7 @@ public class LoginFilter implements Filter {
         }
         //Case: User is logged in
         else {
-            if (!isRegistered(userService.getCurrentUser().getUserId())) {
+            if (!isRegistered(userService.getCurrentUser().getUserId()) && !request.getRequestURI().endsWith("logout")) {
                 //User is submitting form for registration
                 if (request.getRequestURI().endsWith("register")) {
                     chain.doFilter(req, res);
