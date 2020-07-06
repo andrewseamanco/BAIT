@@ -1,10 +1,6 @@
 package com.google.sps.servlets;
 
-import static com.google.sps.data.Keys.ID_ENTITY_PROPERTY;
-import static com.google.sps.data.Keys.USERNAME_ENTITY_PROPERTY;
-import static com.google.sps.data.Keys.IS_ADMIN_ENTITY_PROPERTY;
-import static com.google.sps.data.Keys.USER_ENTITY;
-
+import static com.google.sps.data.Keys.*;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -28,26 +24,35 @@ public class LoginServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    UserService userService = UserServiceFactory.getUserService();
+    PrintWriter out = response.getWriter();
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
-    newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
-    newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-    newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
+    boolean filledOutUsername = request.getParameter(USERNAME_ENTITY_PROPERTY) != null;
+    boolean filledOutFirstName = request.getParameter(FIRST_NAME_ENTITY_PROPERTY) != null;
+    boolean filledOutLastName = request.getParameter(LAST_NAME_ENTITY_PROPERTY) != null;
 
-    if (!usernameTaken(request.getParameter(USERNAME_ENTITY_PROPERTY))) {
-        datastore.put(newUser);
-    } else {
-        PrintWriter out = response.getWriter();
+    if (usernameTaken(request.getParameter(USERNAME_ENTITY_PROPERTY))) {
         response. setContentType("text/html");
-        
         out.println("Username is already taken.  Please try another username");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
         requestDispatcher.forward(request, response);
+        return;
+    } else if (!filledOutLastName || !filledOutFirstName || !filledOutUsername){
+        response. setContentType("text/html");
+        out.println("Please fill out all fields before submitting");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
+        requestDispatcher.forward(request, response);
+        return;
+    } else {
+        UserService userService = UserServiceFactory.getUserService();
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    
+        Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
+        newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
+        newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
+        newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
+        newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
+        newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
     }
-
-    System.out.println("Put that new user in there");
 
     RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
     requestDispatcher.forward(request, response);
@@ -62,4 +67,5 @@ public class LoginServlet extends HttpServlet {
     Entity entity = results.asSingleEntity();
     return entity!=null;
   }
+  
 }

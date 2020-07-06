@@ -7,7 +7,6 @@
   <body>
       <h1>Welcome to Bait</h1>
 
-
     <%@ page import="com.google.appengine.api.users.UserService" %>
     <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 

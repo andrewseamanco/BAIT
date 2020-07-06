@@ -62,13 +62,11 @@ public class LoginFilter implements Filter {
             if (!isRegistered(userService.getCurrentUser().getUserId())) {
                 //User is submitting form for registration
                 if (request.getRequestURI().endsWith("register")) {
-                    System.out.println("Nah I'm trying to access this");
                     chain.doFilter(req, res);
                     return;
                 }
                 //User is not registered and is trying to access restricted material
                 else {
-                    System.out.println("HOT HOT HOT");
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
                     requestDispatcher.forward(request, response);
                     return;
@@ -77,8 +75,8 @@ public class LoginFilter implements Filter {
          }
 
          //Is logged in and registered but is trying to access profile jsp or now restricted register page
-         System.out.println("hey there");
          if (request.getRequestURI().endsWith("profile.jsp") || request.getRequestURI().endsWith("register.jsp") || request.getRequestURI().endsWith("login.jsp")) {
+            System.out.println("here");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
             requestDispatcher.forward(request, response);
             return;
