@@ -10,7 +10,7 @@ a {
   cursor: pointer;  
   font-size: 18px;
   font-weight: 500;
-  margin: 20px 0px 0px 0px;
+  margin: 8px 0px 0px 0px;
   outline: none;
   padding: 18px;
   transition: 0.4s;
@@ -44,10 +44,11 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
+  margin-top: 0;
 }
 
 button{
-  background-color:#9aa0a6;
+  background-color: #bdc1c6;
   border-radius: 8px;
   border: none;
   font-size: 14px;
@@ -82,8 +83,8 @@ nav {
   font-size: 16px;
   font-weight: 500;
   justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 10px 25px 10px 25px;
+  margin: 0 0 20px 0;
+  padding: 10px 50px;
   width: 100%;
 }
 
