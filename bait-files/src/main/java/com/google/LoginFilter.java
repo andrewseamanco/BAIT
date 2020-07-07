@@ -68,7 +68,6 @@ public class LoginFilter implements Filter {
         }
         // User is not registered and is trying to access restricted material
         else {
-          System.out.println("No");
           RequestDispatcher requestDispatcher =
               request.getRequestDispatcher("WEB-INF/register.jsp");
           requestDispatcher.forward(request, response);
