@@ -44,6 +44,8 @@ public class LoginFilter implements Filter {
     HttpSession session = request.getSession(false);
     UserService userService = UserServiceFactory.getUserService();
 
+    System.out.println(request.getRequestURI());
+
     // Case: User is not logged in
     if (!userService.isUserLoggedIn()) {
       if (request.getRequestURI().endsWith("login")) {
@@ -58,7 +60,7 @@ public class LoginFilter implements Filter {
     // Case: User is logged in
     else {
       if (!isRegistered(userService.getCurrentUser().getUserId())
-          && !request.getRequestURI().endsWith("logout")) {
+          && !request.getRequestURI().startsWith("/_ah/")) {
         // User is submitting form for registration
         if (request.getRequestURI().endsWith("register")) {
           chain.doFilter(req, res);
@@ -66,6 +68,7 @@ public class LoginFilter implements Filter {
         }
         // User is not registered and is trying to access restricted material
         else {
+          System.out.println("No");
           RequestDispatcher requestDispatcher =
               request.getRequestDispatcher("WEB-INF/register.jsp");
           requestDispatcher.forward(request, response);

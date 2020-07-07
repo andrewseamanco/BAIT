@@ -29,6 +29,8 @@ public class LoginServlet extends HttpServlet {
     boolean filledOutFirstName = request.getParameter(FIRST_NAME_ENTITY_PROPERTY) != null;
     boolean filledOutLastName = request.getParameter(LAST_NAME_ENTITY_PROPERTY) != null;
 
+
+
     if (usernameTaken(request.getParameter(USERNAME_ENTITY_PROPERTY))) {
       response.setContentType("text/html");
       out.println("Username is already taken.  Please try another username");
@@ -42,6 +44,7 @@ public class LoginServlet extends HttpServlet {
       requestDispatcher.forward(request, response);
       return;
     } else {
+      System.out.println("Actually registered");
       UserService userService = UserServiceFactory.getUserService();
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 

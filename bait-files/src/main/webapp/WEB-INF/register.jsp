@@ -27,7 +27,5 @@
             </li>
         </ul>
       </form>
-      <p id="log"></p>
   </body>
-  <script src="../register.js"></script>
 </html>

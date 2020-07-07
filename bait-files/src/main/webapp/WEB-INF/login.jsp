@@ -11,7 +11,7 @@
 
     <div id="login-body">
         <div id="bait-mission">
-            <h1 id="login-title">Your online saftey starts here.</h1>
+            <h1 id="login-title">Your online safety starts here.</h1>
             <h3 id="login-subtitle">BAIT is committed to promoting authentic interactions online and ensuring the safety of those connected through the internet.
                 The BAIT algorithm verifies the authenticity of online profiles and services and helps you make informed decisions when
                 online.

@@ -14,25 +14,25 @@ html, body {
 }
 
 #login-body {
-    height: 100%;
-    display:flex;
-    flex-direction: row;
     align-items: center;
+    display:flex;
+    height: 100%;
+    flex-direction: row;
 }
 
 #bait-mission {
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
     width: 50%;
 }
 
 
 #bait-image {
-    display: flex;
-    width: 50%;
     align-items: center;
+    display: flex;
     justify-content: center;
+    width: 50%;
 }
 
 #login-image {
@@ -40,19 +40,19 @@ html, body {
 }
 
 #login-button {
-    padding: 1em;
+    background-color: transparent;
+    border: 7px solid black;
     border-radius: 30px;
-    text-align: center;
+    color: black;
     cursor: pointer;
     font-family: 'Hind', sans-serif;
     font-size: 14px;
-    background-color: transparent;
-    border: 7px solid black;
-    color: black;
+    padding: 1em;
+    text-align: center;
     width: 100%;
 }
 
 #login-button:hover {
-    font-weight: bold;
     background-color: white;
+    font-weight: bold;
 }
