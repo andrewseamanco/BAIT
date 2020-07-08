@@ -81,7 +81,6 @@ public class LoginFilter implements Filter {
     if (request.getRequestURI().endsWith("profile.jsp")
         || request.getRequestURI().endsWith("register.jsp")
         || request.getRequestURI().endsWith("login.jsp")) {
-      System.out.println("here");
       RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
       requestDispatcher.forward(request, response);
       return;
