@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="review.css">
+    <script src="review.js"></script>
+  </head>
+  <body onload="getPanels()">
+    <content>
+      <nav>
+        <div id="nav-title">Bait</div>
+        <div id="nav-links">
+          <a href="#" class="nav-item">Reviews</a>
+          <a href="#" class="nav-item">Account</a>
+          <a href="#" class="nav-item">Log Out</a>
+        </div>
+      </nav>
+
+      <section id="review-overview">
+          <div id="review-id" class="overview-item">
+            Review Id:
+          </div>
+          <div id="user-id" class="overview-item">
+            User Id: 
+          </div>
+          <div id="submission-date" class="overview-item">
+            Submission Date:
+          </div> 
+          
+          <div id="review-status" class="overview-item">
+            Status:
+          </div>
+      </section>
+
+      <section id="review">
+        <button class="accordion">Name</button>
+        <div id="name" class="panel">
+          <div id="name-input">
+              <p class="sub-header">Provided Name</p>
+              <div id="name-input-container"></div>
+          </div>
+          <div id="name-api">
+            <p class="sub-header">Name API Results</p>
+            <div id="name-api-container"></div>                  
+          </div>
+          <div id="name-tools">
+            <p class="sub-header">Name Verification Tools</p>
+            <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+            </ul>
+          </div>
+          <div id="name-verify">
+            <p class="sub-header">Name Verification</p>
+            <label for="name-status">Verify name:</label>
+            <select name="name-status" id="name-status">
+              <option></option>
+              <option value="invalid">invalid</option>
+              <option value="valid">valid</option>
+            </select>
+          </div>
+          <div class="button-container">
+            <button>Save</button>
+          </div>    
+        </div>
+
+        <button class="accordion">Email</button>
+        <div id="email" class="panel">
+          <div id="email-input">
+              <p class="sub-header">Provided Email</p>
+              <div id="email-input-container"></div>
+          </div>
+          <div id="email-api">
+            <p class="sub-header">Email API Results</p>
+            <div id="email-api-container"></div>
+          </div>
+          <div id="email-tools">
+            <p class="sub-header">Email Verification Tools</p>
+            <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+            </ul>
+          </div>
+          <div id="email-verify">
+            <p class="sub-header">Email Verification</p>
+            <label for="email-status">Verify email:</label>
+            <select name="email-status" id="email-status">
+              <option></option>
+              <option value="invalid">invalid</option>
+              <option value="valid">valid</option>
+            </select>
+          </div>
+          <div class="button-container">
+            <button>Save</button>
+          </div>    
+        </div>
+
+        <button class="accordion">Username</button>
+        <div id="username" class="panel">
+          <div id="username-input">
+            <p class="sub-header">Provided Username</p>
+            <div id="username-input-container"></div>
+          </div>
+          <div id="username-api">
+            <p class="sub-header">Username API Results</p>
+            <div id="username-api-container"></div>
+          </div>
+          <div id="username-tools">
+            <p class="sub-header">Username Verification Tools</p>
+            <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+            </ul>
+          </div>
+          <div id="username-verify">
+            <p class="sub-header">Username Verification</p>
+            <label for="username-status">Verify username:</label>
+            <select name="username-status" id="username-status">
+              <option></option>
+              <option value="invalid">invalid</option>
+              <option value="valid">valid</option>
+            </select>
+          </div>
+          <div class="button-container">
+            <button>Save</button>
+          </div>      
+        </div> 
+
+          <button class="accordion">Address</button>
+          <div id="address" class="panel">
+            <div id="address-input">
+              <p class="sub-header">User Address Submission</p>
+              <div id="address-input-container"></div>
+            </div>
+            <div id="address-api">
+              <p class="sub-header">User API Results</p>
+              <div id="address-api-container"></div>
+            </div>
+            <div id="address-tools">
+              <p class="sub-header">Address Verification Tools</p>
+              <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+              </ul>                
+            </div>
+            <div id="address-verify">
+              <p class="sub-header">Address Verification</p>
+              <label for="address-status">Verify address:</label>
+              <select name="address-status" id="address-status">
+                <option></option>
+                <option value="invalid">invalid</option>
+                <option value="valid">valid</option>
+              </select>            
+            </div>
+            <div class="button-container">
+              <button>Save</button>
+            </div>              
+          </div> 
+
+          <button class="accordion">Image</button>
+          <div id="image" class="panel">
+            <div id="image-input">
+              <p class="sub-header">Provided Image</p>
+              <div id="image-input-container"></div>
+            </div>
+            <div id="image-api">
+              <p class="sub-header">Image API Results</p>
+              <div id="image-api-container"></div>
+            </div>
+            <div id="image-tools">
+              <p class="sub-header">Image Verification Tools</p>
+              <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+              </ul>
+            </div>
+            <div id="image-verify">
+              <p class="sub-header">Image Verification</p>
+              <label for="image-status">Verify image:</label>
+                <select name="image-status" id="image-status">
+                  <option></option>
+                  <option value="invalid">invalid</option>
+                  <option value="valid">valid</option>
+                </select>
+            </div>
+            <div class="button-container">
+              <button>Save</button>
+            </div>    
+          </div>
+
+          <button class="accordion">Notes</button>
+          <div id="notes" class="panel">
+            <div id="notes-input">
+              <p class="sub-header">User Notes</p>
+            </div>
+            <div id="notes-review">
+              <p class="sub-header">Reviewer Notes</p>
+              <textarea name="reviewer-notes" id="reviewer-notes"></textarea>
+            </div>
+            <div class="button-container">
+              <button>Save</button>
+            </div>    
+          </div>
+
+          <button class="accordion">Authenticity</button>
+          <div id="authenticity" class="panel">
+            <p class="sub-header">Authenticity Rating</p>
+            <label for="authenticity-rating">Star Rating:</label>
+            <select name="authenticity-rating" id="authenticity-rating">
+              <option></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <div class="button-container">
+              <button>Save</button>
+            </div>    
+          </div>
+
+          <div class="button-container">
+            <button>Submit</button>
+          </div>
+        </div>
+      </section>
+    </content>
+  </body>
+</html>
