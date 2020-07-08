@@ -27,6 +27,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
+
 
 @WebFilter("/")
 public class LoginFilter implements Filter {
@@ -46,6 +48,9 @@ public class LoginFilter implements Filter {
 
     System.out.println(request.getRequestURI());
 
+    PrintWriter out = response.getWriter();
+    out.println("Is this adding");
+
     // Case: User is not logged in
     if (!userService.isUserLoggedIn()) {
       if (request.getRequestURI().endsWith("login")) {
@@ -57,23 +62,10 @@ public class LoginFilter implements Filter {
         return;
       }
     }
+    
     // Case: User is logged in
     else {
-      if (!isRegistered(userService.getCurrentUser().getUserId())
-          && !request.getRequestURI().startsWith("/_ah/")) {
-        // User is submitting form for registration
-        if (request.getRequestURI().endsWith("register")) {
-          chain.doFilter(req, res);
-          return;
-        }
-        // User is not registered and is trying to access restricted material
-        else {
-          RequestDispatcher requestDispatcher =
-              request.getRequestDispatcher("WEB-INF/register.jsp");
-          requestDispatcher.forward(request, response);
-          return;
-        }
-      }
+        /* TODO: Add case when user is not registered */
     }
 
     // Is logged in and registered but is trying to access profile jsp or now restricted register
@@ -92,15 +84,7 @@ public class LoginFilter implements Filter {
     return;
   }
 
-  public boolean isRegistered(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query(USER_ENTITY)
-                      .setFilter(new Query.FilterPredicate(
-                          ID_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    return entity != null;
-  }
+    /* TODO: Add method to determine if a user is registered */
 
   @Override
   public void destroy() {
