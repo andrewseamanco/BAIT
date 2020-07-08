@@ -47,7 +47,7 @@ body {
   margin-top: 0;
 }
 
-button{
+button {
   background-color: #bdc1c6;
   border-radius: 8px;
   border: none;
@@ -57,7 +57,7 @@ button{
   padding: 6px 8px;
 }
 
-.button-container{
+.button-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -69,12 +69,6 @@ content {
   flex-direction: column;
 }
 
-#review-overview, nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  margin: 5px 0px 5px 0px;
-}
 
 nav {
   background-color: #bdc1c6;
@@ -110,6 +104,14 @@ nav {
 #review, #review-overview {
   width: 60%;
 }
+
+#review-overview {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 5px 0px 5px 0px;
+}
+
 
 select {
   outline: none;
