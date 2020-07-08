@@ -46,11 +46,6 @@ public class LoginFilter implements Filter {
     HttpSession session = request.getSession(false);
     UserService userService = UserServiceFactory.getUserService();
 
-    System.out.println(request.getRequestURI());
-
-    PrintWriter out = response.getWriter();
-    out.println("Is this adding");
-
     // Case: User is not logged in
     if (!userService.isUserLoggedIn()) {
       if (request.getRequestURI().endsWith("login")) {
@@ -73,7 +68,6 @@ public class LoginFilter implements Filter {
     if (request.getRequestURI().endsWith("profile.jsp")
         || request.getRequestURI().endsWith("register.jsp")
         || request.getRequestURI().endsWith("login.jsp")) {
-      System.out.println("here");
       RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
       requestDispatcher.forward(request, response);
       return;
