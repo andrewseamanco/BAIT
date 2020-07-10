@@ -58,27 +58,28 @@ public class LoginFilter implements Filter {
       }
     }
     
-    // Case: User is logged in
-    else {
+    // Case: User is logged in but not registered (will replace else if with code checking registered)
+    else if (1!=1){
         /* TODO: Add case when user is not registered */
     }
 
-    // Is logged in and registered but is trying to access profile jsp or now restricted register
-    // page
-    if (request.getRequestURI().endsWith("profile.jsp")
-        || request.getRequestURI().endsWith("register.jsp")
-        || request.getRequestURI().endsWith("login.jsp")) {
-      RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
-      requestDispatcher.forward(request, response);
-      return;
+    else {
+    
+        // Is logged in and registered but is trying to access profile jsp or now restricted register
+        // page
+        if (request.getRequestURI().endsWith("profile.jsp")
+            || request.getRequestURI().endsWith("register.jsp")
+            || request.getRequestURI().endsWith("login.jsp")) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/login.jsp");
+            requestDispatcher.forward(request, response);
+            return;
+    } else {
+        // Case: User is logged in and registered and wants to access site resource
+        chain.doFilter(req, res);
+        return;
     }
-
-    // Case: User is logged in and registered and wants to access site resource
-    chain.doFilter(req, res);
-    return;
   }
-
-    /* TODO: Add method to determine if a user is registered */
+}
 
   @Override
   public void destroy() {
