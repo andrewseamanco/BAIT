@@ -34,8 +34,6 @@ import java.io.PrintWriter;
 public class LoginFilter implements Filter {
   @Override
   public void init(FilterConfig config) throws ServletException {
-    // If you have any <init-param> in web.xml, then you could get them
-    // here by config.getInitParameter("name") and assign it as field.
   }
 
   @Override
@@ -83,7 +81,5 @@ public class LoginFilter implements Filter {
 
   @Override
   public void destroy() {
-    // If you have assigned any expensive resources as field of
-    // this Filter class, then you could clean/close them here.
   }
 }
