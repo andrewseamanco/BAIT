@@ -23,28 +23,7 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-    PrintWriter out = response.getWriter();
 
-    boolean filledOutUsername = request.getParameter(USERNAME_ENTITY_PROPERTY) != null;
-    boolean filledOutFirstName = request.getParameter(FIRST_NAME_ENTITY_PROPERTY) != null;
-    boolean filledOutLastName = request.getParameter(LAST_NAME_ENTITY_PROPERTY) != null;
-
-
-
-    if (usernameTaken(request.getParameter(USERNAME_ENTITY_PROPERTY))) {
-      response.setContentType("text/html");
-      out.println("Username is already taken.  Please try another username");
-      RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
-      requestDispatcher.forward(request, response);
-      return;
-    } else if (!filledOutLastName || !filledOutFirstName || !filledOutUsername) {
-      response.setContentType("text/html");
-      out.println("Please fill out all fields before submitting");
-      RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
-      requestDispatcher.forward(request, response);
-      return;
-    } else {
-      System.out.println("Actually registered");
       UserService userService = UserServiceFactory.getUserService();
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -56,19 +35,12 @@ public class LoginServlet extends HttpServlet {
       newUser.setProperty(
           LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
       newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
-    }
+
+      datastore.put(newUser);
 
     RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
     requestDispatcher.forward(request, response);
   }
 
-  public boolean usernameTaken(String username) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query(USER_ENTITY)
-                      .setFilter(new Query.FilterPredicate(
-                          USERNAME_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, username));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    return entity != null;
-  }
+
 }
