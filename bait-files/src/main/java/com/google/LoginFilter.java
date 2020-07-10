@@ -1,8 +1,5 @@
 package com.google;
 
-import static com.google.sps.data.Keys.ID_ENTITY_PROPERTY;
-import static com.google.sps.data.Keys.USER_ENTITY;
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
