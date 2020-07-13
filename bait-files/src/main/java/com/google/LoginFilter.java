@@ -59,20 +59,17 @@ public class LoginFilter implements Filter {
 
     else {
     
-        // Is logged in and registered but is trying to access profile jsp or now restricted register
-        // page
-        if (request.getRequestURI().endsWith("profile.jsp")
-            || request.getRequestURI().endsWith("register.jsp")
-            || request.getRequestURI().endsWith("login.jsp")) {
+        // Is logged in
+        if (request.getRequestURI().endsWith("login.jsp")) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/login.jsp");
             requestDispatcher.forward(request, response);
             return;
-    } else {
-        // Case: User is logged in and registered and wants to access site resource
-        chain.doFilter(req, res);
-        return;
+        } else {
+            // Case: User is logged in and registered and wants to access site resource
+            chain.doFilter(req, res);
+            return;
+        }
     }
-  }
 }
 
   @Override
