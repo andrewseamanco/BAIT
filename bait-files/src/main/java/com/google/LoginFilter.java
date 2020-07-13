@@ -54,9 +54,8 @@ public class LoginFilter implements Filter {
     }
     
     // Case: User is logged in but not registered (will replace else if with code checking registered)
-    else if (1!=1){
+
         /* TODO: Add case when user is not registered */
-    }
 
     else {
     
