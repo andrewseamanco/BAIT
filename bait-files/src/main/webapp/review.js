@@ -33,6 +33,8 @@ function getReview() {
             .appendChild(document.createTextNode(
                 new Date(request.timestamp).toLocaleDateString()));
 
+        document.getElementById('phone-input-container')
+            .appendChild(document.createTextNode(request.phoneNum));
         document.getElementById('name-input-container')
             .appendChild(document.createTextNode(request.name));
         document.getElementById('username-input-container')
