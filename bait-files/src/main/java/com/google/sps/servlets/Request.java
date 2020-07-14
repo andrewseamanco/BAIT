@@ -14,7 +14,6 @@ public class Request {
   String phoneNum;
   String address;
   String notes;
-  //   String image;
 
   private Request() {}
 
