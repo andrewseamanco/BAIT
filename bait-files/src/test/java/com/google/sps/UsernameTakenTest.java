@@ -27,11 +27,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
-public final class UserTest {
+public final class UsernameTakenTest {
 
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-          .setEnvIsAdmin(true).setEnvIsLoggedIn(true).setEnvEmail("andrew").setEnvAuthDomain("gmail.com");;
+          .setEnvIsAdmin(true).setEnvIsLoggedIn(true).setEnvEmail("andrew").setEnvAuthDomain("gmail.com");
 
   @Before
   public void setUp() {
@@ -81,7 +81,6 @@ public final class UserTest {
         assertTrue(stringWriter.toString().contains("true"));
   }
 
-
   // Username field is an empty string, so return that the username is taken
   @Test
   public void doGet_usernameIsEmptyString_returnsTaken() throws IOException {
@@ -101,21 +100,32 @@ public final class UserTest {
         assertTrue(stringWriter.toString().contains("true"));
   }
 
-  // Add a user and ensure there is a new entry in database
+
+  // Username is taken so return that the username is taken
   @Test
-  public void doPost_addsUserSuccessfully_returnsUserInDatabase() throws IOException, ServletException {
+  public void doGet_usernameIsTaken_returnsTaken() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
+        when(request.getParameter("username")).thenReturn("Drew8521");
 
-        UserService userService = UserServiceFactory.getUserService();
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
 
-        when(request.getParameter(USERNAME_ENTITY_PROPERTY)).thenReturn("Drew8521");
-        when(request.getParameter(FIRST_NAME_ENTITY_PROPERTY)).thenReturn("Andrew");
-        when(request.getParameter(FIRST_NAME_ENTITY_PROPERTY)).thenReturn("Seaman");
-
-        new LoginServlet().doPost(request, response);
+        when(response.getWriter()).thenReturn(writer);
 
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        assertEquals(1, ds.prepare(new Query(USER_ENTITY)).countEntities(withLimit(10)));
+        Entity newUser = new Entity(USER_ENTITY, "Drew8521");
+        newUser.setProperty(ID_ENTITY_PROPERTY, 123);
+        newUser.setProperty(USERNAME_ENTITY_PROPERTY, "Drew8521");
+        newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, "Andrew");
+        newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, "Seaman");
+        newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
+        ds.put(newUser);
+
+        new UsernameTakenServlet().doGet(request, response);
+
+        verify(request, atLeast(1)).getParameter("username"); // only if you want to verify username was called...
+        writer.flush(); // it may not have been flushed yet...
+        assertTrue(stringWriter.toString().contains("true"));
   }
 }
