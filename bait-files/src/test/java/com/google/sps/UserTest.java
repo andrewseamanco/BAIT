@@ -109,9 +109,6 @@ public final class UserTest {
 
         UserService userService = UserServiceFactory.getUserService();
 
-        System.out.println(userService.getCurrentUser());
-        System.out.println("==================");
-
         when(request.getParameter(USERNAME_ENTITY_PROPERTY)).thenReturn("Drew8521");
         when(request.getParameter(FIRST_NAME_ENTITY_PROPERTY)).thenReturn("Andrew");
         when(request.getParameter(FIRST_NAME_ENTITY_PROPERTY)).thenReturn("Seaman");

@@ -43,7 +43,7 @@ public class UsernameTakenServlet extends HttpServlet {
 
     response.setContentType("application/json");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    if (username==null || username.equals("")) {
+    if (username == null || username.equals("")) {
         String json = new Gson().toJson(true);
         response.getWriter().println(json);
         return;
@@ -54,7 +54,7 @@ public class UsernameTakenServlet extends HttpServlet {
         USERNAME_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, username));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
-    boolean usernameTaken = entity!=null; 
+    boolean usernameTaken = entity != null; 
 
 
     response.setContentType("application/json");
