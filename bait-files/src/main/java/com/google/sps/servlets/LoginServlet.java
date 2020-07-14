@@ -18,8 +18,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+/**
+ * Servlet for creating new users and storing them in the database
+ */
 @WebServlet("/register")
 public class LoginServlet extends HttpServlet {
+
+
+  /**
+   * Adds a new user with form submitted fields to database
+   * @param request contains form fields and used to instantiate new user fields
+   * @param response redirects the page to profile after servlet has finished adding user
+   */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
@@ -27,31 +38,16 @@ public class LoginServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-    putUserInDatastore(request, userService);
+    Entity newUser = new Entity(USER_ENTITY, request.getParameter(USERNAME_ENTITY_PROPERTY));
+    newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
+    newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
+    newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
+    newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
+    newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
 
-    // RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
-    // requestDispatcher.forward(request, response);
+    datastore.put(newUser);
 
     response.sendRedirect("/profile.jsp");  
   }
 
-  public static void putUserInDatastore(HttpServletRequest request, UserService userService) {
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
-    //   Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
-    //   newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
-    //   newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-    //   newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
-    //   newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
-    //   newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
-
-      Entity newUser = new Entity(USER_ENTITY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-      newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
-      newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-      newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
-      newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
-      newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
-
-      datastore.put(newUser);
-  }
 }

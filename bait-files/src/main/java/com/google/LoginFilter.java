@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Filter that disallows users to access site resources unless logged in and registered
+ */
 @WebFilter("/")
 public class LoginFilter implements Filter {
   @Override

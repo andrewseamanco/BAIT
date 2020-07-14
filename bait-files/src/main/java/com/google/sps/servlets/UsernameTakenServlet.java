@@ -26,9 +26,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Servlet for determining if a username has already been stored in datastore
+ */
 @WebServlet("/usernameTaken")
 public class UsernameTakenServlet extends HttpServlet {
 
+    /**
+   * Adds a new user with form submitted fields to database
+   * @param request contains a url parameter with username to check
+   * @param response returns a json response with a boolean value if username is taken
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String username = request.getParameter("username");
