@@ -7,7 +7,7 @@ function checkFormInput() {
       .then(response => response.json())
       .then((usernameTaken) => {
         if (!allFieldsFilled()) {
-          printError("One or more fields are empty. Please fill out all fields to contine.", errorMessageDiv);
+          printError("One or more fields are empty. Please fill out all fields to continue.", errorMessageDiv);
         } else if (usernameTaken) {
           printError("This username is already taken.  Please select a new one to continue.", errorMessageDiv);
           username = "";
