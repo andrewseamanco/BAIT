@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
-public final class UsernameTakenTest {
+public final class UsernameTakenServletTest {
 
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalUserServiceTestConfig())
