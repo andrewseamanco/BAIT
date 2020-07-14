@@ -45,7 +45,7 @@ public final class UserTest {
 
   // Database is empty, so username should not be taken
   @Test
-  public void emptyUsernameTakenTest() throws IOException {
+  public void doGet_usernameNotInDatabase_returnsNotTaken() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);    
 
@@ -64,7 +64,7 @@ public final class UserTest {
 
   // Username field is null, so return that the username is taken
   @Test
-  public void nullUsernameTest() throws IOException {
+  public void goGet_usernameIsNull_returnsTaken() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
 
@@ -84,7 +84,7 @@ public final class UserTest {
 
   // Username field is an empty string, so return that the username is taken
   @Test
-  public void emptyStringUsernameTest() throws IOException {
+  public void doGet_usernameIsEmptyString_returnsTaken() throws IOException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
 
@@ -103,7 +103,7 @@ public final class UserTest {
 
   // Add a user and ensure there is a new entry in database
   @Test
-  public void addUser() throws IOException, ServletException {
+  public void doPost_addsUserSuccessfully_returnsUserInDatabase() throws IOException, ServletException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
 
@@ -117,12 +117,5 @@ public final class UserTest {
 
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
         assertEquals(1, ds.prepare(new Query(USER_ENTITY)).countEntities(withLimit(10)));
-  }
-
-    // Add a user and ensure there is a new entry in database
-  @Test
-  public void addUser2() throws IOException {
-    UserService userService = UserServiceFactory.getUserService();
-    assertTrue(userService.isUserAdmin());
   }
 }
