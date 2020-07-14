@@ -22,7 +22,6 @@ function getReview() {
   fetch('/review' + queryString)
       .then(response => response.json())
       .then((request) => {
-        console.log(request);
         document.getElementById('request-id')
             .appendChild(document.createTextNode(request.requestId));
         document.getElementById('user-id').appendChild(
@@ -32,7 +31,6 @@ function getReview() {
         document.getElementById('submission-date')
             .appendChild(document.createTextNode(
                 new Date(request.timestamp).toLocaleDateString()));
-
         document.getElementById('phone-input-container')
             .appendChild(document.createTextNode(request.phoneNum));
         document.getElementById('name-input-container')
