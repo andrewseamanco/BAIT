@@ -24,23 +24,34 @@ public class LoginServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
-      UserService userService = UserServiceFactory.getUserService();
+    UserService userService = UserServiceFactory.getUserService();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    putUserInDatastore(request, userService);
+
+    // RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
+    // requestDispatcher.forward(request, response);
+
+    response.sendRedirect("/profile.jsp");  
+  }
+
+  public static void putUserInDatastore(HttpServletRequest request, UserService userService) {
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-      Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
+    //   Entity newUser = new Entity(USER_ENTITY, userService.getCurrentUser().getUserId());
+    //   newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
+    //   newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
+    //   newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
+    //   newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
+    //   newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
+
+      Entity newUser = new Entity(USER_ENTITY, request.getParameter(USERNAME_ENTITY_PROPERTY));
       newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
       newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-      newUser.setProperty(
-          FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
-      newUser.setProperty(
-          LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
+      newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
+      newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
       newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
 
       datastore.put(newUser);
-
-    RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
-    requestDispatcher.forward(request, response);
   }
-
-
 }

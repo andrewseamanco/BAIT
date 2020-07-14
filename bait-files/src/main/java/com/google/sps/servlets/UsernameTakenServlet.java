@@ -35,7 +35,7 @@ public class UsernameTakenServlet extends HttpServlet {
 
     response.setContentType("application/json");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    if (username.equals("") || username==null) {
+    if (username==null || username.equals("")) {
         String json = new Gson().toJson(true);
         response.getWriter().println(json);
         return;
