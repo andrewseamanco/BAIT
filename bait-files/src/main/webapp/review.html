@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="review.css">
     <script src="review.js"></script>
   </head>
-  <body onload="getPanels()">
+  <body onload="getReview()">
     <content>
       <nav>
         <div id="nav-title">Bait</div>
@@ -18,8 +18,8 @@
       </nav>
 
       <section id="review-overview">
-          <div id="review-id" class="overview-item">
-            Review Id:
+          <div id="request-id" class="overview-item">
+            Request Id:
           </div>
           <div id="user-id" class="overview-item">
             User Id: 
@@ -228,6 +228,7 @@
           <div id="notes" class="panel">
             <div id="notes-input">
               <p class="sub-header">User Notes</p>
+              <div id="notes-input-container"></div>
             </div>
             <div id="notes-review">
               <p class="sub-header">Reviewer Notes</p>
