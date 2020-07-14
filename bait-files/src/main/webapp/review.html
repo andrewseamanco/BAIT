@@ -66,10 +66,7 @@
               <option value="invalid">invalid</option>
               <option value="valid">valid</option>
             </select>
-          </div>
-          <div class="button-container">
-            <button>Save</button>
-          </div>    
+          </div>  
         </div>
 
         <button class="accordion">Email</button>
@@ -104,10 +101,7 @@
               <option value="invalid">invalid</option>
               <option value="valid">valid</option>
             </select>
-          </div>
-          <div class="button-container">
-            <button>Save</button>
-          </div>    
+          </div>  
         </div>
 
         <button class="accordion">Username</button>
@@ -136,16 +130,48 @@
           </div>
           <div id="username-verify">
             <p class="sub-header">Username Verification</p>
-            <label for="username-status">Verify username:</label>
-            <select name="username-status" id="username-status">
+            <label for="usernameValidity">Verify username:</label>
+            <select name="usernameValidity" id="usernameValidity">
               <option></option>
               <option value="invalid">invalid</option>
               <option value="valid">valid</option>
             </select>
           </div>
-          <div class="button-container">
-            <button>Save</button>
-          </div>      
+        </div> 
+
+        <button class="accordion">Phone Number</button>
+        <div id="phone" class="panel">
+          <div id="phone-input">
+            <p class="sub-header">Phone Username</p>
+            <div id="phone-input-container"></div>
+          </div>
+          <div id="phone-api">
+            <p class="sub-header">Phone API Results</p>
+            <div id="phone-api-container"></div>
+          </div>
+          <div id="phone-tools">
+            <p class="sub-header">Phone Number Verification Tools</p>
+            <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+            </ul>
+          </div>
+          <div id="phone-verify">
+            <p class="sub-header">Phone Number Verification</p>
+            <label for="phoneNumValidity">Verify phone number:</label>
+            <select name="phoneNumValidity" id="phoneNumValidity">
+              <option></option>
+              <option value="invalid">invalid</option>
+              <option value="valid">valid</option>
+            </select>
+          </div>
         </div> 
 
           <button class="accordion">Address</button>
@@ -174,16 +200,13 @@
             </div>
             <div id="address-verify">
               <p class="sub-header">Address Verification</p>
-              <label for="address-status">Verify address:</label>
-              <select name="address-status" id="address-status">
+              <label for="addressValidity">Verify address:</label>
+              <select name="addressValidity" id="addressValidity">
                 <option></option>
                 <option value="invalid">invalid</option>
                 <option value="valid">valid</option>
               </select>            
-            </div>
-            <div class="button-container">
-              <button>Save</button>
-            </div>              
+            </div>         
           </div> 
 
           <button class="accordion">Image</button>
@@ -212,16 +235,13 @@
             </div>
             <div id="image-verify">
               <p class="sub-header">Image Verification</p>
-              <label for="image-status">Verify image:</label>
-                <select name="image-status" id="image-status">
+              <label for="imageValidity">Verify image:</label>
+                <select name="imageValidity" id="imageValidity">
                   <option></option>
                   <option value="invalid">invalid</option>
                   <option value="valid">valid</option>
                 </select>
-            </div>
-            <div class="button-container">
-              <button>Save</button>
-            </div>    
+            </div>  
           </div>
 
           <button class="accordion">Notes</button>
@@ -234,9 +254,6 @@
               <p class="sub-header">Reviewer Notes</p>
               <textarea name="reviewer-notes" id="reviewer-notes"></textarea>
             </div>
-            <div class="button-container">
-              <button>Save</button>
-            </div>    
           </div>
 
           <button class="accordion">Authenticity</button>
@@ -250,10 +267,7 @@
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-            </select>
-            <div class="button-container">
-              <button>Save</button>
-            </div>    
+            </select>  
           </div>
 
           <div class="button-container">
