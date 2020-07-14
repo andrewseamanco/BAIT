@@ -59,7 +59,7 @@ public class LoginFilter implements Filter {
     else {
       if (!isRegistered(userService.getCurrentUser().getUserId())
           && !request.getRequestURI().startsWith("/_ah/")) {
-        // User is submitting form for registration
+        // Sending a request to a register servlet (disallows requests to html or jsp pages)
         if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
           chain.doFilter(req, res);
           return;
