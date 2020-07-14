@@ -43,7 +43,7 @@ public final class LoginServletTest {
 
   // Add a user and ensure there is a new entry in database
   @Test
-  public void doPost_addsUserSuccessfully_returnsUserInDatabase() throws IOException, ServletException {
+  public void doPost_forNewUser_returnsUserInDatabase() throws IOException, ServletException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
 
@@ -55,5 +55,6 @@ public final class LoginServletTest {
 
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
         assertEquals(1, ds.prepare(new Query(USER_ENTITY)).countEntities(withLimit(10)));
+        verify(response, atLeast(1)).sendRedirect("/profile.jsp"); // only if you want to verify username was called...
   }
 }
