@@ -22,6 +22,10 @@ function getRequest() {
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
+        if (request.redirect) {
+          window.location.replace(window.location.hostname + '/reviews.html');
+          return;
+        }
         document.getElementById('request-id')
             .appendChild(document.createTextNode(request.requestId));
         document.getElementById('user-id').appendChild(
