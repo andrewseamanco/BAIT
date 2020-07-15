@@ -1,4 +1,6 @@
 package com.google.sps.servlets;
+import com.google.sps.servlets.Enums.Status;
+import com.google.sps.servlets.Enums.Validity;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -8,26 +10,26 @@ public class Review {
   @Id Long reviewId;
   String userId;
   String requestId;
-  String status;
-  String nameValidity;
-  String usernameValidity;
-  String emailValidity;
-  String phoneNumValidity;
-  String addressValidity;
-  String imageValidity;
-  String authenticityRating;
+  Status status;
+  Validity nameValidity;
+  Validity usernameValidity;
+  Validity emailValidity;
+  Validity phoneNumValidity;
+  Validity addressValidity;
+  Validity imageValidity;
+  int authenticityRating; // integer from 1 to 5
   String reviewerNotes;
   long submissionDate;
 
   private Review() {}
 
-  public Review(Long reviewId, String userId, String requestId, String status, String nameValidity,
-      String usernameValidity, String phoneNumValidity, String addressValidity,
-      String imageValidity, String authenticityRating, String reviewerNotes, long submissionDate) {
+  public Review(Long reviewId, String userId, String requestId, Validity nameValidity,
+      Validity usernameValidity, Validity phoneNumValidity, Validity addressValidity,
+      Validity imageValidity, int authenticityRating, String reviewerNotes) {
     this.reviewId = reviewId;
     this.userId = userId;
     this.requestId = requestId;
-    this.status = status;
+    this.status = Status.COMPLETED;
     this.nameValidity = nameValidity;
     this.usernameValidity = usernameValidity;
     this.emailValidity = emailValidity;
