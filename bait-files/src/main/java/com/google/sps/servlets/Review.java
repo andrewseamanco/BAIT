@@ -11,20 +11,20 @@ public class Review {
   String userId;
   String requestId;
   Status status;
-  String nameValidity;
-  String usernameValidity;
-  String emailValidity;
-  String phoneNumValidity;
-  String addressValidity;
-  String imageValidity;
+  Validity nameValidity;
+  Validity usernameValidity;
+  Validity emailValidity;
+  Validity phoneNumValidity;
+  Validity addressValidity;
+  Validity imageValidity;
   int authenticityRating; // integer from 1 to 5
   String reviewerNotes;
 
   private Review() {}
 
-  public Review(Long reviewId, String userId, String requestId, String nameValidity,
-      String usernameValidity, String phoneNumValidity, String addressValidity,
-      String imageValidity, int authenticityRating, String reviewerNotes) {
+  public Review(Long reviewId, String userId, String requestId, Validity nameValidity,
+      Validity usernameValidity, Validity phoneNumValidity, Validity addressValidity,
+      Validity imageValidity, int authenticityRating, String reviewerNotes) {
     this.reviewId = reviewId;
     this.userId = userId;
     this.requestId = requestId;
