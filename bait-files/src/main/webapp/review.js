@@ -43,6 +43,8 @@ function getRequest() {
             .appendChild(document.createTextNode(request.address));
         document.getElementById('notes-input-container')
             .appendChild(document.createTextNode(request.notes));
+        document.getElementById('review-request-id').value = request.requestId;
+        document.getElementById('review-user-id').value = request.userId;
       })
       .then(getPanels);
 }

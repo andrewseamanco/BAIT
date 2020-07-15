@@ -15,14 +15,15 @@ public class Review {
   String phoneNumValidity;
   String addressValidity;
   String imageValidity;
-  int authenticityRating;
+  String authenticityRating;
   String reviewerNotes;
+  long submissionDate;
 
   private Review() {}
 
   public Review(Long reviewId, String userId, String requestId, String status, String nameValidity,
       String usernameValidity, String phoneNumValidity, String addressValidity,
-      String imageValidity, int authenticityRating, String reviewerNotes) {
+      String imageValidity, String authenticityRating, String reviewerNotes, long submissionDate) {
     this.reviewId = reviewId;
     this.userId = userId;
     this.requestId = requestId;
@@ -35,5 +36,6 @@ public class Review {
     this.imageValidity = imageValidity;
     this.authenticityRating = authenticityRating;
     this.reviewerNotes = reviewerNotes;
+    this.submissionDate = submissionDate;
   }
 }
