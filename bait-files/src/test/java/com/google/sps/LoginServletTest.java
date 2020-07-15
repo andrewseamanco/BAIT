@@ -43,7 +43,7 @@ public final class LoginServletTest {
 
   // Add a user and ensure there is a new entry in database
   @Test
-  public void doPost_forNewUser_returnsUserInDatabase() throws IOException, ServletException {
+  public void doPost_forNewUser_createsUserAndRedirects() throws IOException, ServletException {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
 
