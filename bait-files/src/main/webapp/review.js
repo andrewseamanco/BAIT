@@ -17,9 +17,9 @@ function getPanels() {
   }
 }
 
-function getReview() {
+function getRequest() {
   const queryString = window.location.search;
-  fetch('/review' + queryString)
+  fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
         document.getElementById('request-id')

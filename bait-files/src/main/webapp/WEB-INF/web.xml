@@ -16,12 +16,12 @@
        <listener-class>com.google.sps.servlets.Bootstrapper</listener-class>
     </listener>
   <servlet>
-    <servlet-name>reviewServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.ReviewServlet</servlet-class>
+    <servlet-name>RequestServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.RequestServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>reviewServlet</servlet-name>
+    <servlet-name>RequestServlet</servlet-name>
     <url-pattern>/review.html</url-pattern>
   </servlet-mapping>
 
