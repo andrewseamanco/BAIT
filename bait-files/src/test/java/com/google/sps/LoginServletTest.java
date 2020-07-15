@@ -55,6 +55,6 @@ public final class LoginServletTest {
 
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
         assertEquals(1, ds.prepare(new Query(USER_ENTITY)).countEntities(withLimit(10)));
-        verify(response, atLeast(1)).sendRedirect("/profile.jsp"); // only if you want to verify username was called...
+        verify(response, atLeast(1)).sendRedirect("/profile.jsp");
   }
 }
