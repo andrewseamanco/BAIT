@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="review.css">
     <script src="review.js"></script>
   </head>
-  <body onload="getPanels()">
+  <body onload="getRequest()">
     <content>
       <nav>
         <div id="nav-title">Bait</div>
@@ -18,8 +18,8 @@
       </nav>
 
       <section id="review-overview">
-          <div id="review-id" class="overview-item">
-            Review Id:
+          <div id="request-id" class="overview-item">
+            Request Id:
           </div>
           <div id="user-id" class="overview-item">
             User Id: 
@@ -60,16 +60,13 @@
           </div>
           <div id="name-verify">
             <p class="sub-header">Name Verification</p>
-            <label for="name-status">Verify name:</label>
-            <select name="name-status" id="name-status">
+            <label for="name-validity">Verify name:</label>
+            <select name="name-validity" id="name-validity">
               <option></option>
               <option value="invalid">invalid</option>
               <option value="valid">valid</option>
             </select>
-          </div>
-          <div class="button-container">
-            <button>Save</button>
-          </div>    
+          </div>  
         </div>
 
         <button class="accordion">Email</button>
@@ -98,16 +95,13 @@
           </div>
           <div id="email-verify">
             <p class="sub-header">Email Verification</p>
-            <label for="email-status">Verify email:</label>
-            <select name="email-status" id="email-status">
+            <label for="email-validity">Verify email:</label>
+            <select name="email-validity" id="email-validity">
               <option></option>
               <option value="invalid">invalid</option>
               <option value="valid">valid</option>
             </select>
-          </div>
-          <div class="button-container">
-            <button>Save</button>
-          </div>    
+          </div>  
         </div>
 
         <button class="accordion">Username</button>
@@ -136,16 +130,48 @@
           </div>
           <div id="username-verify">
             <p class="sub-header">Username Verification</p>
-            <label for="username-status">Verify username:</label>
-            <select name="username-status" id="username-status">
+            <label for="username-validity">Verify username:</label>
+            <select name="username-validity" id="username-validity">
               <option></option>
               <option value="invalid">invalid</option>
               <option value="valid">valid</option>
             </select>
           </div>
-          <div class="button-container">
-            <button>Save</button>
-          </div>      
+        </div> 
+
+        <button class="accordion">Phone Number</button>
+        <div id="phone" class="panel">
+          <div id="phone-input">
+            <p class="sub-header">Phone Username</p>
+            <div id="phone-input-container"></div>
+          </div>
+          <div id="phone-api">
+            <p class="sub-header">Phone API Results</p>
+            <div id="phone-api-container"></div>
+          </div>
+          <div id="phone-tools">
+            <p class="sub-header">Phone Number Verification Tools</p>
+            <ul class="tool-list"> 
+              <li>
+                <a href="#">tool 1</a>
+              </li>
+              <li>
+                <a href="#">tool 2</a>
+              </li>
+              <li>
+                  <a href="#">tool 3</a>
+              </li>
+            </ul>
+          </div>
+          <div id="phone-verify">
+            <p class="sub-header">Phone Number Verification</p>
+            <label for="phone-validity">Verify phone number:</label>
+            <select name="phone-validity" id="phone-validity">
+              <option></option>
+              <option value="invalid">invalid</option>
+              <option value="valid">valid</option>
+            </select>
+          </div>
         </div> 
 
           <button class="accordion">Address</button>
@@ -174,16 +200,13 @@
             </div>
             <div id="address-verify">
               <p class="sub-header">Address Verification</p>
-              <label for="address-status">Verify address:</label>
-              <select name="address-status" id="address-status">
+              <label for="address-validity">Verify address:</label>
+              <select name="address-validity" id="address-validity">
                 <option></option>
                 <option value="invalid">invalid</option>
                 <option value="valid">valid</option>
               </select>            
-            </div>
-            <div class="button-container">
-              <button>Save</button>
-            </div>              
+            </div>         
           </div> 
 
           <button class="accordion">Image</button>
@@ -212,30 +235,25 @@
             </div>
             <div id="image-verify">
               <p class="sub-header">Image Verification</p>
-              <label for="image-status">Verify image:</label>
-                <select name="image-status" id="image-status">
+              <label for="image-validity">Verify image:</label>
+                <select name="image-validity" id="image-validity">
                   <option></option>
                   <option value="invalid">invalid</option>
                   <option value="valid">valid</option>
                 </select>
-            </div>
-            <div class="button-container">
-              <button>Save</button>
-            </div>    
+            </div>  
           </div>
 
           <button class="accordion">Notes</button>
           <div id="notes" class="panel">
             <div id="notes-input">
               <p class="sub-header">User Notes</p>
+              <div id="notes-input-container"></div>
             </div>
             <div id="notes-review">
               <p class="sub-header">Reviewer Notes</p>
               <textarea name="reviewer-notes" id="reviewer-notes"></textarea>
             </div>
-            <div class="button-container">
-              <button>Save</button>
-            </div>    
           </div>
 
           <button class="accordion">Authenticity</button>
@@ -249,10 +267,7 @@
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-            </select>
-            <div class="button-container">
-              <button>Save</button>
-            </div>    
+            </select>  
           </div>
 
           <div class="button-container">
