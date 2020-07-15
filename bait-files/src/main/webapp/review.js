@@ -22,7 +22,7 @@ function getRequest() {
   const params = new URL(location.href).searchParams;
   const requestId = params.get('requestId');
   if (requestId == null || isNaN(requestId)) {
-    window.location.replace(window.location.hostname + '/reviews.html');
+    window.location.replace('/reviews.html');
     return;
   }
   fetch('/request' + queryString)

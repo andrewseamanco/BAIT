@@ -21,8 +21,7 @@ public class ReviewServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long reviewId = null;
-    String requestId = parameters.get(
-        "review-request-id")[0]; // There is only one value for each of keys in the parameters map
+    String requestId = parameters.get("review-request-id")[0]; // There is only one value for each of keys in the parameters map
     String userId = parameters.get("review-user-id")[0];
     Validity nameValidity = Validity.valueOf(parameters.get("name-validity")[0].toUpperCase());
     Validity usernameValidity = Validity.valueOf(parameters.get("username-validity")[0].toUpperCase());
