@@ -1,6 +1,5 @@
 package com.google.sps.servlets;
 
-
 public class Enums {
   public enum Status {
     UNKNOWN,

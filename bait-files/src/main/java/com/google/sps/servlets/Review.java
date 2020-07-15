@@ -1,9 +1,9 @@
 package com.google.sps.servlets;
+import com.google.sps.servlets.Enums.Status;
+import com.google.sps.servlets.Enums.Validity;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.google.sps.servlets.Enums.Status;
-import com.google.sps.servlets.Enums.Validity;
 
 @Entity
 public class Review {
