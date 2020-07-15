@@ -19,13 +19,15 @@ function getPanels() {
 
 function getRequest() {
   const queryString = window.location.search;
+  const params = new URL(location.href).searchParams;
+  const requestId = params.get('requestId');
+  if (requestId == null || isNaN(requestId)) {
+    window.location.replace(window.location.hostname + '/reviews.html');
+    return;
+  }
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
-        if (request.redirect) {
-          window.location.replace(window.location.hostname + '/reviews.html');
-          return;
-        }
         document.getElementById('request-id')
             .appendChild(document.createTextNode(request.requestId));
         document.getElementById('user-id').appendChild(

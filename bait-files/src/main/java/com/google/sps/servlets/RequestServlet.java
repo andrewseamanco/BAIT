@@ -20,10 +20,6 @@ public class RequestServlet extends HttpServlet {
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(userRequest));
     } catch (NumberFormatException e) {
-      HashMap<String, Boolean> map = new HashMap<String, Boolean>();
-      map.put("redirect", true);
-      response.setContentType("application/json");
-      response.getWriter().println(new Gson().toJson(map));
     }
   }
 
