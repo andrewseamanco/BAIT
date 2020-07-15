@@ -17,9 +17,15 @@ function getPanels() {
   }
 }
 
-function getReview() {
+function getRequest() {
   const queryString = window.location.search;
-  fetch('/review' + queryString)
+  const params = new URL(location.href).searchParams;
+  const requestId = params.get('requestId');
+  if (requestId == null || isNaN(requestId)) {
+    window.location.replace(window.location.hostname + '/reviews.html');
+    return;
+  }
+  fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
         document.getElementById('request-id')
