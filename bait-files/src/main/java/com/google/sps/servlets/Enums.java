@@ -1,13 +1,16 @@
 package com.google.sps.servlets;
 
-public enum Status {
-  UNKNOWN,
-  PENDING,
-  COMPLETE;
-}
 
-public enum Validity {
-  UNKNOWN,
-  VALID,
-  INVALID;
+public class Enums {
+  public enum Status {
+    UNKNOWN,
+    PENDING,
+    COMPLETED;
+  }
+
+  public enum Validity {
+    UNKNOWN,
+    VALID,
+    INVALID;
+  }
 }
