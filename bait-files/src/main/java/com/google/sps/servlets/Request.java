@@ -14,11 +14,12 @@ public class Request {
   String phoneNum;
   String address;
   String notes;
+  Long submissionDate;
 
   private Request() {}
 
   public Request(Long requestId, String userId, String status, String name, String username,
-      String phoneNum, String address, String notes) {
+      String phoneNum, String address, String notes, Long submissionDate) {
     this.requestId = requestId;
     this.userId = userId;
     this.status = status;
@@ -28,5 +29,6 @@ public class Request {
     this.phoneNum = phoneNum;
     this.address = address;
     this.notes = notes;
+    this.submissionDate = submissionDate;
   }
 }
