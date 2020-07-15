@@ -15,7 +15,7 @@ public class Review {
   String phoneNumValidity;
   String addressValidity;
   String imageValidity;
-  int authenticityRating;
+  int authenticityRating; // integer from 1 to 5
   String reviewerNotes;
 
   private Review() {}
