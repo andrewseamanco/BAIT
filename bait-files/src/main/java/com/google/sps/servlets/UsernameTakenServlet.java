@@ -39,8 +39,7 @@ public class UsernameTakenServlet extends HttpServlet {
         return;
     }
 
-    Query<User> userQuery = ObjectifyService.ofy().load().type(User.class);
-    List<User> allUsers = userQuery.list();
+    List<User> userQuery = ObjectifyService.ofy().load().type(User.class).list();
 
     List<User> usernameIsTaken =
         allUsers.stream().filter(user -> user.username.equals(username)).collect(toList());        
