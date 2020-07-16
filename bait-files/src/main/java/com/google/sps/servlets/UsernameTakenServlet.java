@@ -39,12 +39,12 @@ public class UsernameTakenServlet extends HttpServlet {
         return;
     }
 
-    List<User> userQuery = ObjectifyService.ofy().load().type(User.class).list();
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 
-    List<User> usernameIsTaken =
+    List<User> usersWithUsername =
         allUsers.stream().filter(user -> user.username.equals(username)).collect(toList());        
         
-    boolean usernameTaken = usernameIsTaken.size() >= 1; 
+    boolean usernameTaken = usersWithUsername.size() >= 1; 
 
     response.setContentType("application/json");
     String json = new Gson().toJson(usernameTaken);
