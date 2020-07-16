@@ -72,6 +72,10 @@ content {
   flex-direction: column;
 }
 
+.input-container{
+    padding-left: 20px;
+}
+
 nav {
   background-color: #bdc1c6;
   display: flex;
