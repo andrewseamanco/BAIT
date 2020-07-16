@@ -72,8 +72,8 @@ content {
   flex-direction: column;
 }
 
-.input-container{
-    padding-left: 20px;
+.indent {
+    padding-left: 24px;
 }
 
 nav {
@@ -106,8 +106,6 @@ nav {
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
-
-
 
 #review, #review-overview {
   width: 60%;
