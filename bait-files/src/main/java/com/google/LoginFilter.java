@@ -1,19 +1,11 @@
 package com.google;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.ObjectifyService;
+import com.google.sps.servlets.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,6 +17,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.*;
+import static java.util.stream.Collectors.toList;
+import com.googlecode.objectify.cmd.Query;
 
 /**
  * Filter that disallows users to access site resources unless logged in and registered
@@ -84,13 +79,15 @@ public class LoginFilter implements Filter {
 }
 
   public boolean isRegistered(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("User")
-      .setFilter(new Query.FilterPredicate(
-        "id", Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    return entity != null;
+    // DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    Query<User> userQuery = ObjectifyService.ofy().load().type(User.class);
+    List<User> allUsers = userQuery.list();
+
+    List<User> isRegistered =
+        allUsers.stream().filter(user -> user.getUserId().equals(id)).collect(toList());    
+
+    return isRegistered.size() >= 1;
   }
 
   @Override
