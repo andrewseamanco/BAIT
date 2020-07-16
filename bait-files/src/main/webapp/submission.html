@@ -3,46 +3,53 @@
     <meta charset="UTF-8">
     <title>Profile Submission Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="submissionPage.css">
+    <link rel="stylesheet" href="submission.css">
+    <script src="submission.js"></script>
   </head>
   <body>
       <h3>What do you know about this person?</h3>
       <p>Fill out as many fields as you can with the information that you have.</p>
-      <form action="/submit-profile" method="post">
+      <form action="/request" method="post">
         <ul>
-            <li>
+            <li id='name-input'>
                 <label for="name">Full Name:</label><br>
-                <input type="text" id="name" name="name">
+                <input type="text" id="name-input" name="name-input">
+                <input type="button" id="add-field" name="add-field" title="Add additional fields" value="+" onclick="addField('name-input', 'name')">
             </li>
-            <li>
-                <label for="username">Username(s):</label><br>
-                <input type="text" id="username" name="username">
+            <li id='username-input'>
+                <label for="username">Username:</label><br>
+                <input type="text" id="username-input" name="username-input">
+                <input type="button" id="add-field" name="add-field" title="Add additional fields" value="+" onclick="addField('username-input', 'username')">
             </li>
-            <li>
+            <li id='email-input'>
                 <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email-input" name="email-input">
+                <input type="button" id="add-field" name="add-field" title="Add additional fields" value="+" onclick="addField('email-input', 'email')">
             </li>
 
-            <li>
+            <li id='address-input'>
                 <label for="address">Address:</label><br>
-                <input type="address" id="address" name="address">
+                <input type="address" id="address-input" name="address-input">
+                <input type="button" id="add-field" name="add-field" title="Add additional fields" value="+" onclick="addField('address-input', 'address')">
             </li>
 
-            <li>
+            <li id='phone-input'>
                 <label for="phone">Phone Number:</label><br>
-                <input type="phone" id="phone" name="phone">
+                <input type="phone" id="phone-input" name="phone-input">
+                <input type="button" id="add-field" name="add-field" title="Add additional fields" value="+" onclick="addField('phone-input', 'phone number')">
             </li>
 
-            <li>
-                <label for="upload-pic">Upload Image:</label><br>
-                <input type="file" accept="image/*" id="upload-pic" name="upload-pic">
-            </li>
-            <l
-                <label for="description">Additional notes:</label><br>
-                <textarea rows="5" cols="50" id="description" name="description"></textarea> 
+            <li id='pic-input'>
+                <label for="picture-input">Upload Image:</label><br>
+                <input type="file" accept="image/*" id="picture-input" name="picture-input">
+                <input type="button" id="add-field" name="add-field" title="Add additional fields" value="+" onclick="addField('pic-input', 'picture')">
             </li>
             <li>
-                <button type="submit" id="Submit">Submit</button>
+                <label for="notes-input">Additional notes:</label><br>
+                <textarea rows="5" cols="50" id="notes-input" name="notes-input"></textarea> 
+            </li>
+            <li>
+                <button type="submit" id="submit">Submit</button>
             </li>
         </ul>
       </form>
