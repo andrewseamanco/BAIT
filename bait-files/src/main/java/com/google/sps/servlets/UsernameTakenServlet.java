@@ -1,6 +1,5 @@
 package com.google.sps.servlets;
 
-import static com.google.sps.data.Keys.*;
 import static java.util.stream.Collectors.toList;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -49,9 +48,9 @@ public class UsernameTakenServlet extends HttpServlet {
         return;
     }
 
-    Query query = new Query(USER_ENTITY)
+    Query query = new Query("User")
       .setFilter(new Query.FilterPredicate(
-        USERNAME_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, username));
+        "username", Query.FilterOperator.EQUAL, username));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     boolean usernameTaken = entity != null; 

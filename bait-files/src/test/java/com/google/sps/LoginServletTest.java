@@ -1,7 +1,6 @@
 package com.google.sps;
 
 import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
-import static com.google.sps.data.Keys.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -47,14 +46,14 @@ public final class LoginServletTest {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter(USERNAME_ENTITY_PROPERTY)).thenReturn("Drew8521");
-        when(request.getParameter(FIRST_NAME_ENTITY_PROPERTY)).thenReturn("Andrew");
-        when(request.getParameter(FIRST_NAME_ENTITY_PROPERTY)).thenReturn("Seaman");
+        when(request.getParameter("username")).thenReturn("Drew8521");
+        when(request.getParameter("first-name")).thenReturn("Andrew");
+        when(request.getParameter("last-name")).thenReturn("Seaman");
 
         new LoginServlet().doPost(request, response);
 
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        assertEquals(1, ds.prepare(new Query(USER_ENTITY)).countEntities(withLimit(10)));
+        assertEquals(1, ds.prepare(new Query("User")).countEntities(withLimit(10)));
         verify(response, atLeast(1)).sendRedirect("/profile.jsp");
   }
 }

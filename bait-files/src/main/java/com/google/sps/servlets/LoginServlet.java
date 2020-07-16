@@ -1,7 +1,5 @@
 package com.google.sps.servlets;
 
-import static com.google.sps.data.Keys.*;
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -38,12 +36,12 @@ public class LoginServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-    Entity newUser = new Entity(USER_ENTITY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-    newUser.setProperty(ID_ENTITY_PROPERTY, userService.getCurrentUser().getUserId());
-    newUser.setProperty(USERNAME_ENTITY_PROPERTY, request.getParameter(USERNAME_ENTITY_PROPERTY));
-    newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, request.getParameter(FIRST_NAME_ENTITY_PROPERTY));
-    newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, request.getParameter(LAST_NAME_ENTITY_PROPERTY));
-    newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
+    Entity newUser = new Entity("User", request.getParameter("username"));
+    newUser.setProperty("id", userService.getCurrentUser().getUserId());
+    newUser.setProperty("username", request.getParameter("username"));
+    newUser.setProperty("first-name", request.getParameter("first-name"));
+    newUser.setProperty("last-name", request.getParameter("last-name"));
+    newUser.setProperty("is-admin", false);
 
     datastore.put(newUser);
 

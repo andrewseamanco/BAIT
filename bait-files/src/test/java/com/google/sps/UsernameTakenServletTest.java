@@ -1,7 +1,6 @@
 package com.google.sps;
 
 import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
-import static com.google.sps.data.Keys.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -114,12 +113,12 @@ public final class UsernameTakenServletTest {
         when(response.getWriter()).thenReturn(writer);
 
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        Entity newUser = new Entity(USER_ENTITY, "Drew8521");
-        newUser.setProperty(ID_ENTITY_PROPERTY, 123);
-        newUser.setProperty(USERNAME_ENTITY_PROPERTY, "Drew8521");
-        newUser.setProperty(FIRST_NAME_ENTITY_PROPERTY, "Andrew");
-        newUser.setProperty(LAST_NAME_ENTITY_PROPERTY, "Seaman");
-        newUser.setProperty(IS_ADMIN_ENTITY_PROPERTY, false);
+        Entity newUser = new Entity("User", "Drew8521");
+        newUser.setProperty("id", 123);
+        newUser.setProperty("username", "Drew8521");
+        newUser.setProperty("first-name", "Andrew");
+        newUser.setProperty("last-name", "Seaman");
+        newUser.setProperty("is-admin", false);
         ds.put(newUser);
 
         new UsernameTakenServlet().doGet(request, response);

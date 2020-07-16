@@ -54,7 +54,7 @@ public class LoginFilter implements Filter {
       }
     }
     // Case: User is logged in
-    else if (!isRegistered(userService.getCurrentUser().getUserId() && !request.getRequestURI().startsWith("/_ah/")){
+    else if (!isRegistered(userService.getCurrentUser().getUserId()) && !request.getRequestURI().startsWith("/_ah/")) {
         // Sending a request to a register servlet (disallows requests to html or jsp pages)
         if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
           chain.doFilter(req, res);
@@ -72,7 +72,7 @@ public class LoginFilter implements Filter {
       if (request.getRequestURI().endsWith("profile.jsp")
         || request.getRequestURI().endsWith("register.jsp")
         || request.getRequestURI().endsWith("login.jsp")) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/login.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
         requestDispatcher.forward(request, response);
         return;
       } else {
@@ -85,9 +85,9 @@ public class LoginFilter implements Filter {
 
   public boolean isRegistered(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query(USER_ENTITY)
+    Query query = new Query("User")
       .setFilter(new Query.FilterPredicate(
-        ID_ENTITY_PROPERTY, Query.FilterOperator.EQUAL, id));
+        "id", Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     return entity != null;
