@@ -79,8 +79,6 @@ public class LoginFilter implements Filter {
 }
 
   public boolean isRegistered(String id) {
-    // DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
     Query<User> userQuery = ObjectifyService.ofy().load().type(User.class);
     List<User> allUsers = userQuery.list();
 
