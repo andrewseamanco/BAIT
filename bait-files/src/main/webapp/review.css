@@ -62,13 +62,15 @@ button {
   flex-direction: row;
   justify-content: flex-end;
 }
+.card-end {
+  padding-bottom: 18px;
+}
 
 content {
   align-items: center;
   display:flex;
   flex-direction: column;
 }
-
 
 nav {
   background-color: #bdc1c6;
@@ -101,6 +103,8 @@ nav {
   transition: max-height 0.2s ease-out;
 }
 
+
+
 #review, #review-overview {
   width: 60%;
 }
@@ -111,7 +115,6 @@ nav {
   justify-content: flex-end;
   margin: 5px 0px 5px 0px;
 }
-
 
 select {
   outline: none;

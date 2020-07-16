@@ -2,17 +2,20 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Pending Reviews</title>
-    <script src="reviews.js"></script>
+    <title>Pending Requests</title>
+    <script src="requests.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="reviews.css">
+    <link rel="stylesheet" href="requests.css">
   </head>
-  <body onload="getReviews()">
+  <body onload="getRequests()">
     <section id="content">
       <nav>
-          <a href="#">Reviews</a>
-          <a href="#">Account</a>
-          <a href="#">Log Out</a>
+        <div id="nav-title">Bait</div>
+        <div id="nav-links">
+          <a href="https://step-bait-project-2020.uc.r.appspot.com/requests.html" class="nav-item">Requests</a>
+          <a href="#" class="nav-item">Account</a>
+          <a href="#" class="nav-item">Log Out</a>
+        </div>
       </nav>
 
       <div id="table">
@@ -21,7 +24,7 @@
             <div class="table-header-cell">Status</div>
             <div class="table-header-cell">Request Date</div>
             <div class="table-header-cell">User Id</div>
-            <div class="table-header-cell">Detail View</div>
+            <div class="table-header-cell">Review</div>
           </div>
           <div id="table-body"></div>
       </div>
