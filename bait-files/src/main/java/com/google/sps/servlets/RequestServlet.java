@@ -31,7 +31,7 @@ public class RequestServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
-    //will get user id from input when connected
+    // will get user id from input when connected
     // String userIdInput = parameters.get("user-id-input")[0];
     String nameInput = parameters.get(NAME)[0];
     String usernameInput = parameters.get(USERNAME)[0];
@@ -41,7 +41,7 @@ public class RequestServlet extends HttpServlet {
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
-    //id is 1 for now by default
+    // id is 1 for now by default until I can get userId from user feature
     ObjectifyService.ofy()
         .save()
         .entity(new Request(requestId, 1, nameInput, usernameInput, emailInput, addressInput,
