@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebListener;
 public class Bootstrapper implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
     ObjectifyService.init();
+    ObjectifyService.register(Review.class);
     ObjectifyService.register(Request.class);
   }
 

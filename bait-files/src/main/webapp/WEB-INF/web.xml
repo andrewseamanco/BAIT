@@ -8,6 +8,7 @@
       <filter-name>ObjectifyFilter</filter-name>
       <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
     </filter>
+  
     <filter-mapping>
       <filter-name>ObjectifyFilter</filter-name>
       <url-pattern>/*</url-pattern>
@@ -16,12 +17,24 @@
        <listener-class>com.google.sps.servlets.Bootstrapper</listener-class>
     </listener>
   <servlet>
-    <servlet-name>requestServlet</servlet-name>
+    
+    <servlet-name>RequestServlet</servlet-name>
     <servlet-class>com.google.sps.servlets.RequestServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>requestServlet</servlet-name>
-    <url-pattern>/submission.html</url-pattern>
+    
+    <servlet-name>RequestServlet</servlet-name>
+    <url-pattern>/review.html</url-pattern>
   </servlet-mapping>
+
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.google.LoginFilter</filter-class>
+  </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  
 </web-app>
