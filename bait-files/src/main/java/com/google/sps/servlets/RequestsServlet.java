@@ -14,12 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Servlet loads all pending requests from datastore.
+ * Loads a requests and filters requests by status. Used to show all pending requests for review queue.
+ */
+
 @WebServlet("/requests")
 public class RequestsServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query<Request> q = ObjectifyService.ofy().load().type(Request.class);
-    List<Request> allRequests = q.list();
+    Query<Request> query = ObjectifyService.ofy().load().type(Request.class);
+    List<Request> allRequests = query.list();
     List<Request> pendingRequests =
         allRequests.stream().filter(req -> req.status == Status.PENDING).collect(toList());
 
@@ -27,6 +32,4 @@ public class RequestsServlet extends HttpServlet {
     response.getWriter().println(new Gson().toJson(pendingRequests));
   }
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) {}
 }
