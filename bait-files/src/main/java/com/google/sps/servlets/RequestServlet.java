@@ -25,7 +25,15 @@ public class RequestServlet extends HttpServlet {
   private static final String NOTES = "notes-input";
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {}
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    try {
+      long requestId = Long.parseLong(request.getParameter("requestId"));
+      Request userRequest = ObjectifyService.ofy().load().type(Request.class).id(requestId).now();
+      response.setContentType("application/json;");
+      response.getWriter().println(new Gson().toJson(userRequest));
+    } catch (NumberFormatException e) {
+    }
+  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,7 +52,7 @@ public class RequestServlet extends HttpServlet {
     // id is 1 for now by default until I can get userId from user feature
     ObjectifyService.ofy()
         .save()
-        .entity(new Request(requestId, 1, nameInput, usernameInput, emailInput, addressInput,
+        .entity(new Request(requestId, "1", nameInput, usernameInput, emailInput, addressInput,
             pictureInput, phoneInput, notesInput))
         .now();
 

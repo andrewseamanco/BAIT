@@ -8,7 +8,7 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public final class Request {
   @Id Long requestId;
-  long userId;
+  String userId;
   Status status;
   long submissionDate;
   String name;
@@ -21,7 +21,7 @@ public final class Request {
 
   private Request() {}
 
-  public Request(Long requestId, long userId, String name, String username, String email,
+  public Request(Long requestId, String userId, String name, String username, String email,
       String address, String image, String phoneNum, String notes) {
     this.requestId = requestId;
     this.userId = userId;
