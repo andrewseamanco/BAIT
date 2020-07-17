@@ -7,21 +7,25 @@ import com.googlecode.objectify.annotation.Id;
 
 @Entity
 public class User {
-  @Id String userId;
+  @Id String personId;
   String username;
   String firstName;
   String lastName;
 
   private User() {}
 
-  public User(String userId, String username, String firstName, String lastName) {
-    this.userId = userId;
+  public User(String personId, String username, String firstName, String lastName) {
+    this.personId = personId;
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
   }
 
   public String getUserId() {
-      return this.userId;
+      return this.personId;
+  }
+
+  public String getUsername() {
+      return this.username;
   }
 }
