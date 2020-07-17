@@ -41,11 +41,3 @@ input:focus, textarea:focus {
     width: 100px;
 }
 
-#add-field {
-    border-radius: 20%;
-    width: 20px;
-}
-
-#add-field:hover {
-    background-color: lightblue;
-}
