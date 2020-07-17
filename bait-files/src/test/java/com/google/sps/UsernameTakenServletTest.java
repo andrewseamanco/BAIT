@@ -5,32 +5,34 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.After;
-import org.junit.Test;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
-import java.io.*;
-import javax.servlet.http.*;
-import javax.servlet.ServletException;
-import com.google.sps.servlets.UsernameTakenServlet;
 import com.google.sps.servlets.LoginServlet;
+import com.google.sps.servlets.UsernameTakenServlet;
+import java.io.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public final class UsernameTakenServletTest {
-
   private final LocalServiceTestHelper helper =
       new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-          .setEnvIsAdmin(true).setEnvIsLoggedIn(true).setEnvEmail("andrew").setEnvAuthDomain("gmail.com");
+          .setEnvIsAdmin(true)
+          .setEnvIsLoggedIn(true)
+          .setEnvEmail("andrew")
+          .setEnvAuthDomain("gmail.com");
 
   @Before
   public void setUp() {
@@ -45,86 +47,89 @@ public final class UsernameTakenServletTest {
   // Database is empty, so username should not be taken
   @Test
   public void doGet_forUsernameNotInDatabase_returnsNotTaken() throws IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);       
-        HttpServletResponse response = mock(HttpServletResponse.class);    
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter("username")).thenReturn("Andrew");
+    when(request.getParameter("username")).thenReturn("Andrew");
 
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
 
-        when(response.getWriter()).thenReturn(writer);
-        new UsernameTakenServlet().doGet(request, response);
+    when(response.getWriter()).thenReturn(writer);
+    new UsernameTakenServlet().doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("username"); // only if you want to verify username was called...
-        writer.flush(); // it may not have been flushed yet...
-        assertTrue(stringWriter.toString().contains("false"));
+    verify(request, atLeast(1))
+        .getParameter("username"); // only if you want to verify username was called...
+    writer.flush(); // it may not have been flushed yet...
+    assertTrue(stringWriter.toString().contains("false"));
   }
 
   // Username field is null, so return that the username is taken
   @Test
   public void goGet_forNullUsername_returnsTaken() throws IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);       
-        HttpServletResponse response = mock(HttpServletResponse.class);
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter("username")).thenReturn(null);
+    when(request.getParameter("username")).thenReturn(null);
 
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
 
-        when(response.getWriter()).thenReturn(writer);
-        new UsernameTakenServlet().doGet(request, response);
+    when(response.getWriter()).thenReturn(writer);
+    new UsernameTakenServlet().doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("username"); // only if you want to verify username was called...
-        writer.flush(); // it may not have been flushed yet...
-        assertTrue(stringWriter.toString().contains("true"));
+    verify(request, atLeast(1))
+        .getParameter("username"); // only if you want to verify username was called...
+    writer.flush(); // it may not have been flushed yet...
+    assertTrue(stringWriter.toString().contains("true"));
   }
 
   // Username field is an empty string, so return that the username is taken
   @Test
   public void doGet_forEmptyStringUsername_returnsTaken() throws IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);       
-        HttpServletResponse response = mock(HttpServletResponse.class);
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter("username")).thenReturn("");
+    when(request.getParameter("username")).thenReturn("");
 
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
 
-        when(response.getWriter()).thenReturn(writer);
-        new UsernameTakenServlet().doGet(request, response);
+    when(response.getWriter()).thenReturn(writer);
+    new UsernameTakenServlet().doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("username"); // only if you want to verify username was called...
-        writer.flush(); // it may not have been flushed yet...
-        assertTrue(stringWriter.toString().contains("true"));
+    verify(request, atLeast(1))
+        .getParameter("username"); // only if you want to verify username was called...
+    writer.flush(); // it may not have been flushed yet...
+    assertTrue(stringWriter.toString().contains("true"));
   }
-
 
   // Username is taken so return that the username is taken
   @Test
   public void doGet_usernameIsTaken_returnsTaken() throws IOException {
-        HttpServletRequest request = mock(HttpServletRequest.class);       
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        when(request.getParameter("username")).thenReturn("Drew8521");
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    HttpServletResponse response = mock(HttpServletResponse.class);
+    when(request.getParameter("username")).thenReturn("Drew8521");
 
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
 
-        when(response.getWriter()).thenReturn(writer);
+    when(response.getWriter()).thenReturn(writer);
 
-        DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-        Entity newUser = new Entity("User", "Drew8521");
-        newUser.setProperty("id", 123);
-        newUser.setProperty("username", "Drew8521");
-        newUser.setProperty("first-name", "Andrew");
-        newUser.setProperty("last-name", "Seaman");
-        newUser.setProperty("is-admin", false);
-        ds.put(newUser);
+    DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+    Entity newUser = new Entity("User", "Drew8521");
+    newUser.setProperty("id", 123);
+    newUser.setProperty("username", "Drew8521");
+    newUser.setProperty("first-name", "Andrew");
+    newUser.setProperty("last-name", "Seaman");
+    newUser.setProperty("is-admin", false);
+    ds.put(newUser);
 
-        new UsernameTakenServlet().doGet(request, response);
+    new UsernameTakenServlet().doGet(request, response);
 
-        verify(request, atLeast(1)).getParameter("username"); // only if you want to verify username was called...
-        writer.flush(); // it may not have been flushed yet...
-        assertTrue(stringWriter.toString().contains("true"));
+    verify(request, atLeast(1))
+        .getParameter("username"); // only if you want to verify username was called...
+    writer.flush(); // it may not have been flushed yet...
+    assertTrue(stringWriter.toString().contains("true"));
   }
 }

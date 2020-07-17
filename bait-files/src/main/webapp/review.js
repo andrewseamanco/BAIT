@@ -44,8 +44,8 @@ function getRequest() {
       .then((request) => {
         document.getElementById(REQUESTIDCONTAINER)
             .appendChild(document.createTextNode(request.requestId));
-        document.getElementById(USERIDCONTAINER).appendChild(
-            document.createTextNode(request.userId));
+        document.getElementById(USERIDCONTAINER)
+            .appendChild(document.createTextNode(request.userId));
         document.getElementById(STATUSCONTAINER)
             .appendChild(document.createTextNode(request.status));
         document.getElementById(DATECONTAINER)
@@ -53,8 +53,8 @@ function getRequest() {
                 new Date(request.timestamp).toLocaleDateString()));
         document.getElementById(PHONEINPUT)
             .appendChild(document.createTextNode(request.phoneNum));
-        document.getElementById(NAMEINPUT)
-            .appendChild(document.createTextNode(request.name));
+        document.getElementById(NAMEINPUT).appendChild(
+            document.createTextNode(request.name));
         document.getElementById(USERNAMEINPUT)
             .appendChild(document.createTextNode(request.username));
         document.getElementById(EMAILINPUT)
@@ -68,4 +68,3 @@ function getRequest() {
       })
       .then(getPanels);
 }
-

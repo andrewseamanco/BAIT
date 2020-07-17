@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-/** Servlet responsible for creating, saving, and loading review objects from datastore.
-* Servlet creates a review object and saves it to datastore then updates the request status, for that review, indicating the results are avaiable to the user.
-*/
+/**
+ * Servlet responsible for creating, saving, and loading review objects from datastore.
+ * Servlet creates a review object and saves it to datastore then updates the request status, for
+ * that review, indicating the results are avaiable to the user.
+ */
 
 @WebServlet("/review")
 public class ReviewServlet extends HttpServlet {
@@ -37,7 +38,8 @@ public class ReviewServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long reviewId = null;
-    String requestId = parameters.get(REVIEWREQUESTID)[0]; // There is only one value for each of keys in the parameters map
+    String requestId = parameters.get(
+        REVIEWREQUESTID)[0]; // There is only one value for each of keys in the parameters map
     String userId = parameters.get(REVIEWUSERID)[0];
     Validity nameValidity = Validity.valueOf(parameters.get(NAMEVALIDITY)[0].toUpperCase());
     Validity usernameValidity = Validity.valueOf(parameters.get(USERNAMEVALIDITY)[0].toUpperCase());
@@ -56,7 +58,8 @@ public class ReviewServlet extends HttpServlet {
         .now();
 
     long pendingRequestId = Long.parseLong(requestId);
-    Request pendingRequest = ObjectifyService.ofy().load().type(Request.class).id(pendingRequestId).now();
+    Request pendingRequest =
+        ObjectifyService.ofy().load().type(Request.class).id(pendingRequestId).now();
     pendingRequest.status = Status.COMPLETED;
 
     ObjectifyService.ofy().save().entity(pendingRequest).now();
