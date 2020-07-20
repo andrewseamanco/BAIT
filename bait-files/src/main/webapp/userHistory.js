@@ -5,9 +5,8 @@ function getCompletedReviews() {
   fetch('/userHistory?is-pending-request=false')
       .then(response => response.json())
       .then((reviews) => {
-        const queue = document.getElementById('table-body');
         for (review of reviews) {
-          console.log(review);
+          console.log(review.reviewId);
           addReview(review, document.getElementById('completed-table'));
         }
       });
@@ -33,6 +32,11 @@ function addReview(review, tableToAddTo) {
   timestamp.setAttribute('class', 'table-body-cell');
   timestamp.append(document.createTextNode(review.timestamp));
   row.append(timestamp);
+
+  const reviewId = document.createElement('div');
+  reviewId.setAttribute('class', 'table-body-cell');
+  reviewId.append(document.createTextNode(review.reviewId));
+  row.append(reviewId);
 
   const detailView = document.createElement('div');
   detailView.setAttribute('class', 'table-body-cell');
