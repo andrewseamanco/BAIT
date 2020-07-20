@@ -22,10 +22,10 @@ public class User {
   }
 
   public String getUserId() {
-      return this.personId;
+    return this.personId;
   }
 
   public String getUsername() {
-      return this.username;
+    return this.username;
   }
 }
