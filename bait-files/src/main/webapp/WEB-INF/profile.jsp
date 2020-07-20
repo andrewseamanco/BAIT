@@ -22,7 +22,7 @@
         </div>
       </nav>
 
-      <h3> Completed Requests </h3>
+      <h3> Completed Reviews </h3>
 
       <div id="completed-table">
           <div id="table-header">
@@ -35,7 +35,7 @@
       <br />
       <br />
 
-      <h3> Pending Requests </h3>
+      <h3> Pending Reviews </h3>
 
     <div id="pending-table">
         <div id="table-header">
