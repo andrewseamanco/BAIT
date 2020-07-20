@@ -32,7 +32,8 @@ public class LoginServlet extends HttpServlet {
     String username = request.getParameter("username");
     String firstName = request.getParameter("first-name");
     String lastName = request.getParameter("last-name");
-    User newUser = new User(userId, username, firstName, lastName);
+    Permission userPermissions = Permission.USER;
+    User newUser = new User(userId, username, firstName, lastName, userPermissionj);
 
     ObjectifyService.ofy().save().entities(newUser).now();
 
