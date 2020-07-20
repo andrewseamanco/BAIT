@@ -1,12 +1,12 @@
-const starfilled = "★";
-const staroutline = "☆";
+const starfilled = '★';
+const staroutline = '☆';
 const maxRating = 5;
 
-const STARRATING = "star-rating";
-const AUTHENTICITYEXPLANATION = "authenticity-explanation";
+const STARRATING = 'star-rating';
+const AUTHENTICITYEXPLANATION = 'authenticity-explanation';
 
-const DOESNOTEXIST = "It is likely that this person does not exist.";
-const EXISTS = "It is likely that this person exists.";
+const DOESNOTEXIST = 'It is likely that this person does not exist.';
+const EXISTS = 'It is likely that this person exists.';
 
 const PHONEINPUT = 'phone-input-container';
 const NAMEINPUT = 'name-input-container';
@@ -24,14 +24,14 @@ const IMAGERESULTS = 'image-results-container';
 const ADDRESSRESULTS = 'address-results-container';
 const REVIEWERNOTES = 'reviewer-notes-container';
 
-const VALID = "VALID";
-const INVALID = "INVALID";
-const NOTAPPLICABLE = "N/A";
+const VALID = 'VALID';
+const INVALID = 'INVALID';
+const NOTAPPLICABLE = 'N/A';
 
-const invalidString = "There were some problems validating the provided information.";
-const validString = "There were no problems validating the provided information.";
-// const unknownString = "There was no information provided.";
-
+const invalidString =
+    'There were some problems validating the provided information.';
+const validString =
+    'There were no problems validating the provided information.';
 
 function getReview() {
   const queryString = window.location.search;
@@ -45,111 +45,80 @@ function getReview() {
   fetch('/review' + queryString)
       .then(response => response.json())
       .then((result) => {
+        document.getElementById(NAMEINPUT).appendChild(
+            document.createTextNode(checkInput(result.request.name)));
+        document.getElementById(EMAILINPUT)
+            .appendChild(
+                document.createTextNode(checkInput(result.request.email)));
+        document.getElementById(USERNAMEINPUT)
+            .appendChild(
+                document.createTextNode(checkInput(result.request.username)));
+        document.getElementById(PHONEINPUT)
+            .appendChild(
+                document.createTextNode(checkInput(result.request.phoneNum)));
+        document.getElementById(ADDRESSINPUT)
+            .appendChild(
+                document.createTextNode(checkInput(result.request.address)));
+        document.getElementById(IMAGEINPUT)
+            .appendChild(
+                document.createTextNode(checkInput(result.request.image)));
 
-        if(result.request.name == null || result.request.name == "") {
-          document.getElementById(NAMEINPUT).appendChild(document.createTextNode(NOTAPPLICABLE));
-        }
-        else {
-          document.getElementById(NAMEINPUT).appendChild(document.createTextNode(result.request.name));          
-        }
-
-        if(result.request.email == null || result.request.email == "") {
-          document.getElementById(EMAILINPUT).appendChild(document.createTextNode(NOTAPPLICABLE));  
-
-        }
-        else {
-          document.getElementById(EMAILINPUT).appendChild(document.createTextNode(result.request.email));     
-        }
-
-        if(result.request.username == null || result.request.username == "") {
-          document.getElementById(USERNAMEINPUT).appendChild(document.createTextNode(NOTAPPLICABLE));   
-        }
-        else {
-          document.getElementById(USERNAMEINPUT).appendChild(document.createTextNode(result.request.username));     
-        }
-
-        if(result.request.phoneNum == null || result.request.phoneNum == "") {
-          document.getElementById(PHONEINPUT).appendChild(document.createTextNode(NOTAPPLICABLE)); 
-
-        }
-        else {
-          document.getElementById(PHONEINPUT).appendChild(document.createTextNode(result.request.phoneNum));                
+        var stars = ' '
+        for (let i = 0; i < maxRating; i++) {
+          if (i < result.review.authenticityRating) {
+            stars += starfilled;
+            continue;
+          }
+          stars += staroutline;
         }
 
-        if(result.request.address == null || result.request.address == "") {
-          document.getElementById(ADDRESSINPUT).appendChild(document.createTextNode(NOTAPPLICABLE));            
-        }
-        else {
-          document.getElementById(ADDRESSINPUT).appendChild(document.createTextNode(result.request.address));             
+        document.getElementById(STARRATING)
+            .appendChild(document.createTextNode(stars));
+
+        if (result.review.authenticityRating <= 2) {
+          document.getElementById(AUTHENTICITYEXPLANATION)
+              .appendChild(document.createTextNode(DOESNOTEXIST));
+        } else {
+          document.getElementById(AUTHENTICITYEXPLANATION)
+              .appendChild(document.createTextNode(EXISTS));
         }
 
-        if(result.request.image == null || result.request.image == "" || result.request.image == undefined) {
-          document.getElementById(IMAGEINPUT).appendChild(document.createTextNode(NOTAPPLICABLE));     
-        }
-        else {
-          document.getElementById(IMAGEINPUT).appendChild(document.createTextNode(result.request.image));            
-        }
+        document.getElementById(NAMERESULTS)
+            .appendChild(document.createTextNode(
+                checkValidity(result.review.nameValidity)));
+        document.getElementById(EMAILRESULTS)
+            .appendChild(document.createTextNode(
+                checkValidity(result.review.emailValidity)));
+        document.getElementById(USERNAMERESULTS)
+            .appendChild(document.createTextNode(
+                checkValidity(result.review.usernameValidity)));
+        document.getElementById(PHONERESULTS)
+            .appendChild(
+                document.createTextNode(checkValidity(result.review.phoneNum)));
+        document.getElementById(ADDRESSRESULTS)
+            .appendChild(
+                document.createTextNode(checkValidity(result.review.address)));
+        document.getElementById(IMAGERESULTS)
+            .appendChild(
+                document.createTextNode(checkValidity(result.review.image)));
 
-        var stars = " "
-        for(let i = 0; i < maxRating; i++) {
-            if(i < result.review.authenticityRating) {
-                stars += starfilled;
-                continue;
-            }
-            stars += staroutline;
-        }
+        document.getElementById(REVIEWERNOTES)
+            .appendChild(document.createTextNode(result.review.reviewerNotes));
+      });
+}
 
-        document.getElementById(STARRATING).appendChild(document.createTextNode(stars));
-        
-        if(result.review.authenticityRating <= 2){
-            document.getElementById(AUTHENTICITYEXPLANATION).appendChild(document.createTextNode(DOESNOTEXIST));
-        }
-        else{
-            document.getElementById(AUTHENTICITYEXPLANATION).appendChild(document.createTextNode(EXISTS));
-        }
+function checkInput(input) {
+  if (input == null || input == '' || input == undefined) {
+    return NOTAPPLICABLE;
+  } else {
+    return input;
+  }
+}
 
-        if(result.review.nameValidity == VALID){
-          document.getElementById(NAMERESULTS).appendChild(document.createTextNode(validString));
-        }
-        else{
-          document.getElementById(NAMERESULTS).appendChild(document.createTextNode(invalidString));
-        }
-
-        if(result.review.emailValidity == VALID){
-          document.getElementById(EMAILRESULTS).appendChild(document.createTextNode(validString));
-        }
-        else{
-          document.getElementById(EMAILRESULTS).appendChild(document.createTextNode(invalidString));
-        }
-
-        if(result.review.usernameValidity == VALID){
-          document.getElementById(USERNAMERESULTS).appendChild(document.createTextNode(validString));
-        }
-        else{
-          document.getElementById(USERNAMERESULTS).appendChild(document.createTextNode(invalidString));
-        }        
-
-        if(result.review.phoneNumValidity == VALID){
-          document.getElementById(PHONERESULTS).appendChild(document.createTextNode(validString));
-        }
-        else{
-          document.getElementById(PHONERESULTS).appendChild(document.createTextNode(invalidString));
-        }     
-
-        if(result.review.addressValidity == VALID){
-          document.getElementById(ADDRESSRESULTS).appendChild(document.createTextNode(validString));
-        }
-        else{
-          document.getElementById(ADDRESSRESULTS).appendChild(document.createTextNode(invalidString));
-        }
-
-        if(result.review.imageValidity == VALID){
-          document.getElementById(IMAGERESULTS).appendChild(document.createTextNode(validString));
-        }
-        else{
-          document.getElementById(IMAGERESULTS).appendChild(document.createTextNode(invalidString));
-        }
-
-        document.getElementById(REVIEWERNOTES).appendChild(document.createTextNode(result.review.reviewerNotes));
-  });
+function checkValidity(validity) {
+  if (validity == VALID) {
+    return validString;
+  } else {
+    return invalidString;
+  }
 }
