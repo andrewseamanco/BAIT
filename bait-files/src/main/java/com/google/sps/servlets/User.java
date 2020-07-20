@@ -22,6 +22,6 @@ public class User {
   }
 
   public String getUserId() {
-      return this.userId;
+    return this.userId;
   }
 }
