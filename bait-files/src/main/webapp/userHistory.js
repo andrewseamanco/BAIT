@@ -6,7 +6,6 @@ function getCompletedReviews() {
       .then(response => response.json())
       .then((reviews) => {
         for (review of reviews) {
-          console.log(review.reviewId);
           addReview(review, document.getElementById('completed-table'));
         }
       });
@@ -17,7 +16,6 @@ function getPendingReviews() {
       .then(response => response.json())
       .then((reviews) => {
         for (review of reviews) {
-          console.log(review);
           addReview(review, document.getElementById('pending-table'));
         }
       });
