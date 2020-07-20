@@ -23,8 +23,7 @@
       </nav>
 
       <h3> Completed Reviews </h3>
-
-      <div id="completed-table">
+      <div id="completed-table" class="table">
           <div id="table-header">
             <div class="table-header-cell">Request Date</div>
             <div class="table-header-cell">Review</div>
@@ -32,12 +31,9 @@
           <div id="table-body"></div>
       </div>
 
-      <br />
-      <br />
 
-      <h3> Pending Reviews </h3>
-
-    <div id="pending-table">
+    <h3> Pending Reviews </h3>
+    <div id="pending-table" class="table">
         <div id="table-header">
             <div class="table-header-cell">Request Date</div>
             <div class="table-header-cell">Review</div>
@@ -45,5 +41,10 @@
         <div id="table-body"></div>
     </div>
     </section>
+
+    <div id="new-request">
+        <h3>Create a new request</h3>
+        <button>+</button>
+    </div>
   </body>
 </html>

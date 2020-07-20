@@ -36,11 +36,11 @@ nav {
   padding-left: 20px;
 }
 
-#table {
+.table {
   background-color: #ffffff;
   border-radius: 8px;
   display: table;
-  margin: 20px 0px 20px 0px;
+  margin: 0px 0px 20px 0px;
   padding: 10px;
   width: 80%;
 }
@@ -73,3 +73,8 @@ nav {
   padding: 5px;
   text-align: justify;  
 } 
+
+#new-request {
+    text-align: center;
+    margin-top: 50px;
+}
