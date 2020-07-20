@@ -17,8 +17,8 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/usernameTaken")
 public class UsernameTakenServlet extends HttpServlet {
-
-    /**
+  /**
    * Adds a new user with form submitted fields to database
    * @param request contains a url parameter with username to check
    * @param response returns a json response with a boolean value if username is taken
@@ -43,18 +42,16 @@ public class UsernameTakenServlet extends HttpServlet {
     response.setContentType("application/json");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     if (username == null || username.equals("")) {
-        String json = new Gson().toJson(true);
-        response.getWriter().println(json);
-        return;
+      String json = new Gson().toJson(true);
+      response.getWriter().println(json);
+      return;
     }
 
-    Query query = new Query("User")
-      .setFilter(new Query.FilterPredicate(
-        "username", Query.FilterOperator.EQUAL, username));
+    Query query = new Query("User").setFilter(
+        new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
-    boolean usernameTaken = entity != null; 
-
+    boolean usernameTaken = entity != null;
 
     response.setContentType("application/json");
     String json = new Gson().toJson(usernameTaken);

@@ -16,14 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * Servlet for creating new users and storing them in the database
  */
 @WebServlet("/register")
 public class LoginServlet extends HttpServlet {
-
-
   /**
    * Adds a new user with form submitted fields to database
    * @param request contains form fields and used to instantiate new user fields
@@ -32,7 +29,6 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -45,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 
     datastore.put(newUser);
 
-    response.sendRedirect("/profile.jsp");  
+    response.sendRedirect("/profile.jsp");
   }
-
 }

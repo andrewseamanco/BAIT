@@ -54,24 +54,24 @@ public class LoginFilter implements Filter {
       }
     }
     // Case: User is logged in
-    else if (!isRegistered(userService.getCurrentUser().getUserId()) && !request.getRequestURI().startsWith("/_ah/")) {
-        // Sending a request to a register servlet (disallows requests to html or jsp pages)
-        if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
-          chain.doFilter(req, res);
-          return;
-        }
-        // User is not registered and is trying to access restricted material
-        else {
-          RequestDispatcher requestDispatcher =
-          request.getRequestDispatcher("WEB-INF/register.jsp");
-          requestDispatcher.forward(request, response);
-          return;
-        }
-      } else {
+    else if (!isRegistered(userService.getCurrentUser().getUserId())
+        && !request.getRequestURI().startsWith("/_ah/")) {
+      // Sending a request to a register servlet (disallows requests to html or jsp pages)
+      if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
+        chain.doFilter(req, res);
+        return;
+      }
+      // User is not registered and is trying to access restricted material
+      else {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
+        requestDispatcher.forward(request, response);
+        return;
+      }
+    } else {
       // Is logged in
       if (request.getRequestURI().endsWith("profile.jsp")
-        || request.getRequestURI().endsWith("register.jsp")
-        || request.getRequestURI().endsWith("login.jsp")) {
+          || request.getRequestURI().endsWith("register.jsp")
+          || request.getRequestURI().endsWith("login.jsp")) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
         requestDispatcher.forward(request, response);
         return;
@@ -81,13 +81,12 @@ public class LoginFilter implements Filter {
         return;
       }
     }
-}
+  }
 
   public boolean isRegistered(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("User")
-      .setFilter(new Query.FilterPredicate(
-        "id", Query.FilterOperator.EQUAL, id));
+    Query query = new Query("User").setFilter(
+        new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     return entity != null;

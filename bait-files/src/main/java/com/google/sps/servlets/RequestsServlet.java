@@ -8,6 +8,8 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.lang.String;
+import java. util.Collections;
+import java. util.Comparator;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,13 +23,20 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/requests")
 public class RequestsServlet extends HttpServlet {
+  class SortByDate implements Comparator<Request> { 
+    public int compare(Request a, Request b) { 
+      return Long.compare(a.submissionDate, b.submissionDate);
+    } 
+  } 
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query<Request> query = ObjectifyService.ofy().load().type(Request.class);
     List<Request> allRequests = query.list();
+
     List<Request> pendingRequests =
         allRequests.stream().filter(req -> req.status == Status.PENDING).collect(toList());
-
+    Collections.sort(pendingRequests, new SortByDate());
     response.setContentType("application/json");
     response.getWriter().println(new Gson().toJson(pendingRequests));
   }

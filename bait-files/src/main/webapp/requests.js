@@ -24,7 +24,7 @@ function getRequests() {
 
       const timestamp = document.createElement('div');
       timestamp.setAttribute('class', TABLEBODYCELL);
-      timestamp.append(document.createTextNode(request.timestamp));
+      timestamp.append(document.createTextNode(new Date(request.submissionDate).toLocaleDateString() + "  " + new Date(request.submissionDate).toLocaleTimeString()));
       row.append(timestamp);
 
       const userId = document.createElement('div');

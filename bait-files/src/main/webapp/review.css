@@ -1,16 +1,16 @@
-a {
+a, a:visited {
+  color: #3c4043;
   text-decoration: none;
 }
 
 .accordion {
-  background-color: #ffffff;
-  border: none;
+  background-color: #0277bc;
   border-radius: 8px;
-  color: #202124;
+  color: #ffffff;
   cursor: pointer;  
   font-size: 18px;
   font-weight: 500;
-  margin: 8px 0px 0px 0px;
+  margin: 15px 0px 0px 0px;
   outline: none;
   padding: 18px;
   transition: 0.4s;
@@ -19,18 +19,18 @@ a {
 }
 
 .accordion:after {
-  color: #202124;
+  color: #ffffff;
   content: '+';
   float: right;
   font-weight: 500;
 }
 
 .active, .accordion:hover {
-  background-color: #dadce0;
+  background-color: #004c8b;
 }
 
 .active {
-  background-color: #ffffff;
+  background-color: #0277bc;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
@@ -39,7 +39,7 @@ a {
 }
 
 body {
-  background-color: #e8eaed;
+  background-color: #ffffff;
   color: #3c4043;
   display: flex;
   flex-direction: column;
@@ -48,9 +48,10 @@ body {
 }
 
 button {
-  background-color: #bdc1c6;
+  background-color: #0277bc;
   border-radius: 8px;
   border: none;
+  color: #ffffff;
   font-size: 14px;
   margin: 15px 0px;
   outline: none;
@@ -73,11 +74,11 @@ content {
 }
 
 .indent {
-    padding-left: 24px;
+  padding-left: 24px;
 }
 
 nav {
-  background-color: #bdc1c6;
+  background-color: #a5d6a7;
   display: flex;
   flex-direction: row;
   font-size: 16px;
@@ -94,6 +95,10 @@ nav {
 
 .nav-item, .overview-item {
   padding-left: 20px;
+}
+
+.overview-item {
+  font-weight: 500;
 }
 
 .panel {
