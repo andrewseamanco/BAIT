@@ -31,15 +31,33 @@ public class ReviewServlet extends HttpServlet {
   private static final String AUTHENTICITYRATING = "authenticity-rating";
   private static final String REVIEWERNOTES = "reviewer-notes";
 
+  private class Result {
+      Request request;
+      Review review;
+
+      private Result(Review review, Request request){
+          this.review = review;
+          this.request = request;
+      }
+  }
+
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {}
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      try {
+      long reviewId = Long.parseLong(request.getParameter("reviewId"));
+      Review userReview = ObjectifyService.ofy().load().type(Review.class).id(reviewId).now();
+      Request userRequest =  ObjectifyService.ofy().load().type(Request.class).id(Long.parseLong(userReview.requestId)).now();
+
+      response.setContentType("application/json;");
+      response.getWriter().println(new Gson().toJson(new Result(userReview, userRequest)));
+    } catch (NumberFormatException e) { }    
+  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long reviewId = null;
-    String requestId = parameters.get(
-        REVIEWREQUESTID)[0]; // There is only one value for each of keys in the parameters map
+    String requestId = parameters.get(REVIEWREQUESTID)[0]; // There is only one value for each of keys in the parameters map
     String userId = parameters.get(REVIEWUSERID)[0];
     Validity nameValidity = Validity.valueOf(parameters.get(NAMEVALIDITY)[0].toUpperCase());
     Validity usernameValidity = Validity.valueOf(parameters.get(USERNAMEVALIDITY)[0].toUpperCase());
