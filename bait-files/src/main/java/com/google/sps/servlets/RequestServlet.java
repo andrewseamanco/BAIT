@@ -1,13 +1,11 @@
 package com.google.sps.servlets;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import com.google.gson.Gson;
 import com.google.sps.servlets.Request;
 import com.googlecode.objectify.ObjectifyService;
 import java.io.IOException;
 import java.lang.String;
-import java.util.*;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +38,6 @@ public class RequestServlet extends HttpServlet {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
     // will get user id from input when connected
-    // String userIdInput = parameters.get("user-id-input")[0];
     String nameInput = parameters.get(NAME)[0];
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];

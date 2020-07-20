@@ -4,7 +4,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
-/** A Request. */
+/** A Request to verify a profile with information the user filled out on the submission form. */
 @Entity
 public final class Request {
   @Id Long requestId;
