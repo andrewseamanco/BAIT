@@ -22,10 +22,12 @@ function getPanels() {
                                     // panel is visible closes panel by setting
                                     // maxHeight to null
         panel.style.maxHeight = null;
+        panel.style.border = "none";
       } else {
         panel.style.maxHeight = panel.scrollHeight +
             'px';  // when accordion button is clicked, if panel is not visible,
                    // set maxHeight so panel is displayed
+        panel.style.border = "1px solid #0277bc";
       }
     });
   }
@@ -68,3 +70,4 @@ function getRequest() {
       })
       .then(getPanels);
 }
+
