@@ -27,7 +27,7 @@ import java. util.Collections;
 
 @WebServlet("/userHistory")
 public class UserHistoryServlet extends HttpServlet {
-  class SortByEarliestDate implements Comparator<Review> { 
+  class SortByMostRecentDate implements Comparator<Review> { 
     public int compare(Review a, Review b) {
         Long aDate = a.submissionDate;
         Long bDate = b.submissionDate;
