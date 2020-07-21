@@ -28,9 +28,9 @@ const VALID = 'VALID';
 const INVALID = 'INVALID';
 const NOT_PROVIDED = 'This information was not provided.';
 
-const invalidString =
+const INVALID_STRING =
     'There were some problems validating the provided information.';
-const validString =
+const VALID_STRING =
     'There were no problems validating the provided information.';
 
 function getReview() {
@@ -45,8 +45,9 @@ function getReview() {
   fetch('/review' + queryString)
       .then(response => response.json())
       .then((result) => {
-        document.getElementById(NAME_INPUT).appendChild(
-            document.createTextNode(checkInput(result.request.name)));
+        document.getElementById(NAME_INPUT)
+            .appendChild(
+                document.createTextNode(checkInput(result.request.name)));
         document.getElementById(EMAIL_INPUT)
             .appendChild(
                 document.createTextNode(checkInput(result.request.email)));
@@ -63,7 +64,7 @@ function getReview() {
             .appendChild(
                 document.createTextNode(checkInput(result.request.image)));
 
-        var stars = ' '
+        let stars = '';
         for (let i = 0; i < MAX_RATING; i++) {
           if (i < result.review.authenticityRating) {
             stars += STAR_FILLED;
@@ -117,8 +118,8 @@ function checkInput(input) {
 
 function checkValidity(validity) {
   if (validity == VALID) {
-    return validString;
+    return VALID_STRING;
   } else {
-    return invalidString;
+    return INVALID_STRING;
   }
 }

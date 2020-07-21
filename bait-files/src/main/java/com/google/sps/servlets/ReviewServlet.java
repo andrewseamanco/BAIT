@@ -32,25 +32,31 @@ public class ReviewServlet extends HttpServlet {
   private static final String REVIEWER_NOTES = "reviewer-notes";
 
   private class Result {
-      Request request;
-      Review review;
+    Request request;
+    Review review;
 
-      private Result(Review review, Request request){
-          this.review = review;
-          this.request = request;
-      }
+    private Result(Review review, Request request) {
+      this.review = review;
+      this.request = request;
+    }
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      try {
+    try {
       long reviewId = Long.parseLong(request.getParameter("reviewId"));
       Review userReview = ObjectifyService.ofy().load().type(Review.class).id(reviewId).now();
-      Request userRequest =  ObjectifyService.ofy().load().type(Request.class).id(Long.parseLong(userReview.requestId)).now();
+      Request userRequest = ObjectifyService.ofy()
+                                .load()
+                                .type(Request.class)
+                                .id(Long.parseLong(userReview.requestId))
+                                .now();
 
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(new Result(userReview, userRequest)));
-    } catch (NumberFormatException e) { }    
+    } catch (NumberFormatException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
   }
 
   @Override
@@ -61,7 +67,8 @@ public class ReviewServlet extends HttpServlet {
         REVIEW_REQUEST_ID)[0]; // There is only one value for each of keys in the parameters map
     String userId = parameters.get(REVIEW_USER_ID)[0];
     Validity nameValidity = Validity.valueOf(parameters.get(NAME_VALIDITY)[0].toUpperCase());
-    Validity usernameValidity = Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
+    Validity usernameValidity =
+        Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
     Validity emailValidity = Validity.valueOf(parameters.get(EMAIL_VALIDITY)[0].toUpperCase());
     Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONE_VALIDITY)[0].toUpperCase());
     Validity addressValidity = Validity.valueOf(parameters.get(ADDRESS_VALIDITY)[0].toUpperCase());

@@ -30,6 +30,7 @@ public class RequestServlet extends HttpServlet {
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(userRequest));
     } catch (NumberFormatException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
   }
 
