@@ -19,6 +19,7 @@ public class Review {
   Validity imageValidity;
   int authenticityRating; // integer from 1 to 5
   String reviewerNotes;
+  long submissionDate;
 
   private Review() {}
 
@@ -37,5 +38,6 @@ public class Review {
     this.imageValidity = imageValidity;
     this.authenticityRating = authenticityRating;
     this.reviewerNotes = reviewerNotes;
+    this.submissionDate = System.currentTimeMillis();
   }
 }
