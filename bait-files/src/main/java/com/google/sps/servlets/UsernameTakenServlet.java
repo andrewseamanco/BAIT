@@ -33,7 +33,8 @@ public class UsernameTakenServlet extends HttpServlet {
 
     response.setContentType("application/json");
     if (username == null || username.equals("")) {
-      String json = new Gson().toJson(true);
+      boolean usernameTaken = true;
+      String json = new Gson().toJson(usernameTaken);
       response.getWriter().println(json);
       return;
     }

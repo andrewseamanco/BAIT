@@ -18,6 +18,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/register")
 public class LoginServlet extends HttpServlet {
+    private final UserAccessor userAccessor;
+
+    public LoginServlet(UserAccessor userAccessor) {
+        this.userAccessor = userAccessor;
+    }
+
   /**
    * Adds a new user with form submitted fields to database
    * @param request contains form fields and used to instantiate new user fields
@@ -26,9 +32,7 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-    UserService userService = UserServiceFactory.getUserService();
-
-    String userId = userService.getCurrentUser().getUserId();
+    String userId = userAccessor.getUserId();
     String username = request.getParameter("username");
     String firstName = request.getParameter("first-name");
     String lastName = request.getParameter("last-name");

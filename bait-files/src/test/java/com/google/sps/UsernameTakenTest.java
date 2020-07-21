@@ -19,19 +19,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public final class UsernameTakenTest {
-  LocalDatastoreHelper helper = LocalDatastoreHelper.create(1.0);
+  static LocalDatastoreHelper helper = LocalDatastoreHelper.create(1.0);
 
   private Closeable objectify;
 
-  @Before
+  @BeforeClass
+  public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
+      helper.start();
+  }
+
+  @Before 
   public void setUp() throws InterruptedException, IOException {
-    helper.start();
+    helper.reset();
     ObjectifyFactory factory =
         new ObjectifyFactory(helper.getOptions().getService());
     ObjectifyService.init(factory);
@@ -41,8 +48,18 @@ public final class UsernameTakenTest {
 
   @After
   public void tearDown() throws InterruptedException, IOException, TimeoutException {
-    objectify.close();
-    helper.stop();
+//       try {
+        objectify.close();
+//         helper.stop();
+//       } catch(Exception e) {
+//           System.out.println(e);
+//           System.out.println("TEARDOWN FAILED");
+//       }
+  }
+
+  @AfterClass 
+    public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
+      helper.stop();
   }
 
   @Test
