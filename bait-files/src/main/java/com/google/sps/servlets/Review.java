@@ -24,8 +24,9 @@ public class Review {
   private Review() {}
 
   public Review(Long reviewId, String userId, String requestId, Validity nameValidity,
-      Validity usernameValidity, Validity phoneNumValidity, Validity addressValidity,
-      Validity imageValidity, int authenticityRating, String reviewerNotes) {
+      Validity usernameValidity, Validity emailValidity, Validity phoneNumValidity,
+      Validity addressValidity, Validity imageValidity, int authenticityRating,
+      String reviewerNotes) {
     this.reviewId = reviewId;
     this.userId = userId;
     this.requestId = requestId;

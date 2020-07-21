@@ -50,7 +50,7 @@ public class LoginFilter implements Filter {
       }
     }
     // Case: User is logged in
-    else if (!isRegistered(userService.getCurrentUser().getUserId())
+    else if (!userIsRegistered(userService.getCurrentUser().getUserId())
         && !request.getRequestURI().startsWith("/_ah/")) {
       // Sending a request to a register servlet (disallows requests to html or jsp pages)
       if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
@@ -79,14 +79,13 @@ public class LoginFilter implements Filter {
     }
   }
 
-  public boolean isRegistered(String id) {
-    Query<User> userQuery = ObjectifyService.ofy().load().type(User.class);
-    List<User> allUsers = userQuery.list();
+  private boolean userIsRegistered(String id) {
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 
-    List<User> isRegistered =
+    List<User> listOfUsersWithId =
         allUsers.stream().filter(user -> user.getUserId().equals(id)).collect(toList());
 
-    return isRegistered.size() >= 1;
+    return listOfUsersWithId.size() >= 1;
   }
 
   @Override
