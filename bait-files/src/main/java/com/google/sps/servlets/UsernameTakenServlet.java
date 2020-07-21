@@ -2,24 +2,16 @@ package com.google.sps.servlets;
 
 import static java.util.stream.Collectors.toList;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,18 +32,18 @@ public class UsernameTakenServlet extends HttpServlet {
     String username = request.getParameter("username");
 
     response.setContentType("application/json");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     if (username == null || username.equals("")) {
       String json = new Gson().toJson(true);
       response.getWriter().println(json);
       return;
     }
 
-    Query query = new Query("User").setFilter(
-        new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    boolean usernameTaken = entity != null;
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
+
+    List<User> usersWithUsername =
+        allUsers.stream().filter(user -> user.username.equals(username)).collect(toList());
+
+    boolean usernameTaken = usersWithUsername.size() >= 1;
 
     response.setContentType("application/json");
     String json = new Gson().toJson(usernameTaken);
