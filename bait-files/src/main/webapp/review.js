@@ -1,16 +1,16 @@
-const REQUESTID = 'requestId';
-const REQUESTIDCONTAINER = 'request-id';
-const USERIDCONTAINER = 'user-id';
-const STATUSCONTAINER = 'review-status';
-const DATECONTAINER = 'submission-date';
-const PHONEINPUT = 'phone-input-container';
-const NAMEINPUT = 'name-input-container';
-const USERNAMEINPUT = 'username-input-container';
-const EMAILINPUT = 'email-input-container';
-const ADDRESSINPUT = 'address-input-container';
-const NOTESINPUT = 'notes-input-container';
-const REVIEWREQUESTID = 'review-request-id';
-const REVIEWUSERID = 'review-user-id';
+const REQUEST_ID = 'requestId';
+const REQUEST_ID_CONTAINER = 'request-id';
+const USER_ID_CONTAINER = 'user-id';
+const STATUS_CONTAINER = 'review-status';
+const DATE_CONTAINER = 'submission-date';
+const PHONE_INPUT = 'phone-input-container';
+const NAME_INPUT = 'name-input-container';
+const USERNAME_INPUT = 'username-input-container';
+const EMAIL_INPUT = 'email-input-container';
+const ADDRESS_INPUT = 'address-input-container';
+const NOTES_INPUT = 'notes-input-container';
+const REVIEW_REQUEST_ID = 'review-request-id';
+const REVIEW_USER_ID = 'review-user-id';
 
 function getPanels() {
   const accordion = document.getElementsByClassName('accordion');
@@ -36,37 +36,36 @@ function getPanels() {
 function getRequest() {
   const queryString = window.location.search;
   const params = new URL(location.href).searchParams;
-  const requestId = params.get(REQUESTID);
+  const requestId = params.get(REQUEST_ID);
   if (requestId == null || isNaN(requestId)) {
-    window.location.replace('/reviews.html');
+    window.location.replace('/requests.html');
     return;
   }
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
-        document.getElementById(REQUESTIDCONTAINER)
+        document.getElementById(REQUEST_ID_CONTAINER)
             .appendChild(document.createTextNode(request.requestId));
-        document.getElementById(USERIDCONTAINER)
+        document.getElementById(USER_ID_CONTAINER)
             .appendChild(document.createTextNode(request.userId));
-        document.getElementById(STATUSCONTAINER)
+        document.getElementById(STATUS_CONTAINER)
             .appendChild(document.createTextNode(request.status));
-        document.getElementById(DATECONTAINER)
-            .appendChild(document.createTextNode(
-                new Date(request.timestamp).toLocaleDateString()));
-        document.getElementById(PHONEINPUT)
+        
+        document.getElementById(DATE_CONTAINER).append(document.createTextNode(new Date(request.submissionDate).toLocaleDateString() + "  " + new Date(request.submissionDate).toLocaleTimeString()));
+        document.getElementById(PHONE_INPUT)
             .appendChild(document.createTextNode(request.phoneNum));
-        document.getElementById(NAMEINPUT).appendChild(
+        document.getElementById(NAME_INPUT).appendChild(
             document.createTextNode(request.name));
-        document.getElementById(USERNAMEINPUT)
+        document.getElementById(USERNAME_INPUT)
             .appendChild(document.createTextNode(request.username));
-        document.getElementById(EMAILINPUT)
+        document.getElementById(EMAIL_INPUT)
             .appendChild(document.createTextNode(request.email));
-        document.getElementById(ADDRESSINPUT)
+        document.getElementById(ADDRESS_INPUT)
             .appendChild(document.createTextNode(request.address));
-        document.getElementById(NOTESINPUT)
+        document.getElementById(NOTES_INPUT)
             .appendChild(document.createTextNode(request.notes));
-        document.getElementById(REVIEWREQUESTID).value = request.requestId;
-        document.getElementById(REVIEWUSERID).value = request.userId;
+        document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
+        document.getElementById(REVIEW_USER_ID).value = request.userId;
       })
       .then(getPanels);
 }

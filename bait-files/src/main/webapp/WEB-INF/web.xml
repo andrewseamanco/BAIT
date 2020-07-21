@@ -28,6 +28,17 @@
     <url-pattern>/review.html</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>RequestsServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.RequestsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>RequestsServlet</servlet-name>
+    <url-pattern>/requests.html</url-pattern>
+  </servlet-mapping>
+
+
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.google.LoginFilter</filter-class>
