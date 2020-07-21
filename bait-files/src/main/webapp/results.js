@@ -1,32 +1,32 @@
-const starfilled = '★';
-const staroutline = '☆';
-const maxRating = 5;
+const STAR_FILLED = '★';
+const STAR_OUTLINE = '☆';
+const MAX_RATING = 5;
 
-const STARRATING = 'star-rating';
-const AUTHENTICITYEXPLANATION = 'authenticity-explanation';
+const STAR_RATING = 'star-rating';
+const AUTHENTICITY_EXPLANATION = 'authenticity-explanation';
 
-const DOESNOTEXIST = 'It is likely that this person does not exist.';
+const DOES_NOT_EXIST = 'It is likely that this person does not exist.';
 const EXISTS = 'It is likely that this person exists.';
 
-const PHONEINPUT = 'phone-input-container';
-const NAMEINPUT = 'name-input-container';
-const USERNAMEINPUT = 'username-input-container';
-const EMAILINPUT = 'email-input-container';
-const IMAGEINPUT = 'image-input-container';
-const ADDRESSINPUT = 'address-input-container';
-const NOTESINPUT = 'notes-input-container';
+const PHONE_INPUT = 'phone-input-container';
+const NAME_INPUT = 'name-input-container';
+const USERNAME_INPUT = 'username-input-container';
+const EMAIL_INPUT = 'email-input-container';
+const IMAGE_INPUT = 'image-input-container';
+const ADDRESS_INPUT = 'address-input-container';
+const NOTES_INPUT = 'notes-input-container';
 
-const PHONERESULTS = 'phone-results-container';
-const NAMERESULTS = 'name-results-container';
-const USERNAMERESULTS = 'username-results-container';
-const EMAILRESULTS = 'email-results-container';
-const IMAGERESULTS = 'image-results-container';
-const ADDRESSRESULTS = 'address-results-container';
-const REVIEWERNOTES = 'reviewer-notes-container';
+const PHONE_RESULTS = 'phone-results-container';
+const NAME_RESULTS = 'name-results-container';
+const USERNAME_RESULTS = 'username-results-container';
+const EMAIL_RESULTS = 'email-results-container';
+const IMAGE_RESULTS = 'image-results-container';
+const ADDRESS_RESULTS = 'address-results-container';
+const REVIEWER_NOTES = 'reviewer-notes-container';
 
 const VALID = 'VALID';
 const INVALID = 'INVALID';
-const NOTAPPLICABLE = 'N/A';
+const NOT_PROVIDED = 'This information was not provided.';
 
 const invalidString =
     'There were some problems validating the provided information.';
@@ -45,71 +45,71 @@ function getReview() {
   fetch('/review' + queryString)
       .then(response => response.json())
       .then((result) => {
-        document.getElementById(NAMEINPUT).appendChild(
+        document.getElementById(NAME_INPUT).appendChild(
             document.createTextNode(checkInput(result.request.name)));
-        document.getElementById(EMAILINPUT)
+        document.getElementById(EMAIL_INPUT)
             .appendChild(
                 document.createTextNode(checkInput(result.request.email)));
-        document.getElementById(USERNAMEINPUT)
+        document.getElementById(USERNAME_INPUT)
             .appendChild(
                 document.createTextNode(checkInput(result.request.username)));
-        document.getElementById(PHONEINPUT)
+        document.getElementById(PHONE_INPUT)
             .appendChild(
                 document.createTextNode(checkInput(result.request.phoneNum)));
-        document.getElementById(ADDRESSINPUT)
+        document.getElementById(ADDRESS_INPUT)
             .appendChild(
                 document.createTextNode(checkInput(result.request.address)));
-        document.getElementById(IMAGEINPUT)
+        document.getElementById(IMAGE_INPUT)
             .appendChild(
                 document.createTextNode(checkInput(result.request.image)));
 
         var stars = ' '
-        for (let i = 0; i < maxRating; i++) {
+        for (let i = 0; i < MAX_RATING; i++) {
           if (i < result.review.authenticityRating) {
-            stars += starfilled;
+            stars += STAR_FILLED;
             continue;
           }
-          stars += staroutline;
+          stars += STAR_OUTLINE;
         }
 
-        document.getElementById(STARRATING)
+        document.getElementById(STAR_RATING)
             .appendChild(document.createTextNode(stars));
 
         if (result.review.authenticityRating <= 2) {
-          document.getElementById(AUTHENTICITYEXPLANATION)
-              .appendChild(document.createTextNode(DOESNOTEXIST));
+          document.getElementById(AUTHENTICITY_EXPLANATION)
+              .appendChild(document.createTextNode(DOES_NOT_EXIST));
         } else {
-          document.getElementById(AUTHENTICITYEXPLANATION)
+          document.getElementById(AUTHENTICITY_EXPLANATION)
               .appendChild(document.createTextNode(EXISTS));
         }
 
-        document.getElementById(NAMERESULTS)
+        document.getElementById(NAME_RESULTS)
             .appendChild(document.createTextNode(
                 checkValidity(result.review.nameValidity)));
-        document.getElementById(EMAILRESULTS)
+        document.getElementById(EMAIL_RESULTS)
             .appendChild(document.createTextNode(
                 checkValidity(result.review.emailValidity)));
-        document.getElementById(USERNAMERESULTS)
+        document.getElementById(USERNAME_RESULTS)
             .appendChild(document.createTextNode(
                 checkValidity(result.review.usernameValidity)));
-        document.getElementById(PHONERESULTS)
+        document.getElementById(PHONE_RESULTS)
             .appendChild(
                 document.createTextNode(checkValidity(result.review.phoneNum)));
-        document.getElementById(ADDRESSRESULTS)
+        document.getElementById(ADDRESS_RESULTS)
             .appendChild(
                 document.createTextNode(checkValidity(result.review.address)));
-        document.getElementById(IMAGERESULTS)
+        document.getElementById(IMAGE_RESULTS)
             .appendChild(
                 document.createTextNode(checkValidity(result.review.image)));
 
-        document.getElementById(REVIEWERNOTES)
+        document.getElementById(REVIEWER_NOTES)
             .appendChild(document.createTextNode(result.review.reviewerNotes));
       });
 }
 
 function checkInput(input) {
   if (input == null || input == '' || input == undefined) {
-    return NOTAPPLICABLE;
+    return NOT_PROVIDED;
   } else {
     return input;
   }
