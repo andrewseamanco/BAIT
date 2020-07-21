@@ -1,19 +1,15 @@
 package com.google;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
+import static java.util.stream.Collectors.toList;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.sps.servlets.User;
+import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
+import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -54,7 +50,7 @@ public class LoginFilter implements Filter {
       }
     }
     // Case: User is logged in
-    else if (!isRegistered(userService.getCurrentUser().getUserId())
+    else if (!userIsRegistered(userService.getCurrentUser().getUserId())
         && !request.getRequestURI().startsWith("/_ah/")) {
       // Sending a request to a register servlet (disallows requests to html or jsp pages)
       if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
@@ -82,14 +78,13 @@ public class LoginFilter implements Filter {
       }
     }
   }
+  private boolean userIsRegistered(String id) {
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 
-  public boolean isRegistered(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("User").setFilter(
-        new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    return entity != null;
+    List<User> listOfUsersWithId =
+        allUsers.stream().filter(user -> user.getUserId().equals(id)).collect(toList());
+
+    return listOfUsersWithId.size() >= 1;
   }
 
   @Override
