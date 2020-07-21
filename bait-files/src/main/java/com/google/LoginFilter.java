@@ -13,6 +13,7 @@ import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import com.google.sps.servlets.Enums.Permission;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -71,6 +72,13 @@ public class LoginFilter implements Filter {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
         requestDispatcher.forward(request, response);
         return;
+      } else if (request.getRequestURI().endsWith("requests.html")) {
+          if (getCurrentUserPermission() == Permission.ADMIN) {
+              chain.doFilter(req, res);
+          } else {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
+            requestDispatcher.forward(request, response);  
+          }
       } else {
         // Case: User is logged in and registered and wants to access site resource
         chain.doFilter(req, res);
@@ -79,14 +87,24 @@ public class LoginFilter implements Filter {
     }
   }
 
-  public boolean isRegistered(String id) {
-    Query<User> userQuery = ObjectifyService.ofy().load().type(User.class);
-    List<User> allUsers = userQuery.list();
+  private boolean isRegistered(String id) {
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 
     List<User> isRegistered =
         allUsers.stream().filter(user -> user.getUserId().equals(id)).collect(toList());
 
     return isRegistered.size() >= 1;
+  }
+
+  private Permission getCurrentUserPermission() {
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
+    Permission userPermission = Permission.USER;
+    for (User user : allUsers) {
+        if (user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId())) {
+            userPermission = user.getPermission();
+        }
+    }
+    return userPermission;
   }
 
   @Override

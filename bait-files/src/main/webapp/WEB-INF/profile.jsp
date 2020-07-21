@@ -10,13 +10,29 @@
   <body onload="fillTables()">
     <%@ page import="com.google.appengine.api.users.UserService" %>
     <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+    <%@ page import="com.google.sps.servlets.Enums.Permission" %>
+    <%@ page import="com.googlecode.objectify.ObjectifyService" %>
+    <%@ page import="com.google.sps.servlets.User" %>
+    <%@ page import="java.util.List" %>
+
+    <%
+        List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
+        Permission userPermission = Permission.USER;
+        for (User user : allUsers) {
+            if (user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId())) {
+                userPermission = user.getPermission();
+            }
+        }
+    %>
 
   <div id="profile-body">
     <section id="content">
       <nav>
         <div id="nav-title">Bait</div>
         <div id="nav-links">
+        <% if (userPermission == Permission.ADMIN) { %>
           <a href="https://step-bait-project-2020.uc.r.appspot.com/requests.html" class="nav-item">Requests</a>
+        <%}%>
           <a href="https://step-bait-project-2020.uc.r.appspot.com/history.html" class="nav-item">History</a>
           <a href="<%=UserServiceFactory.getUserService().createLogoutURL("/login.jsp")%>" class="nav-item">Log Out</a>
         </div>
@@ -32,6 +48,8 @@
           <div id="table-body"></div>
       </div>
 
+
+<!-- UserServiceFactory.getUserService().getUserId() -->
 
     <h3> Pending Reviews </h3>
     <div id="pending-table" class="table">

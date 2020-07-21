@@ -12,4 +12,9 @@ public class Enums {
     VALID,
     INVALID;
   }
+
+  public enum Permission {
+      USER,
+      ADMIN;
+  }
 }

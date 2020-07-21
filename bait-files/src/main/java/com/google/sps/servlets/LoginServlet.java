@@ -6,6 +6,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
+import com.google.sps.servlets.Enums.Permission;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -34,8 +35,9 @@ public class LoginServlet extends HttpServlet {
     String username = request.getParameter(USERNAME_PARAMETER);
     String firstName = request.getParameter(FIRST_NAME_PARAMETER);
     String lastName = request.getParameter(LAST_NAME_PARAMETER);
+    Permission userPermission = Permission.USER;
 
-    User newUser = new User(userId, username, firstName, lastName);
+    User newUser = new User(userId, username, firstName, lastName, userPermission);
 
     ObjectifyService.ofy().save().entities(newUser).now();
 
