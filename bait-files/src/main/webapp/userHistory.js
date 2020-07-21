@@ -2,7 +2,7 @@ const url =
     'https://step-bait-project-2020.uc.r.appspot.com/review.html?reviewId=';
 
 function getCompletedReviews() {
-  fetch('/userHistory?is-pending-request=false')
+  fetch('/userHistory?is-pending-review=false')
       .then(response => response.json())
       .then((reviews) => {
         for (review of reviews) {
@@ -12,7 +12,7 @@ function getCompletedReviews() {
 }
 
 function getPendingReviews() {
-  fetch('/userHistory?is-pending-request=true')
+  fetch('/userHistory?is-pending-review=true')
       .then(response => response.json())
       .then((reviews) => {
         for (review of reviews) {

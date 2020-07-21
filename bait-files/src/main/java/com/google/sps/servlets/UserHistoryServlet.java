@@ -46,8 +46,8 @@ public class UserHistoryServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    boolean isPendingRequest = Boolean.parseBoolean(request.getParameter("is-pending-request"));
-    if (isPendingRequest) {
+    boolean isPendingReview = Boolean.parseBoolean(request.getParameter("is-pending-review"));
+    if (isPendingReview) {
       List<Review> pendingReviews = getReviewsByType(Status.PENDING);
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(pendingReviews));
