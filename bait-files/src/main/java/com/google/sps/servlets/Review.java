@@ -19,12 +19,14 @@ public class Review {
   Validity imageValidity;
   int authenticityRating; // integer from 1 to 5
   String reviewerNotes;
+  long submissionDate;
 
   private Review() {}
 
   public Review(Long reviewId, String userId, String requestId, Validity nameValidity,
-      Validity usernameValidity, Validity phoneNumValidity, Validity addressValidity,
-      Validity imageValidity, int authenticityRating, String reviewerNotes) {
+      Validity usernameValidity, Validity emailValidity, Validity phoneNumValidity,
+      Validity addressValidity, Validity imageValidity, int authenticityRating,
+      String reviewerNotes) {
     this.reviewId = reviewId;
     this.userId = userId;
     this.requestId = requestId;
@@ -37,5 +39,6 @@ public class Review {
     this.imageValidity = imageValidity;
     this.authenticityRating = authenticityRating;
     this.reviewerNotes = reviewerNotes;
+    this.submissionDate = System.currentTimeMillis();
   }
 }

@@ -8,14 +8,16 @@
       <filter-name>ObjectifyFilter</filter-name>
       <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
     </filter>
-
+  
     <filter-mapping>
       <filter-name>ObjectifyFilter</filter-name>
       <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
     <listener>
        <listener-class>com.google.sps.servlets.Bootstrapper</listener-class>
     </listener>
+
   <servlet>
     <servlet-name>RequestServlet</servlet-name>
     <servlet-class>com.google.sps.servlets.RequestServlet</servlet-class>
@@ -34,5 +36,5 @@
         <filter-name>loginFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+  
 </web-app>

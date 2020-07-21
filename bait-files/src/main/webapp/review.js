@@ -1,3 +1,17 @@
+const REQUESTID = 'requestId';
+const REQUESTIDCONTAINER = 'request-id';
+const USERIDCONTAINER = 'user-id';
+const STATUSCONTAINER = 'review-status';
+const DATECONTAINER = 'submission-date';
+const PHONEINPUT = 'phone-input-container';
+const NAMEINPUT = 'name-input-container';
+const USERNAMEINPUT = 'username-input-container';
+const EMAILINPUT = 'email-input-container';
+const ADDRESSINPUT = 'address-input-container';
+const NOTESINPUT = 'notes-input-container';
+const REVIEWREQUESTID = 'review-request-id';
+const REVIEWUSERID = 'review-user-id';
+
 function getPanels() {
   const accordion = document.getElementsByClassName('accordion');
   for (fold of accordion) {
@@ -8,10 +22,12 @@ function getPanels() {
                                     // panel is visible closes panel by setting
                                     // maxHeight to null
         panel.style.maxHeight = null;
+        panel.style.border = "none";
       } else {
         panel.style.maxHeight = panel.scrollHeight +
             'px';  // when accordion button is clicked, if panel is not visible,
                    // set maxHeight so panel is displayed
+        panel.style.border = "1px solid #0277bc";
       }
     });
   }
@@ -20,35 +36,38 @@ function getPanels() {
 function getRequest() {
   const queryString = window.location.search;
   const params = new URL(location.href).searchParams;
-  const requestId = params.get('requestId');
+  const requestId = params.get(REQUESTID);
   if (requestId == null || isNaN(requestId)) {
-    window.location.replace(window.location.hostname + '/reviews.html');
+    window.location.replace('/reviews.html');
     return;
   }
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
-        document.getElementById('request-id')
+        document.getElementById(REQUESTIDCONTAINER)
             .appendChild(document.createTextNode(request.requestId));
-        document.getElementById('user-id').appendChild(
-            document.createTextNode(request.userId));
-        document.getElementById('review-status')
+        document.getElementById(USERIDCONTAINER)
+            .appendChild(document.createTextNode(request.userId));
+        document.getElementById(STATUSCONTAINER)
             .appendChild(document.createTextNode(request.status));
-        document.getElementById('submission-date')
+        document.getElementById(DATECONTAINER)
             .appendChild(document.createTextNode(
                 new Date(request.timestamp).toLocaleDateString()));
-        document.getElementById('phone-input-container')
+        document.getElementById(PHONEINPUT)
             .appendChild(document.createTextNode(request.phoneNum));
-        document.getElementById('name-input-container')
-            .appendChild(document.createTextNode(request.name));
-        document.getElementById('username-input-container')
+        document.getElementById(NAMEINPUT).appendChild(
+            document.createTextNode(request.name));
+        document.getElementById(USERNAMEINPUT)
             .appendChild(document.createTextNode(request.username));
-        document.getElementById('email-input-container')
+        document.getElementById(EMAILINPUT)
             .appendChild(document.createTextNode(request.email));
-        document.getElementById('address-input-container')
+        document.getElementById(ADDRESSINPUT)
             .appendChild(document.createTextNode(request.address));
-        document.getElementById('notes-input-container')
+        document.getElementById(NOTESINPUT)
             .appendChild(document.createTextNode(request.notes));
+        document.getElementById(REVIEWREQUESTID).value = request.requestId;
+        document.getElementById(REVIEWUSERID).value = request.userId;
       })
       .then(getPanels);
 }
+
