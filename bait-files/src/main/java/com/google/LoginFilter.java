@@ -51,7 +51,7 @@ public class LoginFilter implements Filter {
       }
     }
     // Case: User is logged in
-    else if (!isRegistered(userService.getCurrentUser().getUserId())
+    else if (!userIsRegistered(userService.getCurrentUser().getUserId())
         && !request.getRequestURI().startsWith("/_ah/")) {
       // Sending a request to a register servlet (disallows requests to html or jsp pages)
       if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
