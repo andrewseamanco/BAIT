@@ -73,6 +73,7 @@ public class LoginFilter implements Filter {
         requestDispatcher.forward(request, response);
         return;
       } else if (request.getRequestURI().endsWith("requests.html")) {
+          System.out.println("Here");
           if (getCurrentUserPermission() == Permission.ADMIN) {
               chain.doFilter(req, res);
           } else {
@@ -80,6 +81,7 @@ public class LoginFilter implements Filter {
             requestDispatcher.forward(request, response);  
           }
       } else {
+        System.out.println(request.getRequestURI());
         // Case: User is logged in and registered and wants to access site resource
         chain.doFilter(req, res);
         return;
