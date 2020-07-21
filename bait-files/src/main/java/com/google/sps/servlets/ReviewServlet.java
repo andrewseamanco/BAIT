@@ -20,16 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/review")
 public class ReviewServlet extends HttpServlet {
-  private static final String REVIEWREQUESTID = "review-request-id";
-  private static final String REVIEWUSERID = "review-user-id";
-  private static final String NAMEVALIDITY = "name-validity";
-  private static final String USERNAMEVALIDITY = "username-validity";
-  private static final String EMAILVALIDITY = "email-validity";
-  private static final String PHONEVALIDITY = "phone-validity";
-  private static final String ADDRESSVALIDITY = "address-validity";
-  private static final String IMAGEVALIDITY = "image-validity";
-  private static final String AUTHENTICITYRATING = "authenticity-rating";
-  private static final String REVIEWERNOTES = "reviewer-notes";
+  private static final String REVIEW_REQUEST_ID = "review-request-id";
+  private static final String REVIEW_USER_ID = "review-user-id";
+  private static final String NAME_VALIDITY = "name-validity";
+  private static final String USERNAME_VALIDITY = "username-validity";
+  private static final String EMAIL_VALIDITY = "email-validity";
+  private static final String PHONE_VALIDITY = "phone-validity";
+  private static final String ADDRESS_VALIDITY = "address-validity";
+  private static final String IMAGE_VALIDITY = "image-validity";
+  private static final String AUTHENTICITY_RATING = "authenticity-rating";
+  private static final String REVIEWER_NOTES = "reviewer-notes";
 
   private class Result {
       Request request;
@@ -57,16 +57,17 @@ public class ReviewServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long reviewId = null;
-    String requestId = parameters.get(REVIEWREQUESTID)[0]; // There is only one value for each of keys in the parameters map
-    String userId = parameters.get(REVIEWUSERID)[0];
-    Validity nameValidity = Validity.valueOf(parameters.get(NAMEVALIDITY)[0].toUpperCase());
-    Validity usernameValidity = Validity.valueOf(parameters.get(USERNAMEVALIDITY)[0].toUpperCase());
-    Validity emailValidity = Validity.valueOf(parameters.get(EMAILVALIDITY)[0].toUpperCase());
-    Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONEVALIDITY)[0].toUpperCase());
-    Validity addressValidity = Validity.valueOf(parameters.get(ADDRESSVALIDITY)[0].toUpperCase());
-    Validity imageValidity = Validity.valueOf(parameters.get(IMAGEVALIDITY)[0].toUpperCase());
-    int authenticityRating = Integer.parseInt(parameters.get(AUTHENTICITYRATING)[0]);
-    String reviewerNotes = parameters.get(REVIEWERNOTES)[0];
+    String requestId = parameters.get(
+        REVIEW_REQUEST_ID)[0]; // There is only one value for each of keys in the parameters map
+    String userId = parameters.get(REVIEW_USER_ID)[0];
+    Validity nameValidity = Validity.valueOf(parameters.get(NAME_VALIDITY)[0].toUpperCase());
+    Validity usernameValidity = Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
+    Validity emailValidity = Validity.valueOf(parameters.get(EMAIL_VALIDITY)[0].toUpperCase());
+    Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONE_VALIDITY)[0].toUpperCase());
+    Validity addressValidity = Validity.valueOf(parameters.get(ADDRESS_VALIDITY)[0].toUpperCase());
+    Validity imageValidity = Validity.valueOf(parameters.get(IMAGE_VALIDITY)[0].toUpperCase());
+    int authenticityRating = Integer.parseInt(parameters.get(AUTHENTICITY_RATING)[0]);
+    String reviewerNotes = parameters.get(REVIEWER_NOTES)[0];
 
     ObjectifyService.ofy()
         .save()
@@ -82,6 +83,6 @@ public class ReviewServlet extends HttpServlet {
 
     ObjectifyService.ofy().save().entity(pendingRequest).now();
 
-    response.sendRedirect("/reviews.html");
+    response.sendRedirect("/requests.html");
   }
 }
