@@ -26,19 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/userHistory")
 public class UserHistoryServlet extends HttpServlet {
-  class SortByMostRecentDate implements Comparator<Review> {
-    public int compare(Review a, Review b) {
-      Long aDate = a.submissionDate;
-      Long bDate = b.submissionDate;
-      if (aDate == bDate) {
-        return 0;
-      }
-      if (aDate < bDate) {
-        return -1; // return negative integer if first argument is less than second
-      }
-      return 1;
-    }
-  }
 
   UserService userService = UserServiceFactory.getUserService();
   String userId = userService.getCurrentUser().getUserId();
@@ -64,8 +51,8 @@ public class UserHistoryServlet extends HttpServlet {
     List<Review> reviews = allRequests.stream()
                                .filter(rev -> rev.userId.equals(userId))
                                .filter(rev -> rev.status == statusType)
+                               .sorted(Comparator.comparing(rev -> rev.submissionDate))
                                .collect(toList());
-    Collections.sort(reviews, new SortByMostRecentDate());
 
     return reviews;
   }
