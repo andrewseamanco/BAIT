@@ -89,10 +89,10 @@ public class LoginFilter implements Filter {
     }
   }
 
-  private boolean isRegistered(String id) {
+  private boolean userIsRegistered(String id) {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 
-    List<User> isRegistered =
+    List<User> listOfUsersWithId =
         allUsers.stream().filter(user -> user.getUserId().equals(id)).collect(toList());
 
     return isRegistered.size() >= 1;

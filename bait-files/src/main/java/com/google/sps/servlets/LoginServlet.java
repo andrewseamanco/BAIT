@@ -1,6 +1,8 @@
 package com.google.sps.servlets;
 
-import static com.google.sps.data.Constants.*;
+import static com.google.sps.data.Constants.FIRST_NAME_PARAMETER;
+import static com.google.sps.data.Constants.LAST_NAME_PARAMETER;
+import static com.google.sps.data.Constants.USERNAME_PARAMETER;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
