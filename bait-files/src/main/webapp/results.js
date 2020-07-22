@@ -51,30 +51,36 @@ function getReview() {
         addDataToPage(PHONE_INPUT, getInputString(result.request.phoneNum));
         addDataToPage(ADDRESS_INPUT, getInputString(result.request.address));
         addDataToPage(IMAGE_INPUT, getInputString(result.request.image));
-        addDataToPage(REVIEWER_NOTES, getInputString(result.review.reviewerNotes));
+        addDataToPage(
+            REVIEWER_NOTES, getInputString(result.review.reviewerNotes));
 
-        let starRatingString = 
+        let starRatingString =
             STAR_FILLED.repeat(result.review.authenticityRating)
-            .concat(STAR_OUTLINE.repeat(MAX_RATING - result.review.authenticityRating));
+                .concat(STAR_OUTLINE.repeat(
+                    MAX_RATING - result.review.authenticityRating));
 
         addDataToPage(STAR_RATING, starRatingString);
 
         if (result.review.authenticityRating <= 2) {
           addDataToPage(AUTHENTICITY_EXPLANATION, DOES_NOT_EXIST);
         } else {
-              addDataToPage(AUTHENTICITY_EXPLANATION, EXISTS);
+          addDataToPage(AUTHENTICITY_EXPLANATION, EXISTS);
         }
 
-        addDataToPage(NAME_RESULTS,getValidityString(result.review.nameValidity));
-        addDataToPage(EMAIL_RESULTS,getValidityString(result.review.emailValidity));
-        addDataToPage(USERNAME_RESULTS, getValidityString(result.review.usernameValidity));
-        addDataToPage(PHONE_RESULTS, getValidityString(result.review.phoneNumValidity));
-        addDataToPage(ADDRESS_RESULTS, getValidityString(result.review.addressValidity));
-        addDataToPage(IMAGE_RESULTS, getValidityString(result.review.imageValidity));
-        
+        addDataToPage(
+            NAME_RESULTS, getValidityString(result.review.nameValidity));
+        addDataToPage(
+            EMAIL_RESULTS, getValidityString(result.review.emailValidity));
+        addDataToPage(
+            USERNAME_RESULTS,
+            getValidityString(result.review.usernameValidity));
+        addDataToPage(
+            PHONE_RESULTS, getValidityString(result.review.phoneNumValidity));
+        addDataToPage(
+            ADDRESS_RESULTS, getValidityString(result.review.addressValidity));
+        addDataToPage(
+            IMAGE_RESULTS, getValidityString(result.review.imageValidity));
       });
-
-
 }
 
 function getInputString(input) {
@@ -94,5 +100,5 @@ function getValidityString(validity) {
 }
 
 function addDataToPage(container, data) {
-    document.getElementById(container).appendChild(document.createTextNode(data));
+  document.getElementById(container).appendChild(document.createTextNode(data));
 }

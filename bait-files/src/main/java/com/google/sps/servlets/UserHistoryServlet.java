@@ -26,6 +26,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/userHistory")
 public class UserHistoryServlet extends HttpServlet {
+  class SortByEarliestDate implements Comparator<Request> {
+    public int compare(Request a, Request b) {
+      return Long.compare(a.submissionDate, b.submissionDate);
+    }
+  }
+
   class SortByMostRecentDate implements Comparator<Review> {
     public int compare(Review a, Review b) {
       Long aDate = a.submissionDate;
@@ -47,26 +53,25 @@ public class UserHistoryServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     boolean isPendingReview = Boolean.parseBoolean(request.getParameter("is-pending-review"));
     if (isPendingReview) {
-      List<Review> pendingReviews = getReviewsByType(Status.PENDING);
+      List<Request> allRequests = ObjectifyService.ofy().load().type(Request.class).list();
+      List<Request> requests = allRequests.stream()
+                                   .filter(req -> req.userId.equals(userId))
+                                   .filter(req -> req.status == Status.PENDING)
+                                   .collect(toList());
+      Collections.sort(requests, new SortByEarliestDate());
       response.setContentType("application/json;");
-      response.getWriter().println(new Gson().toJson(pendingReviews));
+      response.getWriter().println(new Gson().toJson(requests));
       return;
     } else {
-      List<Review> completedReviews = getReviewsByType(Status.COMPLETED);
+      List<Review> allReviews = ObjectifyService.ofy().load().type(Review.class).list();
+      List<Review> reviews = allReviews.stream()
+                                 .filter(review -> review.userId.equals(userId))
+                                 .filter(review -> review.status == Status.COMPLETED)
+                                 .collect(toList());
+      Collections.sort(reviews, new SortByMostRecentDate());
       response.setContentType("application/json;");
-      response.getWriter().println(new Gson().toJson(completedReviews));
+      response.getWriter().println(new Gson().toJson(reviews));
       return;
     }
-  }
-
-  public List<Review> getReviewsByType(Status statusType) {
-    List<Review> allRequests = ObjectifyService.ofy().load().type(Review.class).list();
-    List<Review> reviews = allRequests.stream()
-                               .filter(rev -> rev.userId.equals(userId))
-                               .filter(rev -> rev.status == statusType)
-                               .collect(toList());
-    Collections.sort(reviews, new SortByMostRecentDate());
-
-    return reviews;
   }
 }

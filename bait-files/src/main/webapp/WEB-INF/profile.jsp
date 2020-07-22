@@ -26,8 +26,9 @@
       <div id="completed-table" class="table">
           <div id="table-header">
             <div class="table-header-cell">Request Date</div>
+            <div class="table-header-cell">Request Id</div>
             <div class="table-header-cell">Review Id</div>
-            <div class="table-header-cell">Review</div>
+            <div class="table-header-cell">Results</div>
           </div>
           <div id="table-body"></div>
       </div>
@@ -37,16 +38,16 @@
     <div id="pending-table" class="table">
         <div id="table-header">
             <div class="table-header-cell">Request Date</div>
-            <div class="table-header-cell">Review Id</div>
-            <div class="table-header-cell">Review</div>
+            <div class="table-header-cell">Request Id</div>
+            <div class="table-header-cell">Results</div>
           </div>
         <div id="table-body"></div>
     </div>
     </section>
 
     <div id="new-request">
-        <h3>Create a new request</h3>
-        <button>+</button>
+        <h3>Create a New Request</h3>
+        <a href="https://step-bait-project-2020.uc.r.appspot.com/submission.html"><button>+</button></a>
     </div>
   </body>
 </html>
