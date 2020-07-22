@@ -48,9 +48,6 @@
           <div id="table-body"></div>
       </div>
 
-
-<!-- UserServiceFactory.getUserService().getUserId() -->
-
     <h3> Pending Reviews </h3>
     <div id="pending-table" class="table">
         <div id="table-header">

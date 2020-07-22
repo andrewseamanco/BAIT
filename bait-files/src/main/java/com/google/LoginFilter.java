@@ -72,8 +72,8 @@ public class LoginFilter implements Filter {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
         requestDispatcher.forward(request, response);
         return;
+        //Case: User is trying to access ADMIN features of the application
       } else if (request.getRequestURI().endsWith("requests.html")) {
-          //Case: User is trying to access ADMIN features of the application
           if (getCurrentUserPermission() == Permission.ADMIN) {
               chain.doFilter(req, res);
           } else {
@@ -94,7 +94,7 @@ public class LoginFilter implements Filter {
     List<User> listOfUsersWithId =
         allUsers.stream().filter(user -> user.getUserId().equals(id)).collect(toList());
 
-    return isRegistered.size() >= 1;
+    return listOfUsersWithId.size() >= 1;
   }
 
 
