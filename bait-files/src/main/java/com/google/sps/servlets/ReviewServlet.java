@@ -31,8 +31,33 @@ public class ReviewServlet extends HttpServlet {
   private static final String AUTHENTICITY_RATING = "authenticity-rating";
   private static final String REVIEWER_NOTES = "reviewer-notes";
 
+  private class Result {
+    Request request;
+    Review review;
+
+    private Result(Review review, Request request) {
+      this.review = review;
+      this.request = request;
+    }
+  }
+
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {}
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    try {
+      long reviewId = Long.parseLong(request.getParameter("reviewId"));
+      Review userReview = ObjectifyService.ofy().load().type(Review.class).id(reviewId).now();
+      Request userRequest = ObjectifyService.ofy()
+                                .load()
+                                .type(Request.class)
+                                .id(Long.parseLong(userReview.requestId))
+                                .now();
+
+      response.setContentType("application/json;");
+      response.getWriter().println(new Gson().toJson(new Result(userReview, userRequest)));
+    } catch (NumberFormatException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
+  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
