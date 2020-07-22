@@ -45,70 +45,39 @@ function getReview() {
   fetch('/review' + queryString)
       .then(response => response.json())
       .then((result) => {
-        document.getElementById(NAME_INPUT)
-            .appendChild(
-                document.createTextNode(checkInput(result.request.name)));
-        document.getElementById(EMAIL_INPUT)
-            .appendChild(
-                document.createTextNode(checkInput(result.request.email)));
-        document.getElementById(USERNAME_INPUT)
-            .appendChild(
-                document.createTextNode(checkInput(result.request.username)));
-        document.getElementById(PHONE_INPUT)
-            .appendChild(
-                document.createTextNode(checkInput(result.request.phoneNum)));
-        document.getElementById(ADDRESS_INPUT)
-            .appendChild(
-                document.createTextNode(checkInput(result.request.address)));
-        document.getElementById(IMAGE_INPUT)
-            .appendChild(
-                document.createTextNode(checkInput(result.request.image)));
+        addDataToPage(NAME_INPUT, getInputString(result.request.name));
+        addDataToPage(EMAIL_INPUT, getInputString(result.request.email));
+        addDataToPage(USERNAME_INPUT, getInputString(result.request.username));
+        addDataToPage(PHONE_INPUT, getInputString(result.request.phoneNum));
+        addDataToPage(ADDRESS_INPUT, getInputString(result.request.address));
+        addDataToPage(IMAGE_INPUT, getInputString(result.request.image));
+        addDataToPage(REVIEWER_NOTES, getInputString(result.review.reviewerNotes));
 
-        let stars = '';
-        for (let i = 0; i < MAX_RATING; i++) {
-          if (i < result.review.authenticityRating) {
-            stars += STAR_FILLED;
-            continue;
-          }
-          stars += STAR_OUTLINE;
-        }
+        let starRatingString = 
+            STAR_FILLED.repeat(result.review.authenticityRating)
+            .concat(STAR_OUTLINE.repeat(MAX_RATING - result.review.authenticityRating));
 
-        document.getElementById(STAR_RATING)
-            .appendChild(document.createTextNode(stars));
+        addDataToPage(STAR_RATING, starRatingString);
 
         if (result.review.authenticityRating <= 2) {
-          document.getElementById(AUTHENTICITY_EXPLANATION)
-              .appendChild(document.createTextNode(DOES_NOT_EXIST));
+          addDataToPage(AUTHENTICITY_EXPLANATION, DOES_NOT_EXIST);
         } else {
-          document.getElementById(AUTHENTICITY_EXPLANATION)
-              .appendChild(document.createTextNode(EXISTS));
+              addDataToPage(AUTHENTICITY_EXPLANATION, EXISTS);
         }
 
-        document.getElementById(NAME_RESULTS)
-            .appendChild(document.createTextNode(
-                checkValidity(result.review.nameValidity)));
-        document.getElementById(EMAIL_RESULTS)
-            .appendChild(document.createTextNode(
-                checkValidity(result.review.emailValidity)));
-        document.getElementById(USERNAME_RESULTS)
-            .appendChild(document.createTextNode(
-                checkValidity(result.review.usernameValidity)));
-        document.getElementById(PHONE_RESULTS)
-            .appendChild(
-                document.createTextNode(checkValidity(result.review.phoneNum)));
-        document.getElementById(ADDRESS_RESULTS)
-            .appendChild(
-                document.createTextNode(checkValidity(result.review.address)));
-        document.getElementById(IMAGE_RESULTS)
-            .appendChild(
-                document.createTextNode(checkValidity(result.review.image)));
-
-        document.getElementById(REVIEWER_NOTES)
-            .appendChild(document.createTextNode(result.review.reviewerNotes));
+        addDataToPage(NAME_RESULTS,getValidityString(result.review.nameValidity));
+        addDataToPage(EMAIL_RESULTS,getValidityString(result.review.emailValidity));
+        addDataToPage(USERNAME_RESULTS, getValidityString(result.review.usernameValidity));
+        addDataToPage(PHONE_RESULTS, getValidityString(result.review.phoneNumValidity));
+        addDataToPage(ADDRESS_RESULTS, getValidityString(result.review.addressValidity));
+        addDataToPage(IMAGE_RESULTS, getValidityString(result.review.imageValidity));
+        
       });
+
+
 }
 
-function checkInput(input) {
+function getInputString(input) {
   if (input == null || input == '' || input == undefined) {
     return NOT_PROVIDED;
   } else {
@@ -116,10 +85,14 @@ function checkInput(input) {
   }
 }
 
-function checkValidity(validity) {
+function getValidityString(validity) {
   if (validity == VALID) {
     return VALID_STRING;
   } else {
     return INVALID_STRING;
   }
+}
+
+function addDataToPage(container, data) {
+    document.getElementById(container).appendChild(document.createTextNode(data));
 }
