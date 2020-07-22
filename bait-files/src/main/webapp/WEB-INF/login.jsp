@@ -16,11 +16,31 @@
                 The BAIT algorithm verifies the authenticity of online profiles and services and helps you make informed decisions when
                 online.
             </h3>
-            <button id="login-button" onclick=document.location.href="<%=UserServiceFactory.getUserService().createLoginURL("/register.jsp")%>">Start Here</button>
+            <% 
+            UserService userService = UserServiceFactory.getUserService();
+            if (!userService.isUserLoggedIn()) { %>
+                <button id="login-button" onclick=document.location.href="<%=UserServiceFactory.getUserService().createLoginURL("/register.jsp")%>">Start Here</button>
+            <% } else { %>
+                <div id="error-message-div"></div>
+
+                <h3>Create Your Profile</h3>
+                <form name="registration-form" id="registration-form" action="/register" method="POST">
+                    <ul>
+                        <li>
+                            <label name="username" id="username-label">Username</label> <br>
+                            <input name="username" id="username-input" type="text"/>
+                        </li>
+                        <li>
+                            <button type="button" onclick="checkFormInput()">Submit</button>
+                        </li>
+                    </ul>
+                </form>
+            <% } %>
         </div>
         <div id="bait-image">
             <img id="login-image" src="../images/catfish_filler.jpg" />
         </div>
     </div>
+    <script src="../login.js"></script>
   </body>
 </html>

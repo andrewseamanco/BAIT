@@ -35,11 +35,9 @@ public class LoginServlet extends HttpServlet {
 
     String userId = userService.getCurrentUser().getUserId();
     String username = request.getParameter(USERNAME_PARAMETER);
-    String firstName = request.getParameter(FIRST_NAME_PARAMETER);
-    String lastName = request.getParameter(LAST_NAME_PARAMETER);
     Permission userPermission = Permission.USER;
 
-    User newUser = new User(userId, username, firstName, lastName, userPermission);
+    User newUser = new User(userId, username, userPermission);
     ObjectifyService.ofy().save().entities(newUser).now();
 
     response.sendRedirect("/profile.jsp");

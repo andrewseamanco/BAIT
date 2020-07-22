@@ -11,17 +11,13 @@ import com.google.sps.servlets.Enums.Permission;
 public class User {
   @Id String personId;
   String username;
-  String firstName;
-  String lastName;
   Permission permission;
 
   private User() {}
 
-  public User(String personId, String username, String firstName, String lastName, Permission permission) {
+  public User(String personId, String username, Permission permission) {
     this.personId = personId;
     this.username = username;
-    this.firstName = firstName;
-    this.lastName = lastName;
     this.permission = permission;
   }
 
