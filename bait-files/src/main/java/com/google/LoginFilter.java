@@ -53,19 +53,19 @@ public class LoginFilter implements Filter {
     // Case: User is logged in
     else if (!userIsRegistered(userService.getCurrentUser().getUserId())
         && !request.getRequestURI().startsWith("/_ah/")) {
-      // Sending a request to a register servlet (disallows requests to html or jsp pages)
+      // Case: Sending a request to a register servlet (disallows requests to html or jsp pages)
       if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
         chain.doFilter(req, res);
         return;
       }
-      // User is not registered and is trying to access restricted material
+      // Case: User is not registered and is trying to access restricted material
       else {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
         requestDispatcher.forward(request, response);
         return;
       }
     } else {
-      // Is logged in
+      // Case: User is logged in
       if (request.getRequestURI().endsWith("profile.jsp")
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
@@ -73,6 +73,7 @@ public class LoginFilter implements Filter {
         requestDispatcher.forward(request, response);
         return;
       } else if (request.getRequestURI().endsWith("requests.html")) {
+          //Case: User is trying to access ADMIN features of the application
           if (getCurrentUserPermission() == Permission.ADMIN) {
               chain.doFilter(req, res);
           } else {
