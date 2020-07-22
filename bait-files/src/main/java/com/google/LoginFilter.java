@@ -1,6 +1,7 @@
 package com.google;
 
 import static java.util.stream.Collectors.toList;
+import static com.google.common.collect.MoreCollectors.onlyElement;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -72,14 +73,6 @@ public class LoginFilter implements Filter {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
         requestDispatcher.forward(request, response);
         return;
-        //Case: User is trying to access ADMIN features of the application
-      } else if (request.getRequestURI().endsWith("requests.html")) {
-          if (getCurrentUserPermission() == Permission.ADMIN) {
-              chain.doFilter(req, res);
-          } else {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
-            requestDispatcher.forward(request, response);  
-          }
       } else {
         // Case: User is logged in and registered and wants to access site resource
         chain.doFilter(req, res);
@@ -104,13 +97,10 @@ public class LoginFilter implements Filter {
   */
   private Permission getCurrentUserPermission() {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
-    Permission userPermission = Permission.USER;
-    for (User user : allUsers) {
-        if (user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId())) {
-            userPermission = user.getPermission();
-        }
-    }
-    return userPermission;
+    return allUsers.stream().filter(user -> 
+      user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId()))
+    .collect(onlyElement())
+    .getPermission();
   }
 
   @Override
