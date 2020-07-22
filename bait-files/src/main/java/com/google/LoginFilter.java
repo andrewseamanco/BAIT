@@ -73,7 +73,6 @@ public class LoginFilter implements Filter {
         requestDispatcher.forward(request, response);
         return;
       } else if (request.getRequestURI().endsWith("requests.html")) {
-          System.out.println("Here");
           if (getCurrentUserPermission() == Permission.ADMIN) {
               chain.doFilter(req, res);
           } else {
