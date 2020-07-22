@@ -1,6 +1,7 @@
 package com.google;
 
 import static java.util.stream.Collectors.toList;
+import static com.google.common.collect.MoreCollectors.onlyElement;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
