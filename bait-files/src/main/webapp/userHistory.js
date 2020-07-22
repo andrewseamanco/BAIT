@@ -22,7 +22,6 @@ function getPendingReviews() {
 }
 
 function addReview(review, tableToAddTo) {
-  const queue = tableToAddTo;
   const row = document.createElement('div');
   row.setAttribute('class', 'table-body-row');
 
@@ -43,7 +42,7 @@ function addReview(review, tableToAddTo) {
   detailLink.append(document.createTextNode('View'));
   detailView.append(detailLink);
   row.append(detailView);
-  queue.append(row);
+  tableToAddTo.append(row);
 }
 
 function fillTables() {
