@@ -97,6 +97,11 @@ public class LoginFilter implements Filter {
     return isRegistered.size() >= 1;
   }
 
+
+  /*
+  *  Will get the permission of the current logged in User
+  *  @return current user permission
+  */
   private Permission getCurrentUserPermission() {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
     Permission userPermission = Permission.USER;
