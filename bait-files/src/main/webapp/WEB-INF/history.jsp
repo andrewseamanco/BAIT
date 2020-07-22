@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Request History</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind:wght@600&family=Roboto:ital@1&display=swap" rel="stylesheet">  
-    <link rel="stylesheet" href="../profile.css">
+    <link rel="stylesheet" href="../history.css">
     <script src="../userHistory.js"></script>
   </head>
   <body onload="fillTables()">
@@ -16,8 +16,7 @@
       <nav>
         <div id="nav-title">Bait</div>
         <div id="nav-links">
-          <a href="https://step-bait-project-2020.uc.r.appspot.com/requests.html" class="nav-item">Requests</a>
-          <a href="https://step-bait-project-2020.uc.r.appspot.com/history.html" class="nav-item">History</a>
+          <a href="https://step-bait-project-2020.uc.r.appspot.com/history.jsp" class="nav-item">History</a>
           <a href="<%=UserServiceFactory.getUserService().createLogoutURL("/login.jsp")%>" class="nav-item">Log Out</a>
         </div>
       </nav>

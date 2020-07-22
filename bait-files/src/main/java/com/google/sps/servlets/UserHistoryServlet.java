@@ -69,6 +69,7 @@ public class UserHistoryServlet extends HttpServlet {
                                  .filter(review -> review.status == Status.COMPLETED)
                                  .collect(toList());
       Collections.sort(reviews, new SortByMostRecentDate());
+      Collections.reverse(reviews);
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(reviews));
       return;
