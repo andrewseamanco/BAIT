@@ -22,12 +22,12 @@ function getPanels() {
                                     // panel is visible closes panel by setting
                                     // maxHeight to null
         panel.style.maxHeight = null;
-        panel.style.border = "none";
+        panel.style.border = 'none';
       } else {
         panel.style.maxHeight = panel.scrollHeight +
             'px';  // when accordion button is clicked, if panel is not visible,
                    // set maxHeight so panel is displayed
-        panel.style.border = "1px solid #0277bc";
+        panel.style.border = '1px solid #0277bc';
       }
     });
   }
@@ -50,12 +50,15 @@ function getRequest() {
             .appendChild(document.createTextNode(request.userId));
         document.getElementById(STATUS_CONTAINER)
             .appendChild(document.createTextNode(request.status));
-        
-        document.getElementById(DATE_CONTAINER).append(document.createTextNode(new Date(request.submissionDate).toLocaleDateString() + "  " + new Date(request.submissionDate).toLocaleTimeString()));
+
+        document.getElementById(DATE_CONTAINER)
+            .append(document.createTextNode(
+                new Date(request.submissionDate).toLocaleDateString() + '  ' +
+                new Date(request.submissionDate).toLocaleTimeString()));
         document.getElementById(PHONE_INPUT)
             .appendChild(document.createTextNode(request.phoneNum));
-        document.getElementById(NAME_INPUT).appendChild(
-            document.createTextNode(request.name));
+        document.getElementById(NAME_INPUT)
+            .appendChild(document.createTextNode(request.name));
         document.getElementById(USERNAME_INPUT)
             .appendChild(document.createTextNode(request.username));
         document.getElementById(EMAIL_INPUT)
@@ -69,4 +72,3 @@ function getRequest() {
       })
       .then(getPanels);
 }
-

@@ -10,14 +10,13 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.lang.String;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Comparator;
-import java.util.Collections;
-
 
 /**
  * Servlet loads all pending requests from datastore.
@@ -27,18 +26,18 @@ import java.util.Collections;
 
 @WebServlet("/userHistory")
 public class UserHistoryServlet extends HttpServlet {
-  class SortByMostRecentDate implements Comparator<Review> { 
+  class SortByMostRecentDate implements Comparator<Review> {
     public int compare(Review a, Review b) {
-        Long aDate = a.submissionDate;
-        Long bDate = b.submissionDate;
-           if(aDate == bDate) {
+      Long aDate = a.submissionDate;
+      Long bDate = b.submissionDate;
+      if (aDate == bDate) {
         return 0;
-     }
-     if(aDate < bDate) {
-        return -1; //return negative integer if first argument is less than second
-     }
-     return 1;
-    } 
+      }
+      if (aDate < bDate) {
+        return -1; // return negative integer if first argument is less than second
+      }
+      return 1;
+    }
   }
 
   UserService userService = UserServiceFactory.getUserService();
@@ -60,14 +59,14 @@ public class UserHistoryServlet extends HttpServlet {
     }
   }
 
-  public List<Review> getReviewsByType(Status statusType)  {
-      List<Review> allRequests = ObjectifyService.ofy().load().type(Review.class).list();
-      List<Review> reviews = allRequests.stream()
-                                          .filter(rev -> rev.userId.equals(userId))
-                                          .filter(rev -> rev.status == statusType)
-                                          .collect(toList());
-      Collections.sort(reviews, new SortByMostRecentDate());
+  public List<Review> getReviewsByType(Status statusType) {
+    List<Review> allRequests = ObjectifyService.ofy().load().type(Review.class).list();
+    List<Review> reviews = allRequests.stream()
+                               .filter(rev -> rev.userId.equals(userId))
+                               .filter(rev -> rev.status == statusType)
+                               .collect(toList());
+    Collections.sort(reviews, new SortByMostRecentDate());
 
-      return reviews;
+    return reviews;
   }
 }
