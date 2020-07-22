@@ -80,7 +80,6 @@ public class LoginFilter implements Filter {
             requestDispatcher.forward(request, response);  
           }
       } else {
-        System.out.println(request.getRequestURI());
         // Case: User is logged in and registered and wants to access site resource
         chain.doFilter(req, res);
         return;
