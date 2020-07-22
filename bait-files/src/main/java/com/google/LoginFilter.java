@@ -51,7 +51,7 @@ public class LoginFilter implements Filter {
         return;
       }
     }
-    // Case: User is logged in
+    // Case: User is logged in but not registered
     else if (!userIsRegistered(userService.getCurrentUser().getUserId())
         && !request.getRequestURI().startsWith("/_ah/")) {
       // Case: Sending a request to a register servlet (disallows requests to html or jsp pages)
@@ -70,9 +70,15 @@ public class LoginFilter implements Filter {
       if (request.getRequestURI().endsWith("profile.jsp")
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
-        requestDispatcher.forward(request, response);
-        return;
+              if (getCurrentUserPermission()==Permission.USER) {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
+                requestDispatcher.forward(request, response);
+                return;
+              } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/requests.html");
+                requestDispatcher.forward(request, response);
+                return; 
+              }
       } else {
         // Case: User is logged in and registered and wants to access site resource
         chain.doFilter(req, res);
@@ -95,7 +101,7 @@ public class LoginFilter implements Filter {
   *  Will get the permission of the current logged in User
   *  @return current user permission
   */
-  private Permission getCurrentUserPermission() {
+  public Permission getCurrentUserPermission() {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
     return allUsers.stream().filter(user -> 
       user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId()))

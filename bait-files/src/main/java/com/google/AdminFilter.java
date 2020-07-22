@@ -32,14 +32,25 @@ public class AdminFilter implements Filter {
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
       throws IOException, ServletException {
 
-          System.out.println("Made it to this filter");
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        HttpSession session = request.getSession(false);
+        UserService userService = UserServiceFactory.getUserService();
 
-    HttpServletRequest request = (HttpServletRequest) req;
-    HttpServletResponse response = (HttpServletResponse) res;
-    HttpSession session = request.getSession(false);
-    UserService userService = UserServiceFactory.getUserService();
+        if (getCurrentUserPermission() == Permission.USER) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../WEB-INF/profile.jsp");
+            requestDispatcher.forward(request, response);
+        } else {
+            chain.doFilter(req, res);
+            return;
+        }
+    }
 
-    RequestDispatcher requestDispatcher = request.getRequestDispatcher("../WEB-INF/profile.jsp");
-    requestDispatcher.forward(request, response);
-      }
+    public Permission getCurrentUserPermission() {
+    List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
+    return allUsers.stream().filter(user -> 
+      user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId()))
+    .collect(onlyElement())
+    .getPermission();
+  }
 }
