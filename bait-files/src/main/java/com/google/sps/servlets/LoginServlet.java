@@ -1,12 +1,13 @@
 package com.google.sps.servlets;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import static com.google.sps.data.Constants.FIRST_NAME_PARAMETER;
+import static com.google.sps.data.Constants.LAST_NAME_PARAMETER;
+import static com.google.sps.data.Constants.USERNAME_PARAMETER;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -30,16 +31,15 @@ public class LoginServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     UserService userService = UserServiceFactory.getUserService();
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-    Entity newUser = new Entity("User", request.getParameter("username"));
-    newUser.setProperty("id", userService.getCurrentUser().getUserId());
-    newUser.setProperty("username", request.getParameter("username"));
-    newUser.setProperty("first-name", request.getParameter("first-name"));
-    newUser.setProperty("last-name", request.getParameter("last-name"));
-    newUser.setProperty("is-admin", false);
+    String userId = userService.getCurrentUser().getUserId();
+    String username = request.getParameter(USERNAME_PARAMETER);
+    String firstName = request.getParameter(FIRST_NAME_PARAMETER);
+    String lastName = request.getParameter(LAST_NAME_PARAMETER);
 
-    datastore.put(newUser);
+    User newUser = new User(userId, username, firstName, lastName);
+
+    ObjectifyService.ofy().save().entities(newUser).now();
 
     response.sendRedirect("/profile.jsp");
   }
