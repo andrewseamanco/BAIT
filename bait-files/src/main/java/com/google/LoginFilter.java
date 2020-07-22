@@ -105,13 +105,11 @@ public class LoginFilter implements Filter {
   */
   private Permission getCurrentUserPermission() {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
-    Permission userPermission = Permission.USER;
-    for (User user : allUsers) {
-        if (user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId())) {
-            userPermission = user.getPermission();
-        }
-    }
-    return userPermission;
+    return allUsers.stream()
+      .filter(user -> 
+        user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId()))
+      .collect(onlyElement())
+      .getPermission();
   }
 
   @Override
