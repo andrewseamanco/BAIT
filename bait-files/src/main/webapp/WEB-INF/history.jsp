@@ -26,7 +26,6 @@
           <div id="table-header">
             <div class="table-header-cell">Request Date</div>
             <div class="table-header-cell">Request Id</div>
-            <div class="table-header-cell">Review Id</div>
             <div class="table-header-cell">Results</div>
           </div>
           <div id="table-body"></div>

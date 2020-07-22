@@ -41,7 +41,6 @@ function addRequest(request, table) {
     detailView.appendChild(document.createTextNode('Pending'))
   } else {
     createRowElement(request.requestId, row);
-    createRowElement(request.reviewId, row);
     const detailLink = document.createElement('a');
     detailLink.setAttribute('href', url + request.reviewId);
     detailLink.append(document.createTextNode('View'));
