@@ -25,15 +25,8 @@ function addReview(review, tableToAddTo) {
   const row = document.createElement('div');
   row.setAttribute('class', 'table-body-row');
 
-  const timestamp = document.createElement('div');
-  timestamp.setAttribute('class', 'table-body-cell');
-  timestamp.append(document.createTextNode(review.timestamp));
-  row.append(timestamp);
-
-  const reviewId = document.createElement('div');
-  reviewId.setAttribute('class', 'table-body-cell');
-  reviewId.append(document.createTextNode(review.reviewId));
-  row.append(reviewId);
+  createRowElement(review.timestamp, row);
+  createRowElement(review.reviewId, row);
 
   const detailView = document.createElement('div');
   detailView.setAttribute('class', 'table-body-cell');
@@ -43,6 +36,13 @@ function addReview(review, tableToAddTo) {
   detailView.append(detailLink);
   row.append(detailView);
   tableToAddTo.append(row);
+}
+
+function createRowElement(textNodeContent, row) {
+  const rowElement = document.createElement('div');
+  rowElement.setAttribute('class', 'table-body-cell');
+  rowElement.append(document.createTextNode(textNodeContent));
+  row.append(rowElement);
 }
 
 function fillTables() {
