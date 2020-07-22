@@ -66,7 +66,7 @@ public class UserHistoryServlet extends HttpServlet {
                                           .filter(rev -> rev.userId.equals(userId))
                                           .filter(rev -> rev.status == statusType)
                                           .collect(toList());
-      Collections.sort(reviews, new SortByEarliestDate());
+      Collections.sort(reviews, new SortByMostRecentDate());
 
       return reviews;
   }
