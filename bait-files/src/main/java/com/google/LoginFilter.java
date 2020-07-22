@@ -78,6 +78,7 @@ public class LoginFilter implements Filter {
       }
     }
   }
+
   private boolean userIsRegistered(String id) {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 

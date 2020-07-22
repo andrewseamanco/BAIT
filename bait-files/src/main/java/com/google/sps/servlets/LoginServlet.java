@@ -1,5 +1,9 @@
 package com.google.sps.servlets;
 
+import static com.google.sps.data.Constants.FIRST_NAME_PARAMETER;
+import static com.google.sps.data.Constants.LAST_NAME_PARAMETER;
+import static com.google.sps.data.Constants.USERNAME_PARAMETER;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -29,9 +33,10 @@ public class LoginServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
 
     String userId = userService.getCurrentUser().getUserId();
-    String username = request.getParameter("username");
-    String firstName = request.getParameter("first-name");
-    String lastName = request.getParameter("last-name");
+    String username = request.getParameter(USERNAME_PARAMETER);
+    String firstName = request.getParameter(FIRST_NAME_PARAMETER);
+    String lastName = request.getParameter(LAST_NAME_PARAMETER);
+
     User newUser = new User(userId, username, firstName, lastName);
 
     ObjectifyService.ofy().save().entities(newUser).now();
