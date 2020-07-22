@@ -4,7 +4,7 @@ const url =
 function getCompletedReviews() {
   fetch('/userHistory?is-pending-review=false')
       .then(response => response.json())
-      .then((reviews) => {
+      .then(reviews => {
         for (review of reviews) {
           addReview(review, document.getElementById('completed-table'));
         }
@@ -14,7 +14,7 @@ function getCompletedReviews() {
 function getPendingReviews() {
   fetch('/userHistory?is-pending-review=true')
       .then(response => response.json())
-      .then((reviews) => {
+      .then(reviews => {
         for (review of reviews) {
           addReview(review, document.getElementById('pending-table'));
         }
