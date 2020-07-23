@@ -32,6 +32,7 @@ public class RequestServlet extends HttpServlet {
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(userRequest));
     } catch (NumberFormatException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
   }
 
@@ -58,6 +59,6 @@ public class RequestServlet extends HttpServlet {
             pictureInput, phoneInput, notesInput))
         .now();
 
-    response.sendRedirect("/submission.html");
+    response.sendRedirect("/history.jsp");
   }
 }

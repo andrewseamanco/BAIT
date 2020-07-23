@@ -42,6 +42,6 @@ public class LoginServlet extends HttpServlet {
     User newUser = new User(userId, username, firstName, lastName, userPermission);
     ObjectifyService.ofy().save().entities(newUser).now();
 
-    response.sendRedirect("/profile.jsp");
+    response.sendRedirect("/history.jsp");
   }
 }

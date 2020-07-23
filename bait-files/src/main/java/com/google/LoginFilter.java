@@ -69,12 +69,12 @@ public class LoginFilter implements Filter {
         return;
       }
     } else {
-      // Case: User is logged in
-      if (request.getRequestURI().endsWith("profile.jsp")
+      // Is logged in
+      if (request.getRequestURI().endsWith("history.jsp")
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
         if (getCurrentUserPermission() == Permission.USER) {
-          RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
+          RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/history.jsp");
           requestDispatcher.forward(request, response);
           return;
         } else {
