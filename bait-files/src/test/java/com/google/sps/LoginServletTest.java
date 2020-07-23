@@ -59,7 +59,7 @@ public final class LoginServletTest {
   }
 
   @Test
-  public void doPost_newUser_hasOneuser() throws IOException, ServletException {
+  public void doPost_newUser_oneUser() throws IOException, ServletException {
     // add a User object
 
     HttpServletRequest request = mock(HttpServletRequest.class);
