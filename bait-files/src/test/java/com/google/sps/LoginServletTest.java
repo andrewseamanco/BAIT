@@ -29,20 +29,20 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public final class LoginServletTest {
-  static LocalDatastoreHelper helper = LocalDatastoreHelper.create(1.0);
+  static LocalDatastoreHelper datastoreHelper = LocalDatastoreHelper.create(1.0);
 
   private Closeable objectify;
 
   @BeforeClass
   public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
-      helper.start();
+      datastoreHelper.start();
   }
 
   @Before 
   public void setUp() throws InterruptedException, IOException {
-    helper.reset();
+    datastoreHelper.reset();
     ObjectifyFactory factory =
-        new ObjectifyFactory(helper.getOptions().getService());
+        new ObjectifyFactory(datastoreHelper.getOptions().getService());
     ObjectifyService.init(factory);
     ObjectifyService.register(User.class);
     objectify = ObjectifyService.begin();
@@ -55,7 +55,7 @@ public final class LoginServletTest {
 
   @AfterClass 
     public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
-      helper.stop();
+      datastoreHelper.stop();
   }
 
   @Test
@@ -72,8 +72,8 @@ public final class LoginServletTest {
     when(request.getParameter("last-name")).thenReturn("Seaman");
 
     StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
-    when(response.getWriter()).thenReturn(writer);
+    PrintWriter printWriter = new PrintWriter(stringWriter);
+    when(response.getWriter()).thenReturn(printWriter);
 
     new LoginServlet(userAccessor).doPost(request, response);
 
