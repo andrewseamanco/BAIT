@@ -42,7 +42,6 @@
         <div id="table-body"></div>
       </div>
     </div>
-      <div id="new-request">
         <p>Create a New Request</p>
         <a href="https://step-bait-project-2020.uc.r.appspot.com/submission.html"><button>+</button></a>
       </div>
