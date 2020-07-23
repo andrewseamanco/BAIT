@@ -26,10 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/userHistory")
 public class UserHistoryServlet extends HttpServlet {
-<<<<<<< HEAD
-
-=======
->>>>>>> 73efd9c7c60b8ba5bb0bcd06078d7412b7dd3578
   UserService userService = UserServiceFactory.getUserService();
   String userId = userService.getCurrentUser().getUserId();
 
