@@ -26,7 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/userHistory")
 public class UserHistoryServlet extends HttpServlet {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 73efd9c7c60b8ba5bb0bcd06078d7412b7dd3578
   UserService userService = UserServiceFactory.getUserService();
   String userId = userService.getCurrentUser().getUserId();
 
@@ -34,14 +37,26 @@ public class UserHistoryServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     boolean isPendingReview = Boolean.parseBoolean(request.getParameter("is-pending-review"));
     if (isPendingReview) {
-      List<Review> pendingReviews = getReviewsByType(Status.PENDING);
+      List<Request> allRequests = ObjectifyService.ofy().load().type(Request.class).list();
+      List<Request> requests = allRequests.stream()
+                                   .filter(req -> req.userId.equals(userId))
+                                   .filter(req -> req.status == Status.PENDING)
+                                   .sorted(Comparator.comparing(req -> req.submissionDate))
+                                   .collect(toList());
+      ;
       response.setContentType("application/json;");
-      response.getWriter().println(new Gson().toJson(pendingReviews));
+      response.getWriter().println(new Gson().toJson(requests));
       return;
     } else {
-      List<Review> completedReviews = getReviewsByType(Status.COMPLETED);
+      List<Review> allReviews = ObjectifyService.ofy().load().type(Review.class).list();
+      List<Review> reviews = allReviews.stream()
+                                 .filter(review -> review.userId.equals(userId))
+                                 .filter(review -> review.status == Status.COMPLETED)
+                                 .sorted(Comparator.comparing(review -> review.submissionDate))
+                                 .collect(toList());
+      Collections.reverse(reviews);
       response.setContentType("application/json;");
-      response.getWriter().println(new Gson().toJson(completedReviews));
+      response.getWriter().println(new Gson().toJson(reviews));
       return;
     }
   }

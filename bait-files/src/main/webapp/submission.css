@@ -1,9 +1,15 @@
-body {
-    color: #3c4043;
-    font-family: 'Roboto', sans-serif;
-    margin: 0px 0px 100px 0px;
-    text-align: center;
+a:visited, a:link {
+  color: #3c4043;
+  text-decoration: none;
 }
+
+body {
+  color: #3c4043;
+  font-family: 'Roboto', sans-serif;
+  margin: 0px 0px 100px 0px;
+  text-align: center;
+}
+
 
 form {
   border: 1px solid #CCC;
@@ -33,13 +39,14 @@ input:focus, textarea:focus {
 }
 
 #submit {
-    background: #0277bd;
-    border-color: #0277bd;
-    border-radius: 5%;
-    border-style: outset;
-    color: white;
-    height: 40px;
-    width: 100px;
+  background: #0277bc;
+  border-color: #0277bc;
+  border-radius: 5%;
+  border-style: outset;
+  color: #ffffff;
+  height: 40px;
+  padding: 6px 8px;
+  width: 100px;
 }
 
 nav {
@@ -47,16 +54,21 @@ nav {
   display: flex;
   flex-direction: row;
   font-size: 16px;
-  font-weight: 550;
+  font-weight: 500;
   justify-content: space-between;
   margin-left: 0px;
   padding: 10px;
   width: 100%;
 }
 
+
 .nav-item {
   padding: 0px 10px 0px 10px;
   margin-right: 10px;
+}
+
+#nav-title {
+  text-transform: uppercase;
 }
 
 #title-text {

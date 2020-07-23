@@ -66,11 +66,11 @@ public class LoginFilter implements Filter {
         return;
       }
     } else {
-      // Case: User is logged in
-      if (request.getRequestURI().endsWith("profile.jsp")
+      // Is logged in
+      if (request.getRequestURI().endsWith("history.jsp")
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/history.jsp");
         requestDispatcher.forward(request, response);
         return;
         //Case: User is trying to access ADMIN features of the application
