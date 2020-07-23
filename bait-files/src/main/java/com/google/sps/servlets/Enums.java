@@ -14,7 +14,7 @@ public class Enums {
   }
 
   public enum Permission {
-      USER,
-      ADMIN;
+    USER,
+    ADMIN;
   }
 }
