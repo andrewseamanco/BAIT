@@ -48,13 +48,7 @@ public final class UsernameTakenTest {
 
   @After
   public void tearDown() throws InterruptedException, IOException, TimeoutException {
-//       try {
         objectify.close();
-//         helper.stop();
-//       } catch(Exception e) {
-//           System.out.println(e);
-//           System.out.println("TEARDOWN FAILED");
-//       }
   }
 
   @AfterClass 

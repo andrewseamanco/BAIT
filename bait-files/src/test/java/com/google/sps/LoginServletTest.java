@@ -58,22 +58,6 @@ public final class LoginServletTest {
       helper.stop();
   }
 
-//   @Before
-//   public void setUp() throws InterruptedException, IOException {
-//     helper.start();
-//     ObjectifyFactory factory =
-//         new ObjectifyFactory(helper.getOptions().getService());
-//     ObjectifyService.init(factory);
-//     ObjectifyService.register(User.class);
-//     objectify = ObjectifyService.begin();
-//   }
-
-//   @After
-//   public void tearDown() throws InterruptedException, IOException, TimeoutException {
-//     objectify.close();
-//     helper.stop();
-//   }
-
   @Test
   public void doPost_newUser_hasOneuser() throws IOException, ServletException {
     // add a User object
@@ -96,7 +80,6 @@ public final class LoginServletTest {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
 
     assertTrue(allUsers.size() == 1);
-
   }
 
 }
