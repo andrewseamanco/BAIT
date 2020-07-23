@@ -1,10 +1,11 @@
 package com.google;
 
-import static java.util.stream.Collectors.toList;
 import static com.google.common.collect.MoreCollectors.onlyElement;
+import static java.util.stream.Collectors.toList;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.sps.servlets.Enums.Permission;
 import com.google.sps.servlets.User;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
@@ -14,7 +15,6 @@ import java.util.List;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import com.google.sps.servlets.Enums.Permission;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -37,7 +37,10 @@ public class LoginFilter implements Filter {
       throws IOException, ServletException {
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) res;
+
+    // Returns session if the session already exists for request if not returns null
     HttpSession session = request.getSession(false);
+
     UserService userService = UserServiceFactory.getUserService();
 
     // Case: User is not logged in
@@ -51,7 +54,7 @@ public class LoginFilter implements Filter {
         return;
       }
     }
-    // Case: User is logged in
+    // Case: User is logged in but not registered
     else if (!userIsRegistered(userService.getCurrentUser().getUserId())
         && !request.getRequestURI().startsWith("/_ah/")) {
       // Case: Sending a request to a register servlet (disallows requests to html or jsp pages)
@@ -70,17 +73,16 @@ public class LoginFilter implements Filter {
       if (request.getRequestURI().endsWith("history.jsp")
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/history.jsp");
-        requestDispatcher.forward(request, response);
-        return;
-        //Case: User is trying to access ADMIN features of the application
-      } else if (request.getRequestURI().endsWith("requests.html")) {
-          if (getCurrentUserPermission() == Permission.ADMIN) {
-              chain.doFilter(req, res);
-          } else {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/profile.jsp");
-            requestDispatcher.forward(request, response);  
-          }
+        if (getCurrentUserPermission() == Permission.USER) {
+          RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/history.jsp");
+          requestDispatcher.forward(request, response);
+          return;
+        } else {
+          RequestDispatcher requestDispatcher =
+              request.getRequestDispatcher("/admin/requests.html");
+          requestDispatcher.forward(request, response);
+          return;
+        }
       } else {
         // Case: User is logged in and registered and wants to access site resource
         chain.doFilter(req, res);
@@ -98,18 +100,18 @@ public class LoginFilter implements Filter {
     return listOfUsersWithId.size() >= 1;
   }
 
-
   /*
-  *  Will get the permission of the current logged in User
-  *  @return current user permission
-  */
-  private Permission getCurrentUserPermission() {
+   *  Will get the permission of the current logged in User
+   *  @return current user permission
+   */
+  public Permission getCurrentUserPermission() {
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
     return allUsers.stream()
-      .filter(user -> 
-        user.getUserId().equals(UserServiceFactory.getUserService().getCurrentUser().getUserId()))
-      .collect(onlyElement())
-      .getPermission();
+        .filter(user
+            -> user.getUserId().equals(
+                UserServiceFactory.getUserService().getCurrentUser().getUserId()))
+        .collect(onlyElement())
+        .getPermission();
   }
 
   @Override

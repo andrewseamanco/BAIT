@@ -6,9 +6,9 @@ import static com.google.sps.data.Constants.USERNAME_PARAMETER;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.sps.servlets.Enums.Permission;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
-import com.google.sps.servlets.Enums.Permission;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
