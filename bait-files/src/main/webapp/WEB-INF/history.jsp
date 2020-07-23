@@ -32,7 +32,8 @@
           <div id="table-body"></div>
         </div>
       </div>
-    <h3> Pending Reviews </h3>
+    <div class="table-container">
+    <p class="header"> Pending Requests </p>
     <div id="pending-table" class="table">
         <div id="table-header">
             <div class="table-header-cell">Request Date</div>
