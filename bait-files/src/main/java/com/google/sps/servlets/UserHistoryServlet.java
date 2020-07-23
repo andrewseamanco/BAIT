@@ -34,13 +34,22 @@ public class UserHistoryServlet extends HttpServlet {
     boolean isPendingReview = Boolean.parseBoolean(request.getParameter("is-pending-review"));
     if (isPendingReview) {
       List<Request> allRequests = ObjectifyService.ofy().load().type(Request.class).list();
-      List<Request> requests = allRequests.stream() .filter(req -> req.userId.equals(userId)) .filter(req -> req.status == Status.PENDING).sorted(Comparator.comparing(req -> req.submissionDate)) .collect(toList());;
+      List<Request> requests = allRequests.stream()
+                                   .filter(req -> req.userId.equals(userId))
+                                   .filter(req -> req.status == Status.PENDING)
+                                   .sorted(Comparator.comparing(req -> req.submissionDate))
+                                   .collect(toList());
+      ;
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(requests));
       return;
     } else {
       List<Review> allReviews = ObjectifyService.ofy().load().type(Review.class).list();
-      List<Review> reviews = allReviews.stream() .filter(review -> review.userId.equals(userId)) .filter(review -> review.status == Status.COMPLETED).sorted(Comparator.comparing(review -> review.submissionDate)) .collect(toList());
+      List<Review> reviews = allReviews.stream()
+                                 .filter(review -> review.userId.equals(userId))
+                                 .filter(review -> review.status == Status.COMPLETED)
+                                 .sorted(Comparator.comparing(review -> review.submissionDate))
+                                 .collect(toList());
       Collections.reverse(reviews);
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(reviews));
