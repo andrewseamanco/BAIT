@@ -37,7 +37,10 @@ public class LoginFilter implements Filter {
       throws IOException, ServletException {
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) res;
+
+    //Returns session if the session already exists for request if not returns null
     HttpSession session = request.getSession(false);
+
     UserService userService = UserServiceFactory.getUserService();
 
     // Case: User is not logged in
