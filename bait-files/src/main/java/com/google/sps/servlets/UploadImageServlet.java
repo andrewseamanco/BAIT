@@ -1,17 +1,3 @@
-// Copyright 2019 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package com.google.sps.servlets;
 
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -27,13 +13,26 @@ import javax.servlet.http.HttpServletResponse;
  * the URL that allows a user to upload a file to Blobstore. If this sounds confusing, try running a
  * dev server and navigating to /blobstore-upload-url to see the Blobstore URL.
  */
-@WebServlet("/blobstore-upload-url")
-public class BlobstoreUploadUrlServlet extends HttpServlet {
+@WebServlet("/upload-image")
+public class UploadImageServlet extends HttpServlet {
+  private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+
+  //   @Override
+  //   public void doPost(HttpServletRequest req, HttpServletResponse res)
+  //       throws ServletException, IOException {
+  // Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+  // List<BlobKey> blobKeys = blobs.get("myFile");
+  // // datastore.put(blobKeys); create entity
+
+  // if (blobKeys == null || blobKeys.isEmpty()) {
+  //   res.sendRedirect("/");
+  // } else {
+  //   res.sendRedirect("/serve?blob-key=" + blobKeys.get(0).getKeyString());
+  // }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    String uploadUrl = blobstoreService.createUploadUrl("/my-form-handler");
+    String uploadUrl = blobstoreService.createUploadUrl("/serve-image");
 
     response.setContentType("text/html");
     response.getWriter().println(uploadUrl);

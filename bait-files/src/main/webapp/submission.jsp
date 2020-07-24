@@ -1,11 +1,19 @@
+<!-- <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
+<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
+
+<%
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+%> -->
+
 <html>
   <head>
     <meta charset="UTF-8">
     <title>Submission Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="submission.css">
+    <script src="submission.js"></script>
   </head>
-  <body onload="fetchBlobstoreUrlAndShowForm()">
+  <body onchange="fetchBlobstoreUrlAndShowForm()">
     <nav>
         <div>BAIT</div>
             <div>
@@ -21,7 +29,9 @@
         <i>Fill out as many fields as you can with the information that you have.</i>
         <br></br>
       </div>
-      <form action="/request" method="post" id="submission-form" method="POST" enctype="multipart/form-data">
+      <!-- <form id="submission-form" action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data"> -->
+      <form id="submission-form" method="post" enctype="multipart/form-data">
+        <div id="blobstore-test"></div>
         <ul>
             <li id='name-input'>
                 <label for="name">Full Name:</label><br>

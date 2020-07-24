@@ -38,14 +38,34 @@
     <url-pattern>/requests.html</url-pattern>
   </servlet-mapping>
 
-
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.google.LoginFilter</filter-class>
   </filter>
-    <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
   
+  <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>com.google.sps.servlets.UploadImageServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>Serve</servlet-name>
+    <servlet-class>com.google.sps.servlets.ServeImageServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Serve</servlet-name>
+    <url-pattern>/serve</url-pattern>
+  </servlet-mapping>
+
 </web-app>
