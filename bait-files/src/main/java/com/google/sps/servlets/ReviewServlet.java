@@ -42,7 +42,8 @@ public class ReviewServlet extends HttpServlet {
         REVIEW_REQUEST_ID)[0]; // There is only one value for each of keys in the parameters map
     String userId = parameters.get(REVIEW_USER_ID)[0];
     Validity nameValidity = Validity.valueOf(parameters.get(NAME_VALIDITY)[0].toUpperCase());
-    Validity usernameValidity = Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
+    Validity usernameValidity =
+        Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
     Validity emailValidity = Validity.valueOf(parameters.get(EMAIL_VALIDITY)[0].toUpperCase());
     Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONE_VALIDITY)[0].toUpperCase());
     Validity addressValidity = Validity.valueOf(parameters.get(ADDRESS_VALIDITY)[0].toUpperCase());

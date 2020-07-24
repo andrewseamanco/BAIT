@@ -1,28 +1,28 @@
 package com.google.sps;
-  
+
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
-import com.google.sps.servlets.User;
 import com.google.sps.servlets.LoginServlet;
+import com.google.sps.servlets.User;
+import com.google.sps.servlets.UserAccessor;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.Closeable;
-import com.google.sps.servlets.UserAccessor;
 import java.io.IOException;
-import java.util.List;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -35,14 +35,13 @@ public final class LoginServletTest {
 
   @BeforeClass
   public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
-      datastoreHelper.start();
+    datastoreHelper.start();
   }
 
-  @Before 
+  @Before
   public void setUp() throws InterruptedException, IOException {
     datastoreHelper.reset();
-    ObjectifyFactory factory =
-        new ObjectifyFactory(datastoreHelper.getOptions().getService());
+    ObjectifyFactory factory = new ObjectifyFactory(datastoreHelper.getOptions().getService());
     ObjectifyService.init(factory);
     ObjectifyService.register(User.class);
     objectify = ObjectifyService.begin();
@@ -50,12 +49,12 @@ public final class LoginServletTest {
 
   @After
   public void tearDown() throws InterruptedException, IOException, TimeoutException {
-        objectify.close();
+    objectify.close();
   }
 
-  @AfterClass 
-    public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
-      datastoreHelper.stop();
+  @AfterClass
+  public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
+    datastoreHelper.stop();
   }
 
   @Test
@@ -77,5 +76,4 @@ public final class LoginServletTest {
 
     assertTrue(allUsers.size() == 1);
   }
-
 }

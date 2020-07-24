@@ -1,5 +1,5 @@
 package com.google.sps;
-  
+
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,9 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -33,14 +33,13 @@ public final class UsernameTakenTest {
 
   @BeforeClass
   public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
-      datastoreHelper.start();
+    datastoreHelper.start();
   }
 
-  @Before 
+  @Before
   public void setUp() throws InterruptedException, IOException {
     datastoreHelper.reset();
-    ObjectifyFactory factory =
-        new ObjectifyFactory(datastoreHelper.getOptions().getService());
+    ObjectifyFactory factory = new ObjectifyFactory(datastoreHelper.getOptions().getService());
     ObjectifyService.init(factory);
     ObjectifyService.register(User.class);
     objectify = ObjectifyService.begin();
@@ -48,21 +47,18 @@ public final class UsernameTakenTest {
 
   @After
   public void tearDown() throws InterruptedException, IOException, TimeoutException {
-        objectify.close();
+    objectify.close();
   }
 
-  @AfterClass 
-    public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
-      datastoreHelper.stop();
+  @AfterClass
+  public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
+    datastoreHelper.stop();
   }
 
   @Test
   public void doGet_whenChosenUsernameInDb_returnsTrue() throws IOException, ServletException {
     // add a User object
-    ObjectifyService.ofy()
-        .save()
-        .entity(new User("1234321", "Drew", "Andrew", "Seaman"))
-        .now();
+    ObjectifyService.ofy().save().entity(new User("1234321", "Drew", "Andrew", "Seaman")).now();
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
@@ -78,13 +74,10 @@ public final class UsernameTakenTest {
     assertTrue(stringWriter.toString().contains("true"));
   }
 
-    @Test
+  @Test
   public void doGet_whenDifferentUsernameInDb_returnsFalse() throws IOException, ServletException {
     // add a User object
-    ObjectifyService.ofy()
-        .save()
-        .entity(new User("1234321", "Drew", "Andrew", "Seaman"))
-        .now();
+    ObjectifyService.ofy().save().entity(new User("1234321", "Drew", "Andrew", "Seaman")).now();
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
@@ -102,7 +95,6 @@ public final class UsernameTakenTest {
 
   @Test
   public void doGet_nothingInDb_returnsFalse() throws IOException, ServletException {
-
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
 
@@ -119,7 +111,7 @@ public final class UsernameTakenTest {
 
   @Test
   public void doGet_usernameIsNull_returnsTrue() throws IOException, ServletException {
-    //Returns true in first if statement in test
+    // Returns true in first if statement in test
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
@@ -137,7 +129,6 @@ public final class UsernameTakenTest {
 
   @Test
   public void doGet_usernameIsEmptyString_returnsTrue() throws IOException, ServletException {
-
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
 

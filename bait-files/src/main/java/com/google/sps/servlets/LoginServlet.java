@@ -18,11 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/register")
 public class LoginServlet extends HttpServlet {
-    private final UserAccessor userAccessor;
+  private final UserAccessor userAccessor;
 
-    public LoginServlet(UserAccessor userAccessor) {
-        this.userAccessor = userAccessor;
-    }
+  public LoginServlet(UserAccessor userAccessor) {
+    this.userAccessor = userAccessor;
+  }
 
   /**
    * Adds a new user with form submitted fields to database
