@@ -1,5 +1,7 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.servlets.Request;
 import com.googlecode.objectify.ObjectifyService;
@@ -30,6 +32,7 @@ public class RequestServlet extends HttpServlet {
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(userRequest));
     } catch (NumberFormatException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
   }
 
@@ -37,7 +40,11 @@ public class RequestServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
-    // will get user id from input when connected
+
+    // get user id
+    UserService userService = UserServiceFactory.getUserService();
+    String userId = userService.getCurrentUser().getUserId();
+
     String nameInput = parameters.get(NAME)[0];
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
@@ -46,13 +53,12 @@ public class RequestServlet extends HttpServlet {
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
-    // id is 1 for now by default until I can get userId from user feature
     ObjectifyService.ofy()
         .save()
-        .entity(new Request(requestId, "1", nameInput, usernameInput, emailInput, addressInput,
+        .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, addressInput,
             pictureInput, phoneInput, notesInput))
         .now();
 
-    response.sendRedirect("/submission.html");
+    response.sendRedirect("/history.jsp");
   }
 }
