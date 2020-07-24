@@ -71,10 +71,6 @@ public final class LoginServletTest {
     when(request.getParameter("first-name")).thenReturn("Andrew");
     when(request.getParameter("last-name")).thenReturn("Seaman");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(stringWriter);
-    when(response.getWriter()).thenReturn(printWriter);
-
     new LoginServlet(userAccessor).doPost(request, response);
 
     List<User> allUsers = ObjectifyService.ofy().load().type(User.class).list();
