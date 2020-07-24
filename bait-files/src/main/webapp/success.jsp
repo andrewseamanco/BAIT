@@ -13,6 +13,7 @@
     <p>Your submission has been received and our team will review it soon. Please check back for the completed review with your results.</p>
     <br></br>
     <a alt="Black and white home icon" href="https://step-bait-project-2020.uc.r.appspot.com/history.jsp"><span id="home" class="iconify" data-icon="mdi:home" data-inline="false" style="color: #0277bd;"></span></img></a>
-    <p>Click above to return to the home page</p>
+    <p>Click above to return to the request portal</p>
+    <meta http-equiv="refresh" content="8;url=https://step-bait-project-2020.uc.r.appspot.com/history.jsp" />
   </body>
 </html>
