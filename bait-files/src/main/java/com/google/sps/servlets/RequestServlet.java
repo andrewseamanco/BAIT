@@ -1,5 +1,7 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.servlets.Request;
 import com.googlecode.objectify.ObjectifyService;
@@ -10,8 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet responsible for creating requests. */
 @WebServlet("/request")
@@ -32,6 +32,7 @@ public class RequestServlet extends HttpServlet {
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(userRequest));
     } catch (NumberFormatException e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
   }
 
@@ -40,7 +41,7 @@ public class RequestServlet extends HttpServlet {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
 
-    //get user id
+    // get user id
     UserService userService = UserServiceFactory.getUserService();
     String userId = userService.getCurrentUser().getUserId();
 
@@ -57,7 +58,7 @@ public class RequestServlet extends HttpServlet {
         .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, addressInput,
             pictureInput, phoneInput, notesInput))
         .now();
-
+        
     response.sendRedirect("/submit-success.html");
   }
 }
