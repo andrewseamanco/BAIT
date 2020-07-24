@@ -111,7 +111,7 @@ public final class UsernameTakenTest {
 
   @Test
   public void doGet_usernameIsNull_returnsTrue() throws IOException, ServletException {
-    // Returns true in first if statement in test
+    // Returns true because it prevents users from submitting a null username to loginServlet
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
