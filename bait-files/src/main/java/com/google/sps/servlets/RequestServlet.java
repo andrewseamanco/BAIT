@@ -58,6 +58,6 @@ public class RequestServlet extends HttpServlet {
             pictureInput, phoneInput, notesInput))
         .now();
 
-    response.sendRedirect("/submission.html");
+    response.sendRedirect("/submit-success.html");
   }
 }
