@@ -29,7 +29,13 @@
             </li>
             <li id='username-input'>
                 <label for="username">Username:</label><br>
-                <input type="text" id="username-input" name="username-input">
+                <select name="platforms" id="platforms">
+                    <option value="Instagram">Instagram</option>
+                    <option value="Twitter">Twitter</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="text" id="username-input" name="username-input" placeholder="@">
             </li>
             <li id='email-input'>
                 <label for="email">Email:</label><br>
@@ -43,7 +49,7 @@
 
             <li id='phone-input'>
                 <label for="phone">Phone Number:</label><br>
-                <input type="phone" id="phone-input" name="phone-input">
+                <input type="tel" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"id="phone-input" name="phone-input">
             </li>
 
             <li id='pic-input'>
