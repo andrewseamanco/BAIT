@@ -58,7 +58,7 @@ public class RequestServlet extends HttpServlet {
         .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, addressInput,
             pictureInput, phoneInput, notesInput))
         .now();
-        
-    response.sendRedirect("/submit-success.html");
+
+    response.sendRedirect("/success.jsp");
   }
 }

@@ -1,0 +1,15 @@
+body {
+    color: #3c4043;
+    font-family: 'Roboto', sans-serif;
+    padding: 150px 500px;
+    text-align: center;
+}
+
+#home {
+    outline: none;
+    width: 30px;
+}
+
+#home:hover {
+    color: blue;
+}
