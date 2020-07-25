@@ -6,6 +6,7 @@ import com.google.sps.servlets.Enums.Validity;
 import com.googlecode.objectify.ObjectifyService;
 import java.io.IOException;
 import java.lang.String;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,11 +47,27 @@ public class ReviewServlet extends HttpServlet {
     try {
       long reviewId = Long.parseLong(request.getParameter("reviewId"));
       Review userReview = ObjectifyService.ofy().load().type(Review.class).id(reviewId).now();
+
+      if (userReview == null) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("redirect", "true");
+        response.setContentType("application/json;");
+        response.getWriter().println(new Gson().toJson(map));
+        return;
+      }
+
       Request userRequest = ObjectifyService.ofy()
                                 .load()
                                 .type(Request.class)
                                 .id(Long.parseLong(userReview.requestId))
                                 .now();
+      if (userRequest == null) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("redirect", "true");
+        response.setContentType("application/json;");
+        response.getWriter().println(new Gson().toJson(map));
+        return;
+      }
 
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(new Result(userReview, userRequest)));

@@ -41,9 +41,16 @@ function getRequest() {
     window.location.replace('/requests.html');
     return;
   }
+
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
+        console.log(request);
+        if (request.redirect) {
+          alert('RequestId invalid. Redirecting to request portal.');
+          window.location.replace('/requests.html');
+          return;
+        }
         document.getElementById(REQUEST_ID_CONTAINER)
             .appendChild(document.createTextNode(request.requestId));
         document.getElementById(USER_ID_CONTAINER)
