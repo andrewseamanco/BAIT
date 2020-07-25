@@ -90,7 +90,6 @@ public final class RequestsServletTest {
     new RequestsServlet().doGet(request, response);
 
     String rawJsonResponse = stringWriter.toString();
-    System.out.println("(for debugging) " + rawJsonResponse);
     assertTrue(rawJsonResponse.startsWith("[{\"requestId\":14"));
   }
 
