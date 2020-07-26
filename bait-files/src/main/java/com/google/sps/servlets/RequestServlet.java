@@ -46,8 +46,6 @@ public class RequestServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("ran doPost");
-
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
 
@@ -59,15 +57,7 @@ public class RequestServlet extends HttpServlet {
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
     String addressInput = parameters.get(ADDRESS)[0];
-    // String pictureInput = parameters.get(PICTURE)[0];
     String blobkeyString = getUploadedFileUrl(request, PICTURE);
-
-    BlobKey blobkey = new BlobKey(blobkeyString);
-    System.out.println(blobkeyString);
-
-    blobstoreService.serve(blobkey, response);
-    // System.out.println(blobstoreService.serve(blobkey, response));
-
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
@@ -77,7 +67,7 @@ public class RequestServlet extends HttpServlet {
             blobkeyString, phoneInput, notesInput))
         .now();
 
-    // response.sendRedirect("/submission.jsp");
+    response.sendRedirect("/submission.html");
   }
 
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
@@ -86,7 +76,6 @@ public class RequestServlet extends HttpServlet {
 
     // User submitted form without selecting a file, so we can't get a URL. (dev server)
     if (blobKeys == null || blobKeys.isEmpty()) {
-      System.out.println("empty form");
       return null;
     }
 
@@ -100,7 +89,6 @@ public class RequestServlet extends HttpServlet {
       return null;
     }
 
-    System.out.println(blobKey.getKeyString());
     return blobKey.getKeyString();
   }
 }

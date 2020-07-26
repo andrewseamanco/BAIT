@@ -17,25 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 public class UploadImageServlet extends HttpServlet {
   private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
-  //   @Override
-  //   public void doPost(HttpServletRequest req, HttpServletResponse res)
-  //       throws ServletException, IOException {
-  // Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
-  // List<BlobKey> blobKeys = blobs.get("myFile");
-  // // datastore.put(blobKeys); create entity
-
-  // if (blobKeys == null || blobKeys.isEmpty()) {
-  //   res.sendRedirect("/");
-  // } else {
-  //   res.sendRedirect("/serve?blob-key=" + blobKeys.get(0).getKeyString());
-  // }
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // String uploadUrl = blobstoreService.createUploadUrl("/serve-image");
     String uploadUrl = blobstoreService.createUploadUrl("/request");
-
-    System.out.println("upload servlet");
 
     response.setContentType("text/html");
     response.getWriter().println(uploadUrl);

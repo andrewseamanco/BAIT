@@ -52,25 +52,10 @@
     <servlet-name>Upload</servlet-name>
     <servlet-class>com.google.sps.servlets.UploadImageServlet</servlet-class>
   </servlet>
-  
-  <!-- <servlet>
-    <servlet-name>Get</servlet-name>
-    <servlet-class>com.google.sps.servlets.GetImageServlet</servlet-class>
-  </servlet>
- 
-  <servlet>
-    <servlet-name>Serve</servlet-name>
-    <servlet-class>com.google.sps.servlets.ServeImageServlet</servlet-class>
-  </servlet> -->
 
   <servlet-mapping>
     <servlet-name>Upload</servlet-name>
     <url-pattern>/submission.html</url-pattern>
   </servlet-mapping>
-
-  <!-- <servlet-mapping>
-    <servlet-name>Get</servlet-name>
-    <url-pattern>/get-image</url-pattern>
-  </servlet-mapping> -->
 
 </web-app>

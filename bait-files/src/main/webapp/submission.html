@@ -1,10 +1,3 @@
-<!-- <%@ page import="com.google.appengine.api.blobstore.BlobstoreServiceFactory" %>
-<%@ page import="com.google.appengine.api.blobstore.BlobstoreService" %>
-
-<%
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-%> -->
-
 <html>
   <head>
     <meta charset="UTF-8">
@@ -29,7 +22,6 @@
         <i>Fill out as many fields as you can with the information that you have.</i>
         <br></br>
       </div>
-      <!-- <form id="submission-form" action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data"> -->
       <form id="submission-form" method="post" enctype="multipart/form-data">
         <ul>
             <li id='name-input'>
