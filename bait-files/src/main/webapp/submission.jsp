@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="submission.css">
     <script src="submission.js"></script>
   </head>
-  <body onchange="fetchBlobstoreUrlAndShowForm()">
+  <body onload="fetchBlobstoreUrlAndShowForm()">
     <nav>
         <div>BAIT</div>
             <div>
@@ -31,7 +31,6 @@
       </div>
       <!-- <form id="submission-form" action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data"> -->
       <form id="submission-form" method="post" enctype="multipart/form-data">
-        <div id="blobstore-test"></div>
         <ul>
             <li id='name-input'>
                 <label for="name">Full Name:</label><br>
