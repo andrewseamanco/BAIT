@@ -32,6 +32,10 @@ public class RequestsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    boolean illegalAccess = Boolean.parseBoolean(request.getParameter("username"));
+    if (illegalAccess) {
+        throw new IllegalAccessError("The resource you are trying to access is restricted");
+    }
     Query<Request> query = ObjectifyService.ofy().load().type(Request.class);
     List<Request> allRequests = query.list();
 

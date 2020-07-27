@@ -36,13 +36,19 @@
                 <input type="email" id="email-input" name="email-input">
             </li>
 
-            <li id='address-input'>
+            <li>
                 <label for="address">Address:</label><br>
-                <select type="address" id="country-input" name="address-input">
+                <label for="country">Country: </address>
+                <select type="address" id="country-input" name="country">
                     <option value="IDK">I do not know the address</option>
                     <option value="US">United States</option>
                     <option value="CA">Canada</option>
                 </select>
+                <!-- To be filled by submission.js -->
+                <div id="address"></div>
+                <div id="province"></div>
+                <div id="city"></div>
+                <div id="state"></div>
             </li>
 
             <li id='phone-input'>
@@ -64,4 +70,5 @@
         </ul>
       </form>
   </body>
+  <script src="submission.js"></script>
 </html>
