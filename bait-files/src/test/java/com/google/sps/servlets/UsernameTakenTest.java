@@ -5,12 +5,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
+import com.google.sps.servlets.Enums.Permission;
 import com.google.sps.servlets.User;
 import com.google.sps.servlets.UsernameTakenServlet;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.Closeable;
-import com.google.sps.servlets.Enums.Permission;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -59,7 +59,10 @@ public final class UsernameTakenTest {
   @Test
   public void doGet_whenChosenUsernameInDb_returnsTrue() throws IOException, ServletException {
     // add a User object
-    ObjectifyService.ofy().save().entity(new User("1234321", "Drew", "Andrew", "Seaman", Permission.USER)).now();
+    ObjectifyService.ofy()
+        .save()
+        .entity(new User("1234321", "Drew", "Andrew", "Seaman", Permission.USER))
+        .now();
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
@@ -78,7 +81,10 @@ public final class UsernameTakenTest {
   @Test
   public void doGet_whenDifferentUsernameInDb_returnsFalse() throws IOException, ServletException {
     // add a User object
-    ObjectifyService.ofy().save().entity(new User("1234321", "Drew", "Andrew", "Seaman", Permission.USER)).now();
+    ObjectifyService.ofy()
+        .save()
+        .entity(new User("1234321", "Drew", "Andrew", "Seaman", Permission.USER))
+        .now();
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
