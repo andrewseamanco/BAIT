@@ -1,5 +1,5 @@
 function fetchBlobstoreUrlAndShowForm() {
-  fetch('/upload')
+  fetch('/blobstore-upload')
       .then(response => {
         return response.text();
       })

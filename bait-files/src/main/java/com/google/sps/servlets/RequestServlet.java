@@ -57,19 +57,24 @@ public class RequestServlet extends HttpServlet {
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
     String addressInput = parameters.get(ADDRESS)[0];
-    String blobkeyString = getUploadedFileUrl(request, PICTURE);
+    String blobKeyString = getUploadedFileUrl(request, PICTURE);
+
+    BlobKey blobkey = new BlobKey(blobKeyString);
+    blobstoreService.serve(blobkey, response);
+
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
     ObjectifyService.ofy()
         .save()
         .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, addressInput,
-            blobkeyString, phoneInput, notesInput))
+            blobKeyString, phoneInput, notesInput))
         .now();
 
     response.sendRedirect("/submission.html");
   }
 
+  /** Gets the Url of the file the user uploaded and checks for no file uploaded.  */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
