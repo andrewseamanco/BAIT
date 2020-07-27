@@ -37,7 +37,7 @@ public class AdminFilter implements Filter {
     UserService userService = UserServiceFactory.getUserService();
 
     if (getCurrentUserPermission() == Permission.USER) {
-      RequestDispatcher requestDispatcher = request.getRequestDispatcher("../WEB-INF/profile.jsp");
+      RequestDispatcher requestDispatcher = request.getRequestDispatcher("../WEB-INF/history.jsp");
       requestDispatcher.forward(request, response);
     } else {
       chain.doFilter(req, res);
