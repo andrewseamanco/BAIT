@@ -1,5 +1,6 @@
 package com.google.sps.servlets;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -104,7 +105,7 @@ public final class RequestsServletTest {
     ObjectifyService.ofy()
         .save()
         .entity(new Request(19L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
-            "no_image", "719-325-6872", "some notes"))
+            "no_image", "719-325-6872", "some more notes"))
         .now();
 
     Request pendingRequest =
@@ -123,6 +124,12 @@ public final class RequestsServletTest {
     new RequestsServlet().doGet(request, response);
 
     String rawJsonResponse = stringWriter.toString();
-    assertTrue(rawJsonResponse.startsWith("[{\"requestId\":14"));
+    String submissionDate = rawJsonResponse.substring(66, 79);
+    String expected =
+        "[{\"requestId\":14,\"userId\":\"4\",\"status\":\"PENDING\",\"submissionDate\":"
+        + submissionDate
+        + ",\"name\":\"human\",\"username\":\"human47\",\"email\":\"human47@gmail.com\",\"address\":\"2930 pearl street\",\"image\":\"no_image\",\"phoneNum\":\"719-325-6872\",\"notes\":\"some notes\"}]";
+ 
+    assertTrue(rawJsonResponse.startsWith(expected));
   }
 }
