@@ -44,7 +44,7 @@
       </div>
     </div>
         <p>Create a New Request</p>
-        <a href="https://step-bait-project-2020.uc.r.appspot.com/submission.html"><button>+</button></a>
+        <a href="https://step-bait-project-2020.uc.r.appspot.com/submission.jsp"><button>+</button></a>
       </div>
     </content>
   </body>
