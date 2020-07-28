@@ -67,6 +67,6 @@ public class RequestServlet extends HttpServlet {
             pictureInput, phoneInput, notesInput))
         .now();
 
-    response.sendRedirect("/history.jsp");
+    response.sendRedirect("/success.jsp");
   }
 }
