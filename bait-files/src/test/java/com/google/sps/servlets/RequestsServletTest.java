@@ -33,6 +33,8 @@ public final class RequestsServletTest {
   static LocalDatastoreHelper datastoreHelper = LocalDatastoreHelper.create(1.0);
 
   private Closeable objectify;
+  StringWriter stringWriter = new StringWriter();
+  PrintWriter writer = new PrintWriter(stringWriter);
 
   @BeforeClass
   public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
@@ -63,8 +65,6 @@ public final class RequestsServletTest {
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new RequestsServlet().doGet(request, response);
@@ -84,8 +84,6 @@ public final class RequestsServletTest {
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new RequestsServlet().doGet(request, response);
@@ -117,8 +115,6 @@ public final class RequestsServletTest {
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new RequestsServlet().doGet(request, response);
@@ -129,7 +125,7 @@ public final class RequestsServletTest {
         "[{\"requestId\":14,\"userId\":\"4\",\"status\":\"PENDING\",\"submissionDate\":"
         + submissionDate
         + ",\"name\":\"human\",\"username\":\"human47\",\"email\":\"human47@gmail.com\",\"address\":\"2930 pearl street\",\"image\":\"no_image\",\"phoneNum\":\"555-555-5555\",\"notes\":\"some notes\"}]";
- 
+
     assertTrue(rawJsonResponse.startsWith(expected));
   }
 }
