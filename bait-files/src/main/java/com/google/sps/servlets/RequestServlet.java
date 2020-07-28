@@ -32,7 +32,7 @@ public class RequestServlet extends HttpServlet {
       Request userRequest = ObjectifyService.ofy().load().type(Request.class).id(requestId).now();
       if (userRequest == null) {
         HashMap<String, String> responseParameters = new HashMap<String, String>();
-        map.put("redirect", "true");
+        responseParameters.put("redirect", "true");
         response.setContentType("application/json;");
         response.getWriter().println(new Gson().toJson(responseParameters));
         return;
@@ -67,6 +67,6 @@ public class RequestServlet extends HttpServlet {
             pictureInput, phoneInput, notesInput))
         .now();
 
-    response.sendRedirect("/history.jsp");
+    response.sendRedirect("/success.jsp");
   }
 }
