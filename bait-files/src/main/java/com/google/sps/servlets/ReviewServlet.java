@@ -107,6 +107,6 @@ public class ReviewServlet extends HttpServlet {
 
     ObjectifyService.ofy().save().entity(pendingRequest).now();
 
-    response.sendRedirect("/requests.html");
+    response.sendRedirect("/admin/requests.html");
   }
 }
