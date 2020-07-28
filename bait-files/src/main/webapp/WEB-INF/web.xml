@@ -50,12 +50,22 @@
   
   <servlet>
     <servlet-name>Upload</servlet-name>
-    <servlet-class>com.google.sps.servlets.UploadImageServlet</servlet-class>
+    <servlet-class>com.google.sps.servlets.BlobstoreUploadServlet</servlet-class>
   </servlet>
+
+  <!-- <servlet>
+    <servlet-name>Serve</servlet-name>
+    <servlet-class>com.google.sps.servlets.BlobstoreServeImageServlet</servlet-class>
+  </servlet> -->
 
   <servlet-mapping>
     <servlet-name>Upload</servlet-name>
     <url-pattern>/submission.html</url-pattern>
   </servlet-mapping>
+<!-- 
+  <servlet-mapping>
+    <servlet-name>Serve</servlet-name>
+    <url-pattern>/review.html</url-pattern>
+  </servlet-mapping> -->
 
 </web-app>

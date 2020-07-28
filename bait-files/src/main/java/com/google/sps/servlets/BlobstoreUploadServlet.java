@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * dev server and navigating to /blobstore-upload-url to see the Blobstore URL.
  */
 @WebServlet("/blobstore-upload")
-public class UploadImageServlet extends HttpServlet {
+public class BlobstoreUploadServlet extends HttpServlet {
   private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
   @Override

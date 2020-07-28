@@ -8,6 +8,7 @@ const NAME_INPUT = 'name-input-container';
 const USERNAME_INPUT = 'username-input-container';
 const EMAIL_INPUT = 'email-input-container';
 const ADDRESS_INPUT = 'address-input-container';
+const PICTURE_INPUT = 'image-input-container';
 const NOTES_INPUT = 'notes-input-container';
 const REVIEW_REQUEST_ID = 'review-request-id';
 const REVIEW_USER_ID = 'review-user-id';
@@ -65,6 +66,22 @@ function getRequest() {
             .appendChild(document.createTextNode(request.email));
         document.getElementById(ADDRESS_INPUT)
             .appendChild(document.createTextNode(request.address));
+                        
+        console.log("before pic fetch");
+        let blobKeyString = request.getBlobKeyString();
+        console.log("created blobkey string");
+        if (blobKeyString != 'noKey') {
+        console.log("has blobkey");
+
+          fetch('/blobstore-get-image?blobKey=' + blobKeyString).then((pic) => {
+            // append picture element to page
+            console.log("fetch");
+            let picture = document.createElement('img');
+            picture.src = pic.url;
+            document.getElementById(PICTURE_INPUT).append(picture);
+          });
+        }
+
         document.getElementById(NOTES_INPUT)
             .appendChild(document.createTextNode(request.notes));
         document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;

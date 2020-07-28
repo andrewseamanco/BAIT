@@ -5,8 +5,8 @@ import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
+// import com.google.appengine.api.datastore.DatastoreService;
+// import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
@@ -58,10 +58,6 @@ public class RequestServlet extends HttpServlet {
     String emailInput = parameters.get(EMAIL)[0];
     String addressInput = parameters.get(ADDRESS)[0];
     String blobKeyString = getUploadedFileUrl(request, PICTURE);
-
-    BlobKey blobkey = new BlobKey(blobKeyString);
-    blobstoreService.serve(blobkey, response);
-
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
