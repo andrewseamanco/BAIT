@@ -213,7 +213,7 @@ public final class ReviewServletTest {
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
     Map<String, String[]> parameters = new HashMap<String, String[]>();
-   parameters.put("review-request-id", new String[] {"14"});
+    parameters.put("review-request-id", new String[] {"14"});
     parameters.put("review-user-id", new String[] {"4"});
     parameters.put("name-validity", new String[] {"valid"});
     parameters.put("username-validity", new String[] {"valid"});
@@ -223,7 +223,6 @@ public final class ReviewServletTest {
     parameters.put("image-validity", new String[] {"invalid"});
     parameters.put("authenticity-rating", new String[] {"2"});
     parameters.put("reviewer-notes", new String[] {"Look Like You Know - Royal Blood"});
-
 
     when(request.getParameterMap()).thenReturn(parameters);
     when(request.getParameter("status")).thenReturn("COMPLETED");

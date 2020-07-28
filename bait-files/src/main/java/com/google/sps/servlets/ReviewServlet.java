@@ -112,7 +112,6 @@ public class ReviewServlet extends HttpServlet {
       response.sendRedirect("/requests.html");
     } catch (IllegalArgumentException n) {
       response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-    } 
-    
+    }
   }
 }
