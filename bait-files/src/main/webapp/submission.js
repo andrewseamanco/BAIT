@@ -1,6 +1,10 @@
 function loadAmericanAddress() {
     //Address
-    let addressDiv = document.getElementById("address");
+
+    let addressInputDiv = document.getElementById("address-input-div");
+
+    let addressDiv = document.createElement("div");
+    addressDiv.id = "address-div";
     let addressLabel = document.createElement('label');
     addressLabel.setAttribute("for", "address-line-input");
     let addressLabelText = document.createTextNode("Address: ");
@@ -9,8 +13,10 @@ function loadAmericanAddress() {
     let address = document.createElement("input");
     address.type = "text";
     addressDiv.appendChild(address);
+    addressInputDiv.appendChild(addressDiv);
 
-    let cityDiv = document.getElementById("city");
+    let cityDiv = document.createElement("div");
+    cityDiv.id = "city-div";
     let cityLabel = document.createElement('label');
     cityLabel.setAttribute("for", "city-input");
     let cityLabelText = document.createTextNode("City: ");
@@ -19,9 +25,11 @@ function loadAmericanAddress() {
     let city = document.createElement("input");
     city.type = "text";
     cityDiv.appendChild(city);
+    addressInputDiv.appendChild(cityDiv);
 
     
-    let stateDiv = document.getElementById("state");
+    let stateDiv = document.createElement("div");
+    stateDiv.id = "state-div";
     let state = document.createElement("Select"); 
     state.setAttribute("id", "state-input"); 
 
@@ -76,7 +84,20 @@ function loadAmericanAddress() {
     createOption("Wyoming", state);
 
     stateDiv.appendChild(state);
+    addressInputDiv.appendChild(stateDiv);
     
+    let zipDiv = document.createElement("div");
+    zipDiv.id = "city-div";
+    let zipLabel = document.createElement('label');
+    zipLabel.setAttribute("for", "zip-input");
+    let zipLabelText = document.createTextNode("Zip Code: ");
+    cityLabel.appendChild(cityLabelText);
+    cityDiv.appendChild(cityLabel);
+    let city = document.createElement("input");
+    city.type = "text";
+    cityDiv.appendChild(city);
+    addressInputDiv.appendChild(cityDiv);
+
     //State
     //City
     //Postal Code
