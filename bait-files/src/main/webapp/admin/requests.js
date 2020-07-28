@@ -3,7 +3,7 @@ const TABLE_BODY_CELL = 'table-body-cell';
 const TABLE_BODY_ROW = 'table-body-row';
 
 const URL =
-    'https://step-bait-project-2020.uc.r.appspot.com/review.html?requestId=';
+    'https://step-bait-project-2020.uc.r.appspot.com/review.jsp?requestId=';
 
 function getRequests() {
   fetch('/requests?illegalAccess=false').then(response => response.json()).then((requests) => {
