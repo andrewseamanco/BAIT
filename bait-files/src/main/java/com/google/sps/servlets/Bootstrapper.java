@@ -16,6 +16,13 @@ public class Bootstrapper implements ServletContextListener {
     ServletContext context = event.getServletContext();
     context.addServlet("LoginServlet", new LoginServlet(new UserAccessor()))
         .addMapping("/register");
+    context
+        .addServlet(
+            "BlobstoreServeImageServlet", new BlobstoreServeImageServlet(new BlobstoreAccessor()))
+        .addMapping("/request");
+    context
+        .addServlet("BlobstoreUploadServlet", new BlobstoreUploadServlet(new BlobstoreAccessor()))
+        .addMapping("/request");
   }
 
   public static Objectify ofy() {

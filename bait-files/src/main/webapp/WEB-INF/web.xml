@@ -38,7 +38,6 @@
     <url-pattern>/admin/requests.html</url-pattern>
   </servlet-mapping>
 
-
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.google.LoginFilter</filter-class>
@@ -52,6 +51,7 @@
     <filter-name>adminFilter</filter-name>
     <filter-class>com.google.AdminFilter</filter-class>
   </filter>
+
     <filter-mapping>
         <filter-name>adminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
