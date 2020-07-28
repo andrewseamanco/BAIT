@@ -1,8 +1,8 @@
 function loadAmericanAddress() {
-    //Address
 
     let addressInputDiv = document.getElementById("address-input-div");
 
+    //Address
     let addressDiv = document.createElement("div");
     addressDiv.id = "address-div";
     let addressLabel = document.createElement('label');
@@ -15,6 +15,7 @@ function loadAmericanAddress() {
     addressDiv.appendChild(address);
     addressInputDiv.appendChild(addressDiv);
 
+    //City
     let cityDiv = document.createElement("div");
     let cityLabel = document.createElement('label');
     cityLabel.setAttribute("for", "city-input");
@@ -26,7 +27,7 @@ function loadAmericanAddress() {
     cityDiv.appendChild(city);
     addressInputDiv.appendChild(cityDiv);
 
-    
+    //State
     let stateDiv = document.createElement("div");
     stateDiv.id = "state-div";
     let stateLabel = document.createElement('label');
@@ -91,6 +92,7 @@ function loadAmericanAddress() {
     stateDiv.appendChild(state);
     addressInputDiv.appendChild(stateDiv);
     
+    //Zip Code
     let zipDiv = document.createElement("div");
     zipDiv.id = "city-div";
     let zipLabel = document.createElement('label');
@@ -122,7 +124,6 @@ function loadCanadianAddress() {
     addressInputDiv.appendChild(addressDiv);
 
     //Province
-
     let provinceDiv = document.createElement("div");
     let province = document.createElement("Select"); 
     province.setAttribute("id", "province-input"); 
