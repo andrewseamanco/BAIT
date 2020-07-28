@@ -5,6 +5,7 @@ import com.google.sps.servlets.Enums.Status;
 import com.google.sps.servlets.Enums.Validity;
 import com.googlecode.objectify.ObjectifyService;
 import java.io.IOException;
+import java.lang.IllegalArgumentException;
 import java.lang.String;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,14 +85,14 @@ public class ReviewServlet extends HttpServlet {
       String requestId = parameters.get(
           REVIEW_REQUEST_ID)[0]; // There is only one value for each of keys in the parameters map
       String userId = parameters.get(REVIEW_USER_ID)[0];
-      Validity nameValidity = Validity.valueOf(parameters.get(NAME_VALIDITY)[0].toUpperCase());
+      Validity nameValidity = checkValidity(parameters.get(NAME_VALIDITY));
       Validity usernameValidity =
-          Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
-      Validity emailValidity = Validity.valueOf(parameters.get(EMAIL_VALIDITY)[0].toUpperCase());
-      Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONE_VALIDITY)[0].toUpperCase());
+          checkValidity(parameters.get(USERNAME_VALIDITY));
+      Validity emailValidity = checkValidity(parameters.get(EMAIL_VALIDITY));
+      Validity phoneNumValidity = checkValidity(parameters.get(PHONE_VALIDITY));
       Validity addressValidity =
-          Validity.valueOf(parameters.get(ADDRESS_VALIDITY)[0].toUpperCase());
-      Validity imageValidity = Validity.valueOf(parameters.get(IMAGE_VALIDITY)[0].toUpperCase());
+          checkValidity(parameters.get(ADDRESS_VALIDITY));
+      Validity imageValidity = checkValidity(parameters.get(IMAGE_VALIDITY));
       int authenticityRating = Integer.parseInt(parameters.get(AUTHENTICITY_RATING)[0]);
       String reviewerNotes = parameters.get(REVIEWER_NOTES)[0];
 
@@ -109,11 +110,20 @@ public class ReviewServlet extends HttpServlet {
 
       ObjectifyService.ofy().save().entity(pendingRequest).now();
 
-      response.sendRedirect("/requests.html");
+      response.sendRedirect("/admin/requests.html");
     } catch (NullPointerException n) {
-      response.sendRedirect("/requests.html");
+      response.sendRedirect("/admin/requests.html");
     } catch (IOException e) {
-      response.sendRedirect("/requests.html");
+      response.sendRedirect("/admin/requests.html");
     }
+  }
+
+  public Validity checkValidity(String[] value){
+      try{
+          return Validity.valueOf(value[0].toUpperCase());
+      }
+      catch(IllegalArgumentException e) {
+          return Validity.INVALID;
+      }
   }
 }
