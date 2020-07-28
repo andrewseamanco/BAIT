@@ -11,6 +11,7 @@ const ADDRESS_INPUT = 'address-input-container';
 const NOTES_INPUT = 'notes-input-container';
 const REVIEW_REQUEST_ID = 'review-request-id';
 const REVIEW_USER_ID = 'review-user-id';
+const ERROR_MESSAGE = 'This review is invalid. Please check all inputs and resubmit.';
 
 function getPanels() {
   const accordion = document.getElementsByClassName('accordion');
@@ -45,12 +46,12 @@ function getRequest() {
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
-        console.log(request);
         if (request.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
           window.location.replace('/requests.html');
           return;
         }
+        
         document.getElementById(REQUEST_ID_CONTAINER)
             .appendChild(document.createTextNode(request.requestId));
         document.getElementById(USER_ID_CONTAINER)
