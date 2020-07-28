@@ -99,13 +99,13 @@ public final class RequestsServletTest {
     ObjectifyService.ofy()
         .save()
         .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
-            "no_image", "719-325-6872", "some notes"))
+            "no_image", "555-555-5555", "some notes"))
         .now();
 
     ObjectifyService.ofy()
         .save()
         .entity(new Request(19L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
-            "no_image", "719-325-6872", "some more notes"))
+            "no_image", "555-555-5555", "some more notes"))
         .now();
 
     Request pendingRequest =
@@ -128,7 +128,7 @@ public final class RequestsServletTest {
     String expected =
         "[{\"requestId\":14,\"userId\":\"4\",\"status\":\"PENDING\",\"submissionDate\":"
         + submissionDate
-        + ",\"name\":\"human\",\"username\":\"human47\",\"email\":\"human47@gmail.com\",\"address\":\"2930 pearl street\",\"image\":\"no_image\",\"phoneNum\":\"719-325-6872\",\"notes\":\"some notes\"}]";
+        + ",\"name\":\"human\",\"username\":\"human47\",\"email\":\"human47@gmail.com\",\"address\":\"2930 pearl street\",\"image\":\"no_image\",\"phoneNum\":\"555-555-5555\",\"notes\":\"some notes\"}]";
  
     assertTrue(rawJsonResponse.startsWith(expected));
   }
