@@ -4,6 +4,7 @@
     <title>Submission Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="submission.css">
+    <script src="submission.js"></script>
   </head>
   <body>
       <nav>
@@ -25,21 +26,15 @@
         <ul>
             <li id='name-input'>
                 <label for="name">Full Name:</label><br>
-                <input type="text" id="name-input" name="name-input">
+                <input type="text" id="name-input" name="name-input" onkeydown="return /[a-z, ]/i.test(event.key)">
             </li>
             <li id='username-input'>
                 <label for="username">Username:</label><br>
-                <select name="platforms" id="platforms">
-                    <option value="Instagram">Instagram</option>
-                    <option value="Twitter">Twitter</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input type="text" id="username-input" name="username-input" placeholder="@">
+                <input type="text" id="username-input" name="username-input" placeholder="@" onkeypress="checkSpace(event)">
             </li>
             <li id='email-input'>
                 <label for="email">Email:</label><br>
-                <input type="email" id="email-input" name="email-input">
+                <input type="email" id="email-input" name="email-input" onkeypress="checkSpace(event)">
             </li>
 
             <li id='address-input'>
@@ -49,7 +44,7 @@
 
             <li id='phone-input'>
                 <label for="phone">Phone Number:</label><br>
-                <input type="tel" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"id="phone-input" name="phone-input">
+                <input type="tel" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="phone-input" name="phone-input" onkeypress="checkSpace(event)">
             </li>
 
             <li id='pic-input'>
