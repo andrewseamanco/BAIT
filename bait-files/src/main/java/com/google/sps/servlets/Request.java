@@ -35,8 +35,4 @@ public final class Request {
     this.phoneNum = phoneNum;
     this.notes = notes;
   }
-
-  public String getBlobKeyString() {
-      return this.image;
-  }
 }

@@ -67,15 +67,10 @@ function getRequest() {
         document.getElementById(ADDRESS_INPUT)
             .appendChild(document.createTextNode(request.address));
                         
-        console.log("before pic fetch");
-        let blobKeyString = request.getBlobKeyString();
-        console.log("created blobkey string");
+        let blobKeyString = request.image;
         if (blobKeyString != 'noKey') {
-        console.log("has blobkey");
-
           fetch('/blobstore-get-image?blobKey=' + blobKeyString).then((pic) => {
             // append picture element to page
-            console.log("fetch");
             let picture = document.createElement('img');
             picture.src = pic.url;
             document.getElementById(PICTURE_INPUT).append(picture);

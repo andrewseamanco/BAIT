@@ -70,7 +70,7 @@ public class RequestServlet extends HttpServlet {
     response.sendRedirect("/submission.html");
   }
 
-  /** Gets the Url of the file the user uploaded and checks for no file uploaded.  */
+  /** Gets the URL of the file the user uploaded and checks for no file uploaded */
   private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     List<BlobKey> blobKeys = blobs.get(formInputElementName);
