@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * The fetch() function in submission.js requests the /blobstore-upload URL, the response is
- * the URL that allows a user to upload a file to Blobstore 
+ * the URL that allows a user to upload a file to Blobstore
  */
 @WebServlet("/blobstore-upload")
 public class BlobstoreUploadServlet extends HttpServlet {

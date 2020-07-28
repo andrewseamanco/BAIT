@@ -45,28 +45,8 @@ function getRequest() {
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
-        document.getElementById(REQUEST_ID_CONTAINER)
-            .appendChild(document.createTextNode(request.requestId));
-        document.getElementById(USER_ID_CONTAINER)
-            .appendChild(document.createTextNode(request.userId));
-        document.getElementById(STATUS_CONTAINER)
-            .appendChild(document.createTextNode(request.status));
+        addRequestToPage(request);
 
-        document.getElementById(DATE_CONTAINER)
-            .append(document.createTextNode(
-                new Date(request.submissionDate).toLocaleDateString() + '  ' +
-                new Date(request.submissionDate).toLocaleTimeString()));
-        document.getElementById(PHONE_INPUT)
-            .appendChild(document.createTextNode(request.phoneNum));
-        document.getElementById(NAME_INPUT)
-            .appendChild(document.createTextNode(request.name));
-        document.getElementById(USERNAME_INPUT)
-            .appendChild(document.createTextNode(request.username));
-        document.getElementById(EMAIL_INPUT)
-            .appendChild(document.createTextNode(request.email));
-        document.getElementById(ADDRESS_INPUT)
-            .appendChild(document.createTextNode(request.address));
-                        
         let blobKeyString = request.image;
         if (blobKeyString != 'noKey') {
           fetch('/blobstore-get-image?blobKey=' + blobKeyString).then((pic) => {
@@ -76,11 +56,29 @@ function getRequest() {
             document.getElementById(PICTURE_INPUT).append(picture);
           });
         }
-
-        document.getElementById(NOTES_INPUT)
-            .appendChild(document.createTextNode(request.notes));
-        document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
-        document.getElementById(REVIEW_USER_ID).value = request.userId;
       })
       .then(getPanels);
+}
+
+function addRequestToPage(request) {
+  addTextToPage(REQUEST_ID_CONTAINER, request.requestId);
+  addTextToPage(USER_ID_CONTAINER, request.userId);
+  addTextToPage(STATUS_CONTAINER, request.status);
+  addTextToPage(
+      DATE_CONTAINER,
+      new Date(request.submissionDate).toLocaleDateString() + '  ' +
+          new Date(request.submissionDate).toLocaleTimeString());
+  addTextToPage(PHONE_INPUT, request.phoneNum);
+  addTextToPage(NAME_INPUT, request.name);
+  addTextToPage(USERNAME_INPUT, request.username);
+  addTextToPage(EMAIL_INPUT, request.email);
+  addTextToPage(ADDRESS_INPUT, request.address);
+  addTextToPage(NOTES_INPUT, request.notes);
+  document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
+  document.getElementById(REVIEW_USER_ID).value = request.userId;
+}
+
+function addTextToPage(containerId, text) {
+  document.getElementById(containerId)
+      .appendChild(document.createTextNode(text));
 }
