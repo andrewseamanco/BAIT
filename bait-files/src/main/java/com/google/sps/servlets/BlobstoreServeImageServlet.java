@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Serves the image file corresponding to the given blob key
  */
-@WebServlet("/blobstore-get-image")
+@WebServlet("/blobstore-serve-image")
 public class BlobstoreServeImageServlet extends HttpServlet {
   private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 

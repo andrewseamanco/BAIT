@@ -77,7 +77,7 @@ function addTextToPage(containerId, text) {
 function addImageToPage(request) {
   let blobKeyString = request.image;
   if (blobKeyString != 'noKey') {
-    fetch('/blobstore-get-image?blobKey=' + blobKeyString).then((pic) => {
+    fetch('/blobstore-serve-image?blobKey=' + blobKeyString).then((pic) => {
       // append picture element to page
       let picture = document.createElement('img');
       picture.src = pic.url;
