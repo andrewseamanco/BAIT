@@ -6,9 +6,9 @@ function checkFormInput() {
   fetch('/usernameTaken?username=' + username)
       .then(response => response.json())
       .then((usernameTaken) => {
-        if (!allFieldsFilled()) {
+        if (usernameNotFilled()) {
           printError(
-              'One or more fields are empty. Please fill out all fields to continue.',
+              'Please choose a username!',
               errorMessageDiv);
         } else if (usernameTaken) {
           printError(
@@ -27,13 +27,10 @@ function removeErrorMessage(errorMessageDiv) {
   }
 }
 
-function allFieldsFilled() {
-  let firstName = document.getElementById('first-name-input');
-  let lastName = document.getElementById('last-name-input');
+function usernameNotFilled() {
   let username = document.getElementById('username-input');
 
-  return !(
-      firstName.value === '' || lastName.value === '' || username.value === '');
+  return username.value == '';
 }
 
 function printError(errorMessage, errorMessageDiv) {

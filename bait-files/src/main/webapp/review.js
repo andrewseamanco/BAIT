@@ -8,7 +8,7 @@ const NAME_INPUT = 'name-input-container';
 const USERNAME_INPUT = 'username-input-container';
 const EMAIL_INPUT = 'email-input-container';
 const ADDRESS_INPUT = 'address-input-container';
-const PICTURE_INPUT = 'image-input-container';
+const IMAGE_INPUT = 'image-input-container';
 const NOTES_INPUT = 'notes-input-container';
 const REVIEW_REQUEST_ID = 'review-request-id';
 const REVIEW_USER_ID = 'review-user-id';
@@ -46,16 +46,7 @@ function getRequest() {
       .then(response => response.json())
       .then((request) => {
         addRequestToPage(request);
-
-        let blobKeyString = request.image;
-        if (blobKeyString != 'noKey') {
-          fetch('/blobstore-get-image?blobKey=' + blobKeyString).then((pic) => {
-            // append picture element to page
-            let picture = document.createElement('img');
-            picture.src = pic.url;
-            document.getElementById(PICTURE_INPUT).append(picture);
-          });
-        }
+        addImageToPage(request);
       })
       .then(getPanels);
 }
@@ -81,4 +72,16 @@ function addRequestToPage(request) {
 function addTextToPage(containerId, text) {
   document.getElementById(containerId)
       .appendChild(document.createTextNode(text));
+}
+
+function addImageToPage(request) {
+  let blobKeyString = request.image;
+  if (blobKeyString != 'noKey') {
+    fetch('/blobstore-get-image?blobKey=' + blobKeyString).then((pic) => {
+      // append picture element to page
+      let picture = document.createElement('img');
+      picture.src = pic.url;
+      document.getElementById(IMAGE_INPUT).append(picture);
+    });
+  }
 }
