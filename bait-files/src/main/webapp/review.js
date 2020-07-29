@@ -49,7 +49,7 @@ function getRequest() {
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((userRequest) => {
-        addRequestToPage(userRequest.requestObject);
+        addRequestToPage(userRequest.request);
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
       })

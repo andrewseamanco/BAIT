@@ -33,13 +33,12 @@ public class RequestServlet extends HttpServlet {
   private static final String API_ERROR = "The request to this API failed.";
 
   private class RequestWrapper {
-    Request requestObject;
+    Request request;
     JsonObject phoneResults;
     JsonObject emailResults;
 
-    private RequestWrapper(
-        Request requestObject, JsonObject phoneResults, JsonObject emailResults) {
-      this.requestObject = requestObject;
+    private RequestWrapper(Request request, JsonObject phoneResults, JsonObject emailResults) {
+      this.request = request;
       this.phoneResults = phoneResults;
       this.emailResults = emailResults;
     }
@@ -54,13 +53,14 @@ public class RequestServlet extends HttpServlet {
 
       Url phoneUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
-      if (phoneUrl != null && userRequest.phoneNum != null && userRequest.phoneNum != "") {  //check if userRequest is null - don't call api if it is
-          try {
-            phoneResults =
-                JsonParser.parseString(doGetAPI(phoneUrl.url + "613-413-9716")).getAsJsonObject();
-          } catch (InterruptedException e) {
-          }
+      if (phoneUrl != null && userRequest.phoneNum != null
+          && userRequest.phoneNum != "") { // check if userRequest is null - don't call api if it is
+        try {
+          phoneResults =
+              JsonParser.parseString(doGetAPI(phoneUrl.url + "613-413-9716")).getAsJsonObject();
+        } catch (InterruptedException e) {
         }
+      }
 
       Url emailUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "email-api").first().now();
