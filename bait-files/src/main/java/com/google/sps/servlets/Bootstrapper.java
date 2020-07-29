@@ -19,10 +19,10 @@ public class Bootstrapper implements ServletContextListener {
     context
         .addServlet(
             "BlobstoreServeImageServlet", new BlobstoreServeImageServlet(new BlobstoreAccessor()))
-        .addMapping("/request");
+        .addMapping("/blobstore-get-image");
     context
         .addServlet("BlobstoreUploadServlet", new BlobstoreUploadServlet(new BlobstoreAccessor()))
-        .addMapping("/request");
+        .addMapping("/blobstore-upload");
   }
 
   public static Objectify ofy() {

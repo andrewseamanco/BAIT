@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/blobstore-get-image")
 public class BlobstoreServeImageServlet extends HttpServlet {
-  private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-
   public BlobstoreServeImageServlet(BlobstoreAccessor blobstoreAccessor) {
     this.blobstoreAccessor = blobstoreAccessor;
   }
@@ -28,6 +26,6 @@ public class BlobstoreServeImageServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     BlobKey blobKey = new BlobKey(request.getParameter("blobKey"));
-    blobstoreService.serve(blobKey, response);
+    blobstoreAccessor.serve(blobKey, response);
   }
 }

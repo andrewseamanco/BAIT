@@ -59,7 +59,6 @@ public final class BlobstoreServeImageServletTest {
 
   @Test
   public void doGet_givenBlobkey_BlobstoreServes() throws IOException, ServletException {
-    // add a User object
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
     BlobstoreAccessor blobstoreAccessor = mock(BlobstoreAccessor.class);
@@ -68,9 +67,7 @@ public final class BlobstoreServeImageServletTest {
 
     new BlobstoreServeImageServlet(blobstoreAccessor).doGet(request, response);
 
-    BlobstoreServeImageServlet servlet = new BlobstoreServeImageServlet(blobstore);
     servlet.doGet(request, response);
-    Mockito.verify(blobstore).serve("123", response);
-
+    Mockito.verify(blobstoreAccessor).serve("123", response);
   }
 } 

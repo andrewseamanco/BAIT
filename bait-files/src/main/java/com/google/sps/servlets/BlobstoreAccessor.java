@@ -2,28 +2,30 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class BlobstoreAccessor {
   private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
-  public String getUploadUrl() {
+  public String createUploadUrl() {
     blobstoreService.createUploadUrl("/request");
   }
 
-  String serveBlobstore() {
-    blobstoreService.serve(blobkey, response);
+  String serve(String blobKey, HttpServletResponse response) {
+    blobstoreService.serve(blobKey, response);
   }
 
-  public String getUploads() {
+  public String getUploads(HttpServletRequest request) {
     blobstoreService.getUploads(request);
   }
 
-  public String loadBlobInfo() {
-    BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-    return blobInfo;
+  public String loadBlobInfo(String blobKey) {
+    return new BlobInfoFactory().loadBlobInfo(blobKey);
   }
 
-  public String deleteBlob() {
+  public String delete(String blobKey) {
     blobstoreService.delete(blobKey);
   }
 }
