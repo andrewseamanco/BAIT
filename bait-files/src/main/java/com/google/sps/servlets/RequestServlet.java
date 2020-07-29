@@ -3,10 +3,17 @@ package com.google.sps.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.sps.servlets.Request;
+import com.google.sps.servlets.Url;
 import com.googlecode.objectify.ObjectifyService;
 import java.io.IOException;
 import java.lang.String;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,14 +30,52 @@ public class RequestServlet extends HttpServlet {
   private static final String PICTURE = "picture-input";
   private static final String PHONE = "phone-input";
   private static final String NOTES = "notes-input";
+  private static final String API_ERROR = "The request to this API failed.";
+
+  private class RequestWrapper {
+    Request requestObject;
+    JsonObject phoneResults;
+    JsonObject emailResults;
+
+    private RequestWrapper(
+        Request requestObject, JsonObject phoneResults, JsonObject emailResults) {
+      this.requestObject = requestObject;
+      this.phoneResults = phoneResults;
+      this.emailResults = emailResults;
+    }
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     try {
       long requestId = Long.parseLong(request.getParameter("requestId"));
       Request userRequest = ObjectifyService.ofy().load().type(Request.class).id(requestId).now();
+      JsonObject phoneResults = new JsonObject();
+
+      Url phoneUrl =
+          ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
+      if (phoneUrl != null && userRequest.phoneNum != null && userRequest.phoneNum != "")) {  //check if userRequest is null - don't call api if it is
+          try {
+            phoneResults =
+                JsonParser.parseString(doGetAPI(phoneUrl.url + "613-413-9716")).getAsJsonObject();
+          } catch (InterruptedException e) {
+          }
+        }
+
+      Url emailUrl =
+          ObjectifyService.ofy().load().type(Url.class).filter("name", "email-api").first().now();
+      JsonObject emailResults = new JsonObject();
+      if (emailUrl != null && userRequest.email != null && userRequest.email != "") {
+        try {
+          emailResults = JsonParser.parseString(doGetAPI(emailUrl.url + "imanherzi@gmail.com"))
+                             .getAsJsonObject();
+        } catch (InterruptedException e) {
+        }
+      }
+
       response.setContentType("application/json;");
-      response.getWriter().println(new Gson().toJson(userRequest));
+      response.getWriter().println(
+          new Gson().toJson(new RequestWrapper(userRequest, phoneResults, emailResults)));
     } catch (NumberFormatException e) {
       response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
@@ -60,5 +105,14 @@ public class RequestServlet extends HttpServlet {
         .now();
 
     response.sendRedirect("/history.jsp");
+  }
+
+  public String doGetAPI(String url) throws IOException, InterruptedException {
+    HttpClient client = HttpClient.newHttpClient();
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    return response.body();
   }
 }

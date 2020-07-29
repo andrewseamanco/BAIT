@@ -12,6 +12,7 @@ public class Bootstrapper implements ServletContextListener {
     ObjectifyService.init();
     ObjectifyService.register(Review.class);
     ObjectifyService.register(Request.class);
+    ObjectifyService.register(Url.class);
     ObjectifyService.register(User.class);
     ServletContext context = event.getServletContext();
     context.addServlet("LoginServlet", new LoginServlet(new UserAccessor()))
