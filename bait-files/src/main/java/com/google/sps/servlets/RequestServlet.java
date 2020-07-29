@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,17 @@ public class RequestServlet extends HttpServlet {
   private static final String PHONE = "phone-input";
   private static final String NOTES = "notes-input";
   private static final String API_ERROR = "The request to this API failed.";
+  private static HttpClient client;
 
+  public RequestServlet() {
+    this.client = HttpClient.newHttpClient();
+  }
+
+  public RequestServlet(HttpClient client) {
+    this.client = client;
+  }
+
+  // Wrapper class for Request object and API result JsonObjects
   private class RequestWrapper {
     Request request;
     JsonObject phoneResults;
@@ -49,15 +60,23 @@ public class RequestServlet extends HttpServlet {
     try {
       long requestId = Long.parseLong(request.getParameter("requestId"));
       Request userRequest = ObjectifyService.ofy().load().type(Request.class).id(requestId).now();
+
+      if (userRequest == null) {
+        HashMap<String, String> responseParameters = new HashMap<String, String>();
+        responseParameters.put("redirect", "true");
+        response.setContentType("application/json;");
+        response.getWriter().println(new Gson().toJson(responseParameters));
+        return;
+      }
+
       JsonObject phoneResults = new JsonObject();
 
       Url phoneUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
-      if (phoneUrl != null && userRequest.phoneNum != null
-          && userRequest.phoneNum != "") { // check if userRequest is null - don't call api if it is
+      if (phoneUrl != null && userRequest.phoneNum != null && userRequest.phoneNum != "") {
         try {
-          phoneResults =
-              JsonParser.parseString(doGetAPI(phoneUrl.url + "613-413-9716")).getAsJsonObject();
+          phoneResults = JsonParser.parseString(doGetAPI(phoneUrl.url + userRequest.phoneNum))
+                             .getAsJsonObject();
         } catch (InterruptedException e) {
         }
       }
@@ -67,8 +86,8 @@ public class RequestServlet extends HttpServlet {
       JsonObject emailResults = new JsonObject();
       if (emailUrl != null && userRequest.email != null && userRequest.email != "") {
         try {
-          emailResults = JsonParser.parseString(doGetAPI(emailUrl.url + "imanherzi@gmail.com"))
-                             .getAsJsonObject();
+          emailResults =
+              JsonParser.parseString(doGetAPI(emailUrl.url + userRequest.email)).getAsJsonObject();
         } catch (InterruptedException e) {
         }
       }
@@ -104,15 +123,12 @@ public class RequestServlet extends HttpServlet {
             pictureInput, phoneInput, notesInput))
         .now();
 
-    response.sendRedirect("/history.jsp");
+    response.sendRedirect("/success.jsp");
   }
 
   public String doGetAPI(String url) throws IOException, InterruptedException {
-    HttpClient client = HttpClient.newHttpClient();
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
     return response.body();
   }
 }

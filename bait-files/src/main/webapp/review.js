@@ -16,6 +16,7 @@ const REVIEW_USER_ID = 'review-user-id';
 const IS_VALID = 'is valid: ';
 const IS_COMMERCIAL = 'is commercial: ';
 const WARNING = 'Invalid Input';
+const API_ERROR = 'Unable to load API results.';
 
 function getPanels() {
   const accordion = document.getElementsByClassName('accordion');
@@ -46,16 +47,21 @@ function getRequest() {
     window.location.replace('/requests.html');
     return;
   }
+
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((userRequest) => {
+        if (userRequest.redirect) {
+          alert('RequestId invalid. Redirecting to request portal.');
+          window.location.replace('/admin/requests.html');
+          return;
+        }
         addRequestToPage(userRequest.request);
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
       })
       .then(getPanels);
 }
-
 
 function addRequestToPage(request) {
   addTextToPage(REQUEST_ID_CONTAINER, request.requestId);
@@ -77,8 +83,8 @@ function addRequestToPage(request) {
 
 
 function addPhoneResultsToPage(results) {
-  if (results == '{}' || results.error) {
-    addTextToPage(PHONE_RESULTS, results.error.message);
+  if (results.is_valid == undefined || results.error) {
+    addTextToPage(PHONE_RESULTS, API_ERROR);
     return;
   } else if (results.warning) {
     addTextToPage(PHONE_RESULTS, WARNING);
@@ -103,8 +109,8 @@ function addPhoneResultsToPage(results) {
 }
 
 function addEmailResultsToPage(results) {
-  if (results == '{}' || results.error) {
-    addTextToPage(EMAIL_RESULTS, results.error.message);
+  if (results.is_valid == undefined || results.error) {
+    addTextToPage(EMAIL_RESULTS, API_ERROR);
     return;
   } else if (results.warning) {
     addTextToPage(EMAIL_RESULTS, WARNING);

@@ -2,6 +2,7 @@ package com.google.sps.servlets;
 import com.google.sps.servlets.UserAccessor;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
+import java.net.http.HttpClient;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,6 +18,7 @@ public class Bootstrapper implements ServletContextListener {
     ServletContext context = event.getServletContext();
     context.addServlet("LoginServlet", new LoginServlet(new UserAccessor()))
         .addMapping("/register");
+    context.addServlet("RequestServlet", new RequestServlet(HttpClient.newHttpClient()));
   }
 
   public static Objectify ofy() {
