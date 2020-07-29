@@ -30,7 +30,7 @@
             </li>
             <li id='username-input'>
                 <label for="username">Username:</label><br>
-                <input type="text" id="username-input" name="username-input" placeholder="@" onkeypress="checkSpace(event)">
+                <input type="text" id="username-input" name="username-input" placeholder="@" onkeypress="return keyIsValidForUsername(event)">
             </li>
             <li id='email-input'>
                 <label for="email">Email:</label><br>

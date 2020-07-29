@@ -1,9 +1,8 @@
-/** Do not allow spaces in input */
-function checkSpace(event)
-{
-   if(event.which ==32)
-   {
-      event.preventDefault();
-      return false;
-   }
+/** Do not allow spaces in username input */
+function keyIsValidForUsername(event) {
+  if (event.key === ' ') {
+    event.preventDefault();
+    return false;
+  }
+  return true;
 }
