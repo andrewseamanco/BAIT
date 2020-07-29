@@ -46,12 +46,10 @@
                 </select>
                 <!-- To be filled by submission.js -->
                 <div id="address-input-div">
-                    <div id="address"></div>
-                    <div id="province"></div>
-                    <div id="city"></div>
-                    <div id="state"></div>
-                    <div id="zip"></div>
                 </div>
+                <div id="map">
+                </div>
+                <button type="button" onclick="reconstructAddress('Canadian')">Check Address Location</button>
             </li>
 
             <li id='phone-input'>
@@ -74,4 +72,5 @@
       </form>
   </body>
   <script src="submission.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initMap"></script>
 </html>
