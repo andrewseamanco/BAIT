@@ -54,7 +54,7 @@ public class RequestServlet extends HttpServlet {
 
       Url phoneUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
-      if (phoneUrl != null && userRequest.phoneNum != null && userRequest.phoneNum != "")) {  //check if userRequest is null - don't call api if it is
+      if (phoneUrl != null && userRequest.phoneNum != null && userRequest.phoneNum != "") {  //check if userRequest is null - don't call api if it is
           try {
             phoneResults =
                 JsonParser.parseString(doGetAPI(phoneUrl.url + "613-413-9716")).getAsJsonObject();
