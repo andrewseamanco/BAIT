@@ -40,8 +40,6 @@ public class LoginFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) res;
 
-    System.out.println(request.getRequestURI());
-
     // Returns session if the session already exists for request if not returns null
     HttpSession session = request.getSession(false);
 
@@ -62,14 +60,11 @@ public class LoginFilter implements Filter {
       if (request.getRequestURI().endsWith("history.jsp")
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
-              System.out.println(getCurrentUserPermission());
         if (getCurrentUserPermission() == Permission.USER) {
             if (request.getRequestURI().endsWith("requests")) {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("requests?illegalAccess=false");
-                System.out.println(requestDispatcher);
                 requestDispatcher.forward(request, response);
             }
-            System.out.println("USER");
           RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/history.jsp");
           requestDispatcher.forward(request, response);
           return;
