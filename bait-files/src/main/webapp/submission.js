@@ -1,10 +1,10 @@
-function fetchBlobstoreUrlAndShowImage() {
+function fetchBlobstoreUrl() {
   fetch('/blobstore-upload')
       .then(response => {
         return response.text();
       })
       .then((imageUploadUrl) => {
-        const displayImage = document.getElementById('submission-form');
-        displayImage.action = imageUploadUrl;
+        const submissionForm = document.getElementById('submission-form');
+        submissionForm.action = imageUploadUrl;
       });
 }

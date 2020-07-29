@@ -56,7 +56,7 @@ public class RequestServlet extends HttpServlet {
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
     String addressInput = parameters.get(ADDRESS)[0];
-    String blobKeyString = getUploadedFileUrl(request, PICTURE);
+    String blobKeyString = getUploadedFileUrl(request);
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
@@ -70,9 +70,9 @@ public class RequestServlet extends HttpServlet {
   }
 
   /** Gets the URL of the file the user uploaded and checks for no file uploaded */
-  private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+  private String getUploadedFileUrl(HttpServletRequest request) {
     Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-    List<BlobKey> blobKeys = blobs.get(formInputElementName);
+    List<BlobKey> blobKeys = blobs.get(PICTURE);
 
     // User submitted form without selecting a file, so we can't get a URL. (dev server)
     if (blobKeys == null || blobKeys.isEmpty()) {

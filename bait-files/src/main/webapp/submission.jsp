@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="submission.css">
     <script src="submission.js"></script>
   </head>
-  <body onload="fetchBlobstoreUrlAndShowImage()">
+  <body onload="fetchBlobstoreUrl()">
     <nav>
       <div>BAIT</div>
         <div>

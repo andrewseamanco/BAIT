@@ -76,12 +76,14 @@ function addTextToPage(containerId, text) {
 
 function addImageToPage(request) {
   let blobKeyString = request.image;
-  if (blobKeyString != 'noKey') {
+  if (blobKeyString != undefined) {
     fetch('/blobstore-serve-image?blobKey=' + blobKeyString).then((pic) => {
       // append picture element to page
       let picture = document.createElement('img');
       picture.src = pic.url;
       document.getElementById(IMAGE_INPUT).append(picture);
     });
+  } else {
+      
   }
 }
