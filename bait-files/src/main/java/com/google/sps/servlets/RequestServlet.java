@@ -12,6 +12,7 @@ import com.google.sps.servlets.Request;
 import com.googlecode.objectify.ObjectifyService;
 import java.io.IOException;
 import java.lang.String;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,13 @@ public class RequestServlet extends HttpServlet {
     try {
       long requestId = Long.parseLong(request.getParameter("requestId"));
       Request userRequest = ObjectifyService.ofy().load().type(Request.class).id(requestId).now();
+      if (userRequest == null) {
+        HashMap<String, String> responseParameters = new HashMap<String, String>();
+        responseParameters.put("redirect", "true");
+        response.setContentType("application/json;");
+        response.getWriter().println(new Gson().toJson(responseParameters));
+        return;
+      }
       response.setContentType("application/json;");
       response.getWriter().println(new Gson().toJson(userRequest));
     } catch (NumberFormatException e) {

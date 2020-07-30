@@ -37,9 +37,21 @@
                 <input type="email" id="email-input" name="email-input">
             </li>
 
-            <li id='address-input'>
+            <li>
                 <label for="address">Address:</label><br>
-                <input type="address" id="address-input" name="address-input">
+                <label for="country">Country: </address>
+                <select type="address" id="country-code-input" name="country">
+                    <option value="IDK">I do not know the address</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                </select>
+                <!-- To be filled by submission.js -->
+                <div id="address-input-div">
+                </div>
+                <div id="map">
+                </div>
+                <p>* Check address to determine if the address fields have been typed in correctly * </p>
+                <button type="button" onclick="placeMarkerOnUserInputtedAddress()">Check Address Location</button>
             </li>
 
             <li id='phone-input'>
@@ -61,4 +73,6 @@
         </ul>
       </form>
   </body>
+  <script src="submission.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initMap"></script>
 </html>

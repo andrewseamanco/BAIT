@@ -38,6 +38,20 @@
     <url-pattern>/admin/requests.html</url-pattern>
   </servlet-mapping>
 
+<<<<<<< HEAD
+=======
+
+ <filter>
+    <filter-name>adminFilter</filter-name>
+    <filter-class>com.google.AdminFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>adminFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+
+>>>>>>> 8755a668ede25139637dc26c474b267af7f6792a
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.google.LoginFilter</filter-class>
