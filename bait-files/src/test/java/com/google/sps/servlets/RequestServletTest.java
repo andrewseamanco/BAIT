@@ -69,16 +69,6 @@ public final class RequestServletTest {
             "no_image", "555-555-5555", "some notes"))
         .now();
 
-    ObjectifyService.ofy()
-        .save()
-        .entity(new Url(12L, "phone-api", "https://jsonplaceholder.typicode.com/todos/1"))
-        .now();
-
-    ObjectifyService.ofy()
-        .save()
-        .entity(new Url(13L, "email-api", "https://jsonplaceholder.typicode.com/todos/1"))
-        .now();
-
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
     HttpClient client = mock(HttpClient.class);
