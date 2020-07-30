@@ -154,7 +154,7 @@ function clearDiv(divToClear) {
   }
 }
 
-let countryInput = document.getElementById('country-input');
+const countryInput = document.getElementById('country-input');
 countryInput.addEventListener('change', (event) => {
   const addressInputDiv = document.getElementById('address-input-div');
   clearDiv(addressInputDiv);
