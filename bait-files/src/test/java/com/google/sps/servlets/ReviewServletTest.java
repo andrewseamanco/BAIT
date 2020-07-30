@@ -182,8 +182,7 @@ public final class ReviewServletTest {
     when(request.getParameterMap()).thenReturn(parameters);
     when(request.getParameter("status")).thenReturn("COMPLETED");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
+
     when(response.getWriter()).thenReturn(writer);
 
     new ReviewServlet().doPost(request, response);
@@ -220,8 +219,6 @@ public final class ReviewServletTest {
     when(request.getParameterMap()).thenReturn(parameters);
     when(request.getParameter("status")).thenReturn("COMPLETED");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new ReviewServlet().doPost(request, response);
