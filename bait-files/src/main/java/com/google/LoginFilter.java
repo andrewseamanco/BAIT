@@ -29,14 +29,12 @@ import javax.servlet.http.HttpSession;
  */
 @WebFilter("/")
 public class LoginFilter implements Filter {
-
   @Override
   public void init(FilterConfig config) throws ServletException {}
 
   @Override
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
       throws IOException, ServletException {
-
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) res;
 
@@ -46,8 +44,10 @@ public class LoginFilter implements Filter {
     UserService userService = UserServiceFactory.getUserService();
 
     // Case: User is not logged in
-    if (!userService.isUserLoggedIn() || !userIsRegistered(userService.getCurrentUser().getUserId())) {
-      if (request.getRequestURI().endsWith("register") || request.getRequestURI().endsWith("usernameTaken")) {
+    if (!userService.isUserLoggedIn()
+        || !userIsRegistered(userService.getCurrentUser().getUserId())) {
+      if (request.getRequestURI().endsWith("register")
+          || request.getRequestURI().endsWith("usernameTaken")) {
         chain.doFilter(req, res);
         return;
       } else {
@@ -65,8 +65,7 @@ public class LoginFilter implements Filter {
           requestDispatcher.forward(request, response);
           return;
         } else {
-          RequestDispatcher requestDispatcher =
-              request.getRequestDispatcher("/admin/requests.jsp");
+          RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/requests.jsp");
           requestDispatcher.forward(request, response);
           return;
         }
