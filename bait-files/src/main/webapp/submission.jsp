@@ -39,7 +39,7 @@
             <li>
                 <label for="address">Address:</label><br>
                 <label for="country">Country: </address>
-                <select type="address" id="country-input" name="country">
+                <select type="address" id="country-code-input" name="country">
                     <option value="IDK">I do not know the address</option>
                     <option value="US">United States</option>
                     <option value="CA">Canada</option>

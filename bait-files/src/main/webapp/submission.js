@@ -216,7 +216,7 @@ function codeAddress(geocoder, map, address) {
     });
 }
 
-let countryInput = document.getElementById("country-input");
+let countryInput = document.getElementById("country-code-input");
 countryInput.addEventListener('change', (event) => {
     let addressInputDiv = document.getElementById("address-input-div");
     clearDiv(addressInputDiv);
@@ -228,7 +228,7 @@ countryInput.addEventListener('change', (event) => {
 });
 
 function placeMarkerOnUserInputtedAddress() {
-    let country = document.getElementById("country-input").value;
+    let country = document.getElementById("country-code-input").value;
     if (country == "US") {
         let addressLineOne = document.getElementById("address-line-1-input").value;
         let addressLineTwo = document.getElementById("address-line-2-input").value;
