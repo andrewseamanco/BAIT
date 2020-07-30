@@ -124,22 +124,22 @@ function loadCanadianAddress() {
 }
 
 function createOption(optionValue, selectToAppend) {
-    let option = document.createElement("option");
+    const option = document.createElement("option");
     option.setAttribute("value", optionValue)
-    let optionText = document.createTextNode(optionValue);
+    const optionText = document.createTextNode(optionValue);
     option.appendChild(optionText);
     selectToAppend.appendChild(option);
 }
 
 function createTextInputElement(inputElement, divToAppend) {
-    let inputDiv = document.createElement("div");
+    const inputDiv = document.createElement("div");
     inputDiv.setAttribute("id", (inputElement + "-div"));
-    let inputLabel = document.createElement('label');
+    const inputLabel = document.createElement('label');
     inputLabel.setAttribute("for", (inputElement + "-label"));
-    let inputLabelText = document.createTextNode(inputElement + ": ");
+    const inputLabelText = document.createTextNode(inputElement + ": ");
     inputLabel.appendChild(inputLabelText);
     inputDiv.appendChild(inputLabel);
-    let input = document.createElement("input");
+    const input = document.createElement("input");
     input.type = "text";
     inputDiv.appendChild(input);
     divToAppend.appendChild(inputDiv);
@@ -154,7 +154,7 @@ function clearDiv(divToClear) {
 let countryInput = document.getElementById("country-input");
 countryInput.addEventListener('change', (event) => {
     console.log(event.target.value);
-    let addressInputDiv = document.getElementById("address-input-div");
+    const addressInputDiv = document.getElementById("address-input-div");
     clearDiv(addressInputDiv);
     if (event.target.value == "US") {
         loadAmericanAddress();
