@@ -61,10 +61,6 @@ public class LoginFilter implements Filter {
           || request.getRequestURI().endsWith("register.jsp")
           || request.getRequestURI().endsWith("login.jsp")) {
         if (getCurrentUserPermission() == Permission.USER) {
-            if (request.getRequestURI().endsWith("requests")) {
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("requests?illegalAccess=false");
-                requestDispatcher.forward(request, response);
-            }
           RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/history.jsp");
           requestDispatcher.forward(request, response);
           return;
