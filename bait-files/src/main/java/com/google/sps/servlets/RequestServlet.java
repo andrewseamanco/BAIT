@@ -25,7 +25,7 @@ public class RequestServlet extends HttpServlet {
   private static final String PICTURE = "picture-input";
   private static final String PHONE = "phone-input";
   private static final String NOTES = "notes-input";
-  private static final String COUNTRY_CODE = "country-code-input";
+  private static final String COUNTRY_CODE = "country";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

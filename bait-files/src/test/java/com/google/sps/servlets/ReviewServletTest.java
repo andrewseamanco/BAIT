@@ -1,8 +1,9 @@
-package com.google.sps;
+package com.google.sps.servlets;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
 import com.google.sps.servlets.Enums.Status;
@@ -80,11 +81,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
@@ -102,11 +100,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
@@ -119,11 +114,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
@@ -148,12 +140,71 @@ public final class ReviewServletTest {
 
     when(request.getParameter("reviewId")).thenReturn("22");
     when(request.getParameter("requestId")).thenReturn("14");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"request\":{\"requestId\":14,"));
+  }
+
+  @Test
+  public void doPost_whenOneReviewCreated_StoresOneReview() throws IOException, ServletException {
+    ObjectifyService.ofy()
+        .save()
+        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
+            "no_image", "555-555-5555", "some notes"))
+        .now();
+
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    HttpServletResponse response = mock(HttpServletResponse.class);
+    Map<String, String[]> parameters = new HashMap<String, String[]>();
+    parameters.put("review-request-id", new String[] {"14"});
+    parameters.put("review-user-id", new String[] {"4"});
+    parameters.put("name-validity", new String[] {"valid"});
+    parameters.put("username-validity", new String[] {"valid"});
+    parameters.put("email-validity", new String[] {"invalid"});
+    parameters.put("phone-validity", new String[] {"invalid"});
+    parameters.put("address-validity", new String[] {"valid"});
+    parameters.put("image-validity", new String[] {"invalid"});
+    parameters.put("authenticity-rating", new String[] {"2"});
+    parameters.put("reviewer-notes", new String[] {"Look Like You Know - Royal Blood"});
+
+    when(request.getParameterMap()).thenReturn(parameters);
+    when(request.getParameter("status")).thenReturn("COMPLETED");
+    when(response.getWriter()).thenReturn(writer);
+    new ReviewServlet().doPost(request, response);
+    Query<Review> query = ObjectifyService.ofy().load().type(Review.class);
+    List<Review> allReviews = query.list();
+    assertTrue(allReviews.size() == 1);
+  }
+
+  @Test
+  public void doPost_parameterMissing_sendsError() throws IOException, ServletException {
+    ObjectifyService.ofy()
+        .save()
+        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
+            "no_image", "555-555-5555", "some notes"))
+        .now();
+
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    HttpServletResponse response = mock(HttpServletResponse.class);
+    Map<String, String[]> parameters = new HashMap<String, String[]>();
+    parameters.put("review-request-id", new String[] {"14"});
+    parameters.put("review-user-id", new String[] {"4"});
+    parameters.put("name-validity", new String[] {"valid"});
+    parameters.put("username-validity", new String[] {"valid"});
+    parameters.put("email-validity", new String[] {"invalid"});
+    parameters.put("phone-validity", new String[] {"invalid"});
+    parameters.put("address-validity", new String[] {""}); // missing parameter value
+    parameters.put("image-validity", new String[] {"invalid"});
+    parameters.put("authenticity-rating", new String[] {"2"});
+    parameters.put("reviewer-notes", new String[] {"Look Like You Know - Royal Blood"});
+    when(request.getParameterMap()).thenReturn(parameters);
+    when(request.getParameter("status")).thenReturn("COMPLETED");
+    when(response.getWriter()).thenReturn(writer);
+    new ReviewServlet().doPost(request, response);
+    Query<Review> query = ObjectifyService.ofy().load().type(Review.class);
+    List<Review> allReviews = query.list();
+    verify(response).sendError(400);
+    assertTrue(allReviews.size() == 0);
   }
 }

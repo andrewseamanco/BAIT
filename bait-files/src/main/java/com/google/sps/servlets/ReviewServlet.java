@@ -78,35 +78,40 @@ public class ReviewServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Map<String, String[]> parameters = request.getParameterMap();
-    Long reviewId = null;
-    String requestId = parameters.get(
-        REVIEW_REQUEST_ID)[0]; // There is only one value for each of keys in the parameters map
-    String userId = parameters.get(REVIEW_USER_ID)[0];
-    Validity nameValidity = Validity.valueOf(parameters.get(NAME_VALIDITY)[0].toUpperCase());
-    Validity usernameValidity =
-        Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
-    Validity emailValidity = Validity.valueOf(parameters.get(EMAIL_VALIDITY)[0].toUpperCase());
-    Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONE_VALIDITY)[0].toUpperCase());
-    Validity addressValidity = Validity.valueOf(parameters.get(ADDRESS_VALIDITY)[0].toUpperCase());
-    Validity imageValidity = Validity.valueOf(parameters.get(IMAGE_VALIDITY)[0].toUpperCase());
-    int authenticityRating = Integer.parseInt(parameters.get(AUTHENTICITY_RATING)[0]);
-    String reviewerNotes = parameters.get(REVIEWER_NOTES)[0];
+    try {
+      Map<String, String[]> parameters = request.getParameterMap();
+      Long reviewId = null;
+      String requestId = parameters.get(
+          REVIEW_REQUEST_ID)[0]; // There is only one value for each of keys in the parameters map
+      String userId = parameters.get(REVIEW_USER_ID)[0];
+      Validity nameValidity = Validity.valueOf(parameters.get(NAME_VALIDITY)[0].toUpperCase());
+      Validity usernameValidity =
+          Validity.valueOf(parameters.get(USERNAME_VALIDITY)[0].toUpperCase());
+      Validity emailValidity = Validity.valueOf(parameters.get(EMAIL_VALIDITY)[0].toUpperCase());
+      Validity phoneNumValidity = Validity.valueOf(parameters.get(PHONE_VALIDITY)[0].toUpperCase());
+      Validity addressValidity =
+          Validity.valueOf(parameters.get(ADDRESS_VALIDITY)[0].toUpperCase());
+      Validity imageValidity = Validity.valueOf(parameters.get(IMAGE_VALIDITY)[0].toUpperCase());
+      int authenticityRating = Integer.parseInt(parameters.get(AUTHENTICITY_RATING)[0]);
+      String reviewerNotes = parameters.get(REVIEWER_NOTES)[0];
 
-    ObjectifyService.ofy()
-        .save()
-        .entity(new Review(reviewId, userId, requestId, nameValidity, usernameValidity,
-            emailValidity, phoneNumValidity, addressValidity, imageValidity, authenticityRating,
-            reviewerNotes))
-        .now();
+      ObjectifyService.ofy()
+          .save()
+          .entity(new Review(reviewId, userId, requestId, nameValidity, usernameValidity,
+              emailValidity, phoneNumValidity, addressValidity, imageValidity, authenticityRating,
+              reviewerNotes))
+          .now();
 
-    long pendingRequestId = Long.parseLong(requestId);
-    Request pendingRequest =
-        ObjectifyService.ofy().load().type(Request.class).id(pendingRequestId).now();
-    pendingRequest.status = Status.COMPLETED;
+      long pendingRequestId = Long.parseLong(requestId);
+      Request pendingRequest =
+          ObjectifyService.ofy().load().type(Request.class).id(pendingRequestId).now();
+      pendingRequest.status = Status.COMPLETED;
 
-    ObjectifyService.ofy().save().entity(pendingRequest).now();
+      ObjectifyService.ofy().save().entity(pendingRequest).now();
 
-    response.sendRedirect("/admin/requests.html");
+      response.sendRedirect("/admin/requests.html");
+    } catch (IllegalArgumentException n) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
   }
 }
