@@ -31,5 +31,4 @@
         </ul>
     </form>
   </body>
-  <script src="../register.js"></script>
 </html>

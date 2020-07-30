@@ -38,6 +38,8 @@ public final class ReviewServletTest {
   static LocalDatastoreHelper datastoreHelper = LocalDatastoreHelper.create(1.0);
 
   private Closeable objectify;
+  StringWriter stringWriter = new StringWriter();
+  PrintWriter writer = new PrintWriter(stringWriter);
 
   @BeforeClass
   public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
@@ -78,8 +80,6 @@ public final class ReviewServletTest {
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new ReviewServlet().doGet(request, response);
@@ -102,8 +102,6 @@ public final class ReviewServletTest {
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new ReviewServlet().doGet(request, response);
@@ -121,8 +119,6 @@ public final class ReviewServletTest {
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new ReviewServlet().doGet(request, response);
@@ -152,8 +148,6 @@ public final class ReviewServletTest {
     when(request.getParameter("reviewId")).thenReturn("22");
     when(request.getParameter("requestId")).thenReturn("14");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new ReviewServlet().doGet(request, response);

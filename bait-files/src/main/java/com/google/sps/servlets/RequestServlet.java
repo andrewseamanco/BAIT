@@ -31,10 +31,10 @@ public class RequestServlet extends HttpServlet {
       long requestId = Long.parseLong(request.getParameter("requestId"));
       Request userRequest = ObjectifyService.ofy().load().type(Request.class).id(requestId).now();
       if (userRequest == null) {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("redirect", "true");
+        HashMap<String, String> responseParameters = new HashMap<String, String>();
+        responseParameters.put("redirect", "true");
         response.setContentType("application/json;");
-        response.getWriter().println(new Gson().toJson(map));
+        response.getWriter().println(new Gson().toJson(responseParameters));
         return;
       }
       response.setContentType("application/json;");

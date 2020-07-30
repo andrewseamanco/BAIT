@@ -52,7 +52,7 @@ function getRequest() {
           window.location.replace('/requests.html');
           return;
         }
-        
+
         addRequestToPage(request);
       })
       .then(getPanels);
@@ -60,21 +60,24 @@ function getRequest() {
 
 
 function addRequestToPage(request) {
-    addTextToPage(REQUEST_ID_CONTAINER, request.requestId);
-    addTextToPage(USER_ID_CONTAINER, request.userId);
-    addTextToPage(STATUS_CONTAINER, request.status);
-    addTextToPage(DATE_CONTAINER, new Date(request.submissionDate).toLocaleDateString() + '  ' +
-                new Date(request.submissionDate).toLocaleTimeString());
-    addTextToPage(PHONE_INPUT, request.phoneNum);
-    addTextToPage(NAME_INPUT, request.name);
-    addTextToPage(USERNAME_INPUT, request.username);
-    addTextToPage(EMAIL_INPUT, request.email);
-    addTextToPage(ADDRESS_INPUT, request.address);
-    addTextToPage(NOTES_INPUT, request.notes);
-    document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
-    document.getElementById(REVIEW_USER_ID).value = request.userId;
+  addTextToPage(REQUEST_ID_CONTAINER, request.requestId);
+  addTextToPage(USER_ID_CONTAINER, request.userId);
+  addTextToPage(STATUS_CONTAINER, request.status);
+  addTextToPage(
+      DATE_CONTAINER,
+      new Date(request.submissionDate).toLocaleDateString() + '  ' +
+          new Date(request.submissionDate).toLocaleTimeString());
+  addTextToPage(PHONE_INPUT, request.phoneNum);
+  addTextToPage(NAME_INPUT, request.name);
+  addTextToPage(USERNAME_INPUT, request.username);
+  addTextToPage(EMAIL_INPUT, request.email);
+  addTextToPage(ADDRESS_INPUT, request.address);
+  addTextToPage(NOTES_INPUT, request.notes);
+  document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
+  document.getElementById(REVIEW_USER_ID).value = request.userId;
 }
 
 function addTextToPage(containerId, text) {
-    document.getElementById(containerId).appendChild(document.createTextNode(text));
+  document.getElementById(containerId)
+      .appendChild(document.createTextNode(text));
 }

@@ -109,7 +109,7 @@ public class ReviewServlet extends HttpServlet {
 
       ObjectifyService.ofy().save().entity(pendingRequest).now();
 
-      response.sendRedirect("/requests.html");
+      response.sendRedirect("/admin/requests.html");
     } catch (IllegalArgumentException n) {
       response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }

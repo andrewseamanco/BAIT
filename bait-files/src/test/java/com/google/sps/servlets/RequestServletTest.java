@@ -30,6 +30,8 @@ public final class RequestServletTest {
   static LocalDatastoreHelper datastoreHelper = LocalDatastoreHelper.create(1.0);
 
   private Closeable objectify;
+  StringWriter stringWriter = new StringWriter();
+  PrintWriter writer = new PrintWriter(stringWriter);
 
   @BeforeClass
   public static void oneTimeSetUp() throws InterruptedException, IOException, TimeoutException {
@@ -68,8 +70,6 @@ public final class RequestServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new RequestServlet().doGet(request, response);
@@ -85,8 +85,6 @@ public final class RequestServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
 
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
     when(response.getWriter()).thenReturn(writer);
 
     new RequestServlet().doGet(request, response);
