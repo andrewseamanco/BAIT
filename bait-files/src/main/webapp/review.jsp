@@ -50,13 +50,10 @@
             <p class="sub-header">Name Verification Tools</p>
             <ul class="tool-list"> 
               <li>
-                <a href="#">tool 1</a>
+                <a href="https://thatsthem.com/people-search" target="_blank">That's Them People Search</a>
               </li>
               <li>
-                <a href="#">tool 2</a>
-              </li>
-              <li>
-                  <a href="#">tool 3</a>
+                  <a href="https://www.google.com/" target="_blank">Google</a>
               </li>
             </ul>
           </div>
@@ -86,13 +83,10 @@
             <p class="sub-header">Email Verification Tools</p>
             <ul class="tool-list"> 
               <li>
-                <a href="#">tool 1</a>
+                <a href="https://thatsthem.com/reverse-email-lookup" target="_blank">That's Them Email Lookup</a>
               </li>
               <li>
-                <a href="#">tool 2</a>
-              </li>
-              <li>
-                  <a href="#">tool 3</a>
+                  <a href="https://www.google.com/" target="_blank">Google</a>
               </li>
             </ul>
           </div>
@@ -122,13 +116,10 @@
             <p class="sub-header">Username Verification Tools</p>
             <ul class="tool-list"> 
               <li>
-                <a href="#">tool 1</a>
+                <a href="https://namechk.com/" target="_blank">Namechk</a>
               </li>
               <li>
-                <a href="#">tool 2</a>
-              </li>
-              <li>
-                  <a href="#">tool 3</a>
+                  <a href="https://www.google.com/" target="_blank">Google</a>
               </li>
             </ul>
           </div>
@@ -158,13 +149,10 @@
             <p class="sub-header">Phone Number Verification Tools</p>
             <ul class="tool-list"> 
               <li>
-                <a href="#">tool 1</a>
+                <a href="https://thatsthem.com/reverse-phone-lookup" target="_blank">That's Them Phone Lookup</a>
               </li>
               <li>
-                <a href="#">tool 2</a>
-              </li>
-              <li>
-                  <a href="#">tool 3</a>
+                  <a href="https://www.google.com/" target="_blank">Google</a>
               </li>
             </ul>
           </div>
@@ -194,13 +182,10 @@
               <p class="sub-header">Address Verification Tools</p>
               <ul class="tool-list"> 
               <li>
-                <a href="#">tool 1</a>
+                <a href="https://thatsthem.com/reverse-address-lookup" target="_blank">That's Them Address Lookup</a>
               </li>
               <li>
-                <a href="#">tool 2</a>
-              </li>
-              <li>
-                  <a href="#">tool 3</a>
+                  <a href="https://www.google.com/" target="_blank">Google</a>
               </li>
               </ul>                
             </div>
@@ -230,13 +215,10 @@
               <p class="sub-header">Image Verification Tools</p>
               <ul class="tool-list"> 
               <li>
-                <a href="#">tool 1</a>
+                <a href="https://www.google.com/imghp?hl=EN" target="_blank">Google Reverse Image Search</a>
               </li>
               <li>
-                <a href="#">tool 2</a>
-              </li>
-              <li>
-                  <a href="#">tool 3</a>
+                  <a href="https://www.bing.com/visualsearch/Microsoft/SimilarImages" target="_blank">Bing Visual Search</a>
               </li>
               </ul>
             </div>
