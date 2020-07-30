@@ -110,18 +110,8 @@ function loadCanadianAddress() {
     //Address line
     let addressInputDiv = document.getElementById("address-input-div");
 
-    let addressDiv = document.createElement("div");
-    addressDiv.id = "address-div";
-    let addressLabel = document.createElement('label');
-    addressLabel.setAttribute("for", "address-line-input");
-    let addressLabelText = document.createTextNode("Address: ");
-    addressLabel.appendChild(addressLabelText);
-    addressDiv.appendChild(addressLabel);
-    let address = document.createElement("input");
-    address.type = "text";
-    address.setAttribute("name", "state-input"); 
-    addressDiv.appendChild(address);
-    addressInputDiv.appendChild(addressDiv);
+    createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
+    createTextInputElement("Address Line 2", document.getElementById("address-input-div"));
 
     //Province
     let provinceDiv = document.createElement("div");
@@ -153,32 +143,11 @@ function loadCanadianAddress() {
     addressInputDiv.appendChild(provinceDiv);
 
     //City
-    let cityDiv = document.createElement("div");
-    cityDiv.id = "city-div";
-    let cityLabel = document.createElement('label');
-    cityLabel.setAttribute("for", "city-input");
-    let cityLabelText = document.createTextNode("City: ");
-    cityLabel.appendChild(cityLabelText);
-    cityDiv.appendChild(cityLabel);
-    let city = document.createElement("input");
-    city.type = "text";
-    city.setAttribute("name", "city-input"); 
-    cityDiv.appendChild(city);
-    addressInputDiv.appendChild(cityDiv);
+    createTextInputElement("City", document.getElementById("address-input-div"));
+
 
     //Postal Code
-    let postalDiv = document.createElement("div");
-    postalDiv.id = "city-div";
-    let postalLabel = document.createElement('label');
-    postalLabel.setAttribute("for", "postal-input");
-    let postalLabelText = document.createTextNode("Postal Code: ");
-    postalLabel.appendChild(postalLabelText);
-    postalDiv.appendChild(postalLabel);
-    let postal = document.createElement("input");
-    postal.type = "text";
-    postal.setAttribute("name", "postal-input"); 
-    postalDiv.appendChild(postal);
-    addressInputDiv.appendChild(postalDiv);
+    createTextInputElement("Postal", document.getElementById("address-input-div"));
     
 }
 
@@ -188,6 +157,20 @@ function createOption(optionValue, selectToAppend) {
     let optionText = document.createTextNode(optionValue);
     option.appendChild(optionText);
     selectToAppend.appendChild(option);
+}
+
+function createTextInputElement(inputElement, divToAppend) {
+    let inputDiv = document.createElement("div");
+    inputDiv.setAttribute("id", (inputElement + "-div"));
+    let inputLabel = document.createElement('label');
+    inputLabel.setAttribute("for", (inputElement + "-label"));
+    let inputLabelText = document.createTextNode(inputElement + ": ");
+    inputLabel.appendChild(inputLabelText);
+    inputDiv.appendChild(inputLabel);
+    let input = document.createElement("input");
+    input.type = "text";
+    inputDiv.appendChild(input);
+    divToAppend.appendChild(inputDiv);
 }
 
 function clearDiv(divToClear) {
