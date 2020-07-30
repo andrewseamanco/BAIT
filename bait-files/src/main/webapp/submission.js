@@ -184,13 +184,14 @@ function createTextInputElement(inputElement, divToAppend) {
     let inputDiv = document.createElement("div");
     inputDiv.setAttribute("id", (inputElement + "-div"));
     let inputLabel = document.createElement('label');
-    inputLabel.setAttribute("for", (inputElement + "-label"));
+    inputLabel.setAttribute("for", (inputElement + "-input"));
     let inputLabelText = document.createTextNode(inputElement + ": ");
     inputLabel.appendChild(inputLabelText);
     inputDiv.appendChild(inputLabel);
     let input = document.createElement("input");
     input.type = "text";
     input.setAttribute("id", (inputElement + "-input"));
+    input.setAttribute("name", (inputElement + "-input"));
     inputDiv.appendChild(input);
     divToAppend.appendChild(inputDiv);
 }
