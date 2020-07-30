@@ -153,7 +153,6 @@ function clearDiv(divToClear) {
 
 let countryInput = document.getElementById("country-input");
 countryInput.addEventListener('change', (event) => {
-    console.log(event.target.value);
     const addressInputDiv = document.getElementById("address-input-div");
     clearDiv(addressInputDiv);
     if (event.target.value == "US") {
