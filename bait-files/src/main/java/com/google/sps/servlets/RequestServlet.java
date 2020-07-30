@@ -50,7 +50,7 @@ public class RequestServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
-
+    System.out.println(parameters);
     // get user id
     UserService userService = UserServiceFactory.getUserService();
     String userId = userService.getCurrentUser().getUserId();

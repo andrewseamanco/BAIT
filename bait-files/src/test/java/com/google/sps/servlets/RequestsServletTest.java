@@ -6,8 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
-import com.google.sps.servlets.Enums.Status;
 import com.google.sps.servlets.Address;
+import com.google.sps.servlets.Enums.Status;
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.RequestsServlet;
 import com.googlecode.objectify.ObjectifyFactory;

@@ -11,14 +11,14 @@ public final class Address {
   String province;
 
   public Address() {
-   this.addressLine1 = "";
-   this.addressLine2 = "";
-  this.city = "";
-  this.postalCode = "";
-  this.zipCode = "";
-  this.countryCode = "";
-  this.state = "";
-  this.province = "";      
+    this.addressLine1 = "";
+    this.addressLine2 = "";
+    this.city = "";
+    this.postalCode = "";
+    this.zipCode = "";
+    this.countryCode = "";
+    this.state = "";
+    this.province = "";
   }
 
   public Address(String addressLine1, String addressLine2, String city, String postalCode,
