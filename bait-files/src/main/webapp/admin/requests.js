@@ -6,7 +6,7 @@ const URL =
     'https://step-bait-project-2020.uc.r.appspot.com/review.jsp?requestId=';
 
 function getRequests() {
-  fetch('/requests?illegalAccess=false').then(response => response.json()).then((requests) => {
+  fetch('/requests').then(response => response.json()).then((requests) => {
     const queue = document.getElementById(TABLE_BODY);
     for (request of requests) {
       const row = document.createElement('div');

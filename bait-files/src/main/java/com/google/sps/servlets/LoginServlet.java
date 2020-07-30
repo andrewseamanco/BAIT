@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
   private final UserAccessor userAccessor;
 
   public LoginServlet() {
-      this.userAccessor = new UserAccessor();
+    this.userAccessor = new UserAccessor();
   }
 
   public LoginServlet(UserAccessor userAccessor) {

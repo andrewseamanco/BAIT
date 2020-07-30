@@ -100,6 +100,7 @@ function loadAmericanAddress() {
     createOption("New York", state);
     createOption("North Carolina", state);
     createOption("North Dakota", state);
+    createOption("Oklahoma", state);
     createOption("Ohio", state);
     createOption("Oregon", state);
     createOption("Pennsylvania", state);
@@ -148,7 +149,6 @@ function loadCanadianAddress() {
     createOption("Alberta", province);
     createOption("British Columbia", province);
     createOption("Manitoba", province);
-    createOption("Alberta", province);
     createOption("New Brunswick", province);
     createOption("Newfoundland and Labrador", province);
     createOption("Northwest Territories", province);
@@ -169,11 +169,11 @@ function loadCanadianAddress() {
 }
 
 function createOption(optionValue, selectToAppend) {
-    const option = document.createElement("option");
-    option.setAttribute("value", optionValue)
-    const optionText = document.createTextNode(optionValue);
-    option.appendChild(optionText);
-    selectToAppend.appendChild(option);
+  const option = document.createElement('option');
+  option.setAttribute('value', optionValue)
+  const optionText = document.createTextNode(optionValue);
+  option.appendChild(optionText);
+  selectToAppend.appendChild(option);
 }
 
 function createTextInputElement(inputElement, divToAppend) {
@@ -251,4 +251,3 @@ function placeMarkerOnUserInputtedAddress() {
         codeAddress(geocoder, map, fullAddress);
     } 
 }
-

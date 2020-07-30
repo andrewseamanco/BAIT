@@ -5,12 +5,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
+import com.google.sps.servlets.Enums.Permission;
 import com.google.sps.servlets.User;
 import com.google.sps.servlets.UsernameTakenServlet;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.Closeable;
-import com.google.sps.servlets.Enums.Permission;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
