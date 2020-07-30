@@ -45,7 +45,7 @@ function deleteMarkers() {
 }
 
 function loadAmericanAddress() {
-    let addressInputDiv = document.getElementById("address-input-div");
+    const addressInputDiv = document.getElementById("address-input-div");
 
     //Address Line
     createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
@@ -126,7 +126,7 @@ function loadAmericanAddress() {
 function loadCanadianAddress() {
 
     //Address line
-    let addressInputDiv = document.getElementById("address-input-div");
+    const addressInputDiv = document.getElementById("address-input-div");
 
     createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
     createTextInputElement("Address Line 2", document.getElementById("address-input-div"));
@@ -135,13 +135,13 @@ function loadCanadianAddress() {
     createTextInputElement("City", document.getElementById("address-input-div"));
 
     //Province
-    let provinceDiv = document.createElement("div");
-    let province = document.createElement("Select"); 
+    const provinceDiv = document.createElement("div");
+    const province = document.createElement("Select"); 
     province.setAttribute("id", "province-input"); 
     province.setAttribute("name", "province-input"); 
-    let provinceLabel = document.createElement('label');
+    const provinceLabel = document.createElement('label');
     provinceLabel.setAttribute("for", "state-input");
-    let provinceLabelText = document.createTextNode("Province: ");
+    const provinceLabelText = document.createTextNode("Province: ");
     provinceLabel.appendChild(provinceLabelText);
     provinceDiv.appendChild(provinceLabel);
 
@@ -169,22 +169,22 @@ function loadCanadianAddress() {
 }
 
 function createOption(optionValue, selectToAppend) {
-    let option = document.createElement("option");
+    const option = document.createElement("option");
     option.setAttribute("value", optionValue)
-    let optionText = document.createTextNode(optionValue);
+    const optionText = document.createTextNode(optionValue);
     option.appendChild(optionText);
     selectToAppend.appendChild(option);
 }
 
 function createTextInputElement(inputElement, divToAppend) {
-    let inputDiv = document.createElement("div");
+    const inputDiv = document.createElement("div");
     inputDiv.setAttribute("id", (makeIdFromInputName(inputElement) + "-div"));
-    let inputLabel = document.createElement('label');
+    const inputLabel = document.createElement('label');
     inputLabel.setAttribute("for", (makeIdFromInputName(inputElement) + "-input"));
-    let inputLabelText = document.createTextNode(inputElement + ": ");
+    const inputLabelText = document.createTextNode(inputElement + ": ");
     inputLabel.appendChild(inputLabelText);
     inputDiv.appendChild(inputLabel);
-    let input = document.createElement("input");
+    const input = document.createElement("input");
     input.type = "text";
     input.setAttribute("id", (makeIdFromInputName(inputElement) + "-input"));
     input.setAttribute("name", (makeIdFromInputName(inputElement) + "-input"));
@@ -216,9 +216,9 @@ function codeAddress(geocoder, map, address) {
     });
 }
 
-let countryInput = document.getElementById("country-code-input");
+const countryInput = document.getElementById("country-code-input");
 countryInput.addEventListener('change', (event) => {
-    let addressInputDiv = document.getElementById("address-input-div");
+    const addressInputDiv = document.getElementById("address-input-div");
     clearDiv(addressInputDiv);
     if (event.target.value == "US") {
         loadAmericanAddress();
@@ -230,23 +230,23 @@ countryInput.addEventListener('change', (event) => {
 function placeMarkerOnUserInputtedAddress() {
     let country = document.getElementById("country-code-input").value;
     if (country == "US") {
-        let addressLineOne = document.getElementById("address-line-1-input").value;
-        let addressLineTwo = document.getElementById("address-line-2-input").value;
-        let city = document.getElementById("city-input").value;
-        let state = document.getElementById("state-input").value;
-        let zip = document.getElementById("zip-code-input").value;
-        let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + state + " " + zip;
-        let geocoder = new google.maps.Geocoder();
+        const addressLineOne = document.getElementById("address-line-1-input").value;
+        const addressLineTwo = document.getElementById("address-line-2-input").value;
+        const city = document.getElementById("city-input").value;
+        const state = document.getElementById("state-input").value;
+        const zip = document.getElementById("zip-code-input").value;
+        const fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + state + " " + zip;
+        const geocoder = new google.maps.Geocoder();
 
         codeAddress(geocoder, map, fullAddress);
     } else if (country == "CA") {
-        let addressLineOne = document.getElementById("address-line-1-input").value;
-        let addressLineTwo = document.getElementById("address-line-2-input").value;
-        let province = document.getElementById("province-input").value;
-        let city = document.getElementById("city-input").value;
-        let postal = document.getElementById("postal-code-input").value;
-        let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + province + " " + postal;
-        let geocoder = new google.maps.Geocoder();
+        const addressLineOne = document.getElementById("address-line-1-input").value;
+        const addressLineTwo = document.getElementById("address-line-2-input").value;
+        const province = document.getElementById("province-input").value;
+        const city = document.getElementById("city-input").value;
+        const postal = document.getElementById("postal-code-input").value;
+        const fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + province + " " + postal;
+        const geocoder = new google.maps.Geocoder();
 
         codeAddress(geocoder, map, fullAddress);
     } 
