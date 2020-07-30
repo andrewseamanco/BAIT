@@ -191,8 +191,6 @@ public final class ReviewServletTest {
     List<Review> allReviews = query.list();
 
     String rawJsonResponse = stringWriter.toString();
-    System.out.println(rawJsonResponse);
-
     assertTrue(allReviews.size() == 1);
   }
 
@@ -229,9 +227,7 @@ public final class ReviewServletTest {
 
     Query<Review> query = ObjectifyService.ofy().load().type(Review.class);
     List<Review> allReviews = query.list();
-
     String rawJsonResponse = stringWriter.toString();
-    System.out.println(rawJsonResponse);
 
     assertTrue(allReviews.size() == 0);
   }
