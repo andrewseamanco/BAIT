@@ -47,12 +47,12 @@ function getRequest() {
   fetch('/request' + queryString)
       .then(response => response.json())
       .then((request) => {
+
         if (request.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
           window.location.replace('/requests.html');
           return;
         }
-
         addRequestToPage(request);
       })
       .then(getPanels);
