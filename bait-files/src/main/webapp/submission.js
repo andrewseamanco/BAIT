@@ -107,7 +107,6 @@ function loadCanadianAddress() {
   createOption('Alberta', province);
   createOption('British Columbia', province);
   createOption('Manitoba', province);
-  createOption('Alberta', province);
   createOption('New Brunswick', province);
   createOption('Newfoundland and Labrador', province);
   createOption('Northwest Territories', province);
