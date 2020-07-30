@@ -50,7 +50,7 @@
                 <div id="map">
                 </div>
                 <p>* Check address to determine if the address fields have been typed in correctly * </p>
-                <button type="button" onclick="reconstructAddress('American')">Check Address Location</button>
+                <button type="button" onclick="placeMarkerOnUserInputtedAddress()">Check Address Location</button>
             </li>
 
             <li id='phone-input'>

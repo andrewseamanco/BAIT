@@ -8,11 +8,7 @@ function initMap() {
     center: haightAshbury,
     mapTypeId: "terrain"
   });
-//   // This event listener will call addMarker() when the map is clicked.
-//   map.addListener("click", event => {
-//     addMarker(event.latLng);
-//   });
-  // Adds a marker at the center of the map.
+  
   addMarker(haightAshbury);
 }
 
@@ -216,7 +212,6 @@ function codeAddress(geocoder, map, address) {
 
 let countryInput = document.getElementById("country-input");
 countryInput.addEventListener('change', (event) => {
-    console.log(event.target.value);
     let addressInputDiv = document.getElementById("address-input-div");
     clearDiv(addressInputDiv);
     if (event.target.value == "US") {
@@ -226,7 +221,7 @@ countryInput.addEventListener('change', (event) => {
     }
 });
 
-function reconstructAddress() {
+function placeMarkerOnUserInputtedAddress() {
     let country = document.getElementById("country-input").value;
     if (country == "US") {
         let addressLineOne = document.getElementById("Address Line 1-input").value;
