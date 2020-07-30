@@ -66,7 +66,7 @@ public class LoginFilter implements Filter {
           return;
         } else {
           RequestDispatcher requestDispatcher =
-              request.getRequestDispatcher("/admin/requests.html");
+              request.getRequestDispatcher("/admin/requests.jsp");
           requestDispatcher.forward(request, response);
           return;
         }
