@@ -120,7 +120,7 @@ function loadAmericanAddress() {
     addressInputDiv.appendChild(stateDiv);
     
     //Zip Code
-    createTextInputElement("Postal", document.getElementById("address-input-div"));
+    createTextInputElement("Zip Code", document.getElementById("address-input-div"));
 }
 
 function loadCanadianAddress() {
@@ -164,7 +164,7 @@ function loadCanadianAddress() {
     addressInputDiv.appendChild(provinceDiv);
 
     //Postal Code
-    createTextInputElement("Postal", document.getElementById("address-input-div"));
+    createTextInputElement("Postal Code", document.getElementById("address-input-div"));
     
 }
 
@@ -234,8 +234,8 @@ function placeMarkerOnUserInputtedAddress() {
         let addressLineTwo = document.getElementById("address-line-2-input").value;
         let city = document.getElementById("city-input").value;
         let state = document.getElementById("state-input").value;
-        let postal = document.getElementById("postal-input").value;
-        let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + state + " " + postal;
+        let zip = document.getElementById("zip-code-input").value;
+        let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + state + " " + zip;
         let geocoder = new google.maps.Geocoder();
 
         codeAddress(geocoder, map, fullAddress);
@@ -244,7 +244,7 @@ function placeMarkerOnUserInputtedAddress() {
         let addressLineTwo = document.getElementById("address-line-2-input").value;
         let province = document.getElementById("province-input").value;
         let city = document.getElementById("city-input").value;
-        let postal = document.getElementById("postal-input").value;
+        let postal = document.getElementById("postal-code-input").value;
         let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + province + " " + postal;
         let geocoder = new google.maps.Geocoder();
 
