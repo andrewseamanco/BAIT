@@ -63,7 +63,7 @@ function loadAmericanAddress() {
     stateLabel.appendChild(stateLabelText);
     stateDiv.appendChild(stateLabel);
     let state = document.createElement("Select"); 
-    state.setAttribute("id", "State-input"); 
+    state.setAttribute("id", "state-input"); 
     state.setAttribute("name", "state-input"); 
 
     createOption("Alabama", state);
@@ -137,7 +137,7 @@ function loadCanadianAddress() {
     //Province
     let provinceDiv = document.createElement("div");
     let province = document.createElement("Select"); 
-    province.setAttribute("id", "Province-input"); 
+    province.setAttribute("id", "province-input"); 
     province.setAttribute("name", "province-input"); 
     let provinceLabel = document.createElement('label');
     provinceLabel.setAttribute("for", "state-input");
@@ -178,18 +178,24 @@ function createOption(optionValue, selectToAppend) {
 
 function createTextInputElement(inputElement, divToAppend) {
     let inputDiv = document.createElement("div");
-    inputDiv.setAttribute("id", (inputElement + "-div"));
+    inputDiv.setAttribute("id", (makeIdFromInputName(inputElement) + "-div"));
     let inputLabel = document.createElement('label');
-    inputLabel.setAttribute("for", (inputElement + "-input"));
+    inputLabel.setAttribute("for", (makeIdFromInputName(inputElement) + "-input"));
     let inputLabelText = document.createTextNode(inputElement + ": ");
     inputLabel.appendChild(inputLabelText);
     inputDiv.appendChild(inputLabel);
     let input = document.createElement("input");
     input.type = "text";
-    input.setAttribute("id", (inputElement + "-input"));
-    input.setAttribute("name", (inputElement + "-input"));
+    input.setAttribute("id", (makeIdFromInputName(inputElement) + "-input"));
+    input.setAttribute("name", (makeIdFromInputName(inputElement) + "-input"));
     inputDiv.appendChild(input);
     divToAppend.appendChild(inputDiv);
+}
+
+function makeIdFromInputName(name) {
+    name = name.replace(/\s/g, "-");
+    name = name.toLowerCase();
+    return name;
 }
 
 function clearDiv(divToClear) {
@@ -224,21 +230,21 @@ countryInput.addEventListener('change', (event) => {
 function placeMarkerOnUserInputtedAddress() {
     let country = document.getElementById("country-input").value;
     if (country == "US") {
-        let addressLineOne = document.getElementById("Address Line 1-input").value;
-        let addressLineTwo = document.getElementById("Address Line 2-input").value;
-        let city = document.getElementById("City-input").value;
-        let state = document.getElementById("State-input").value;
-        let postal = document.getElementById("Postal-input").value;
+        let addressLineOne = document.getElementById("address-line-1-input").value;
+        let addressLineTwo = document.getElementById("address-line-2-input").value;
+        let city = document.getElementById("city-input").value;
+        let state = document.getElementById("state-input").value;
+        let postal = document.getElementById("postal-input").value;
         let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + state + " " + postal;
         let geocoder = new google.maps.Geocoder();
 
         codeAddress(geocoder, map, fullAddress);
     } else if (country == "CA") {
-        let addressLineOne = document.getElementById("Address Line 1-input").value;
-        let addressLineTwo = document.getElementById("Address Line 2-input").value;
-        let province = document.getElementById("Province-input").value;
-        let city = document.getElementById("City-input").value;
-        let postal = document.getElementById("Postal-input").value;
+        let addressLineOne = document.getElementById("address-line-1-input").value;
+        let addressLineTwo = document.getElementById("address-line-2-input").value;
+        let province = document.getElementById("province-input").value;
+        let city = document.getElementById("city-input").value;
+        let postal = document.getElementById("postal-input").value;
         let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + province + " " + postal;
         let geocoder = new google.maps.Geocoder();
 
