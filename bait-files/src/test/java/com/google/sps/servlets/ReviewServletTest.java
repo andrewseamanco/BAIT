@@ -80,11 +80,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
@@ -102,11 +99,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
@@ -119,11 +113,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(request.getParameter("reviewId")).thenReturn("22");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
@@ -148,11 +139,8 @@ public final class ReviewServletTest {
 
     when(request.getParameter("reviewId")).thenReturn("22");
     when(request.getParameter("requestId")).thenReturn("14");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doGet(request, response);
-
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"request\":{\"requestId\":14,"));
   }
@@ -181,21 +169,15 @@ public final class ReviewServletTest {
 
     when(request.getParameterMap()).thenReturn(parameters);
     when(request.getParameter("status")).thenReturn("COMPLETED");
-
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doPost(request, response);
-
     Query<Review> query = ObjectifyService.ofy().load().type(Review.class);
     List<Review> allReviews = query.list();
-
-    String rawJsonResponse = stringWriter.toString();
     assertTrue(allReviews.size() == 1);
   }
 
   @Test
-  public void doPost_parameterMissing_sendRedirect() throws IOException, ServletException {
+  public void doPost_parameterMissing_sendsError() throws IOException, ServletException {
     ObjectifyService.ofy()
         .save()
         .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
@@ -215,19 +197,13 @@ public final class ReviewServletTest {
     parameters.put("image-validity", new String[] {"invalid"});
     parameters.put("authenticity-rating", new String[] {"2"});
     parameters.put("reviewer-notes", new String[] {"Look Like You Know - Royal Blood"});
-
     when(request.getParameterMap()).thenReturn(parameters);
     when(request.getParameter("status")).thenReturn("COMPLETED");
-
     when(response.getWriter()).thenReturn(writer);
-
     new ReviewServlet().doPost(request, response);
-
     Query<Review> query = ObjectifyService.ofy().load().type(Review.class);
     List<Review> allReviews = query.list();
-    String rawJsonResponse = stringWriter.toString();
     verify(response).sendError(400);
-    
     assertTrue(allReviews.size() == 0);
   }
 }
