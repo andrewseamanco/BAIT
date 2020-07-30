@@ -3,6 +3,7 @@ package com.google.sps.servlets;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
 import com.google.sps.servlets.Enums.Status;
@@ -228,7 +229,8 @@ public final class ReviewServletTest {
     Query<Review> query = ObjectifyService.ofy().load().type(Review.class);
     List<Review> allReviews = query.list();
     String rawJsonResponse = stringWriter.toString();
-
+    verify(response).sendError(400);
+    
     assertTrue(allReviews.size() == 0);
   }
 }
