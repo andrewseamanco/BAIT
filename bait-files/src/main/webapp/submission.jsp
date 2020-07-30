@@ -19,7 +19,7 @@
       <div id="title-text">
         <br></br>
         <h2>What do you know about this person?</h2>
-        <i>Fill out as many fields as you can with the information that you have.</i>
+        <i>Fill out as many fields as possible with the information that you have.</i>
         <br></br>
       </div>
       <form id="submission-form" method="post" enctype="multipart/form-data">
