@@ -1,6 +1,6 @@
 function loadAmericanAddress() {
 
-    let addressInputDiv = document.getElementById("address-input-div");
+    const addressInputDiv = document.getElementById("address-input-div");
 
     //Address Line
     createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
@@ -10,14 +10,14 @@ function loadAmericanAddress() {
     createTextInputElement("City", document.getElementById("address-input-div"));
 
     //State
-    let stateDiv = document.createElement("div");
+    const stateDiv = document.createElement("div");
     stateDiv.id = "state-div";
-    let stateLabel = document.createElement('label');
+    const stateLabel = document.createElement('label');
     stateLabel.setAttribute("for", "state-input");
-    let stateLabelText = document.createTextNode("State: ");
+    const stateLabelText = document.createTextNode("State: ");
     stateLabel.appendChild(stateLabelText);
     stateDiv.appendChild(stateLabel);
-    let state = document.createElement("Select"); 
+    const state = document.createElement("Select"); 
     state.setAttribute("id", "state-input"); 
     state.setAttribute("name", "state-input"); 
 
@@ -81,7 +81,7 @@ function loadAmericanAddress() {
 
 function loadCanadianAddress() {
     //Address line
-    let addressInputDiv = document.getElementById("address-input-div");
+    const addressInputDiv = document.getElementById("address-input-div");
 
     createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
     createTextInputElement("Address Line 2", document.getElementById("address-input-div"));
@@ -90,13 +90,13 @@ function loadCanadianAddress() {
     createTextInputElement("City", document.getElementById("address-input-div"));
 
     //Province
-    let provinceDiv = document.createElement("div");
-    let province = document.createElement("Select"); 
+    const provinceDiv = document.createElement("div");
+    const province = document.createElement("Select"); 
     province.setAttribute("id", "province-input"); 
     province.setAttribute("name", "province-input"); 
-    let provinceLabel = document.createElement('label');
+    const provinceLabel = document.createElement('label');
     provinceLabel.setAttribute("for", "state-input");
-    let provinceLabelText = document.createTextNode("Province: ");
+    const provinceLabelText = document.createTextNode("Province: ");
     provinceLabel.appendChild(provinceLabelText);
     provinceDiv.appendChild(provinceLabel);
 
