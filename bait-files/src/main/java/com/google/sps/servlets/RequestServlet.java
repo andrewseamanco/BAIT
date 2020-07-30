@@ -73,22 +73,26 @@ public class RequestServlet extends HttpServlet {
 
       Url phoneUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
-      if (phoneUrl != null && userRequest.phoneNum != null && userRequest.phoneNum != "") {
+      if (phoneUrl != null && !userRequest.phoneNum.isEmpty()) {
         try {
           phoneResults = JsonParser.parseString(doGetAPI(phoneUrl.url + userRequest.phoneNum))
                              .getAsJsonObject();
         } catch (InterruptedException e) {
+          phoneResults =
+              JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
         }
       }
 
       Url emailUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "email-api").first().now();
       JsonObject emailResults = new JsonObject();
-      if (emailUrl != null && userRequest.email != null && userRequest.email != "") {
+      if (emailUrl != null && !userRequest.email.isEmpty()) {
         try {
           emailResults =
               JsonParser.parseString(doGetAPI(emailUrl.url + userRequest.email)).getAsJsonObject();
         } catch (InterruptedException e) {
+          phoneResults =
+              JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
         }
       }
 
