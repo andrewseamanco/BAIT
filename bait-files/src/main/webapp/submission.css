@@ -7,6 +7,10 @@
     margin-bottom: 10px;
 }
 
+#map {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 a:visited, a:link {
   color: #3c4043;
@@ -83,4 +87,8 @@ nav {
 
 #title-text {
   margin-bottom: 30px;
+}
+
+#map {
+    height: 300px;
 }
