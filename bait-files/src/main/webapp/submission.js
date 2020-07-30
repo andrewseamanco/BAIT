@@ -55,6 +55,7 @@ function loadAmericanAddress() {
     createOption("New York", state);
     createOption("North Carolina", state);
     createOption("North Dakota", state);
+    createOption("Oklahoma", state);
     createOption("Ohio", state);
     createOption("Oregon", state);
     createOption("Pennsylvania", state);
