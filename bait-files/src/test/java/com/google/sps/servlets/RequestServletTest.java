@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
+import com.google.sps.servlets.Address;
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.RequestServlet;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -61,7 +62,7 @@ public final class RequestServletTest {
   public void doGet_whenOneRequestInDb_returnsOneRequest() throws IOException, ServletException {
     ObjectifyService.ofy()
         .save()
-        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
+        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", new Address(),
             "no_image", "555-555-5555", "some notes"))
         .now();
 
