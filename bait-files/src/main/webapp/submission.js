@@ -51,34 +51,12 @@ function deleteMarkers() {
 function loadAmericanAddress() {
     let addressInputDiv = document.getElementById("address-input-div");
 
-    //Address
-    let addressDiv = document.createElement("div");
-    addressDiv.setAttribute("id", "address-div");
-    let addressLabel = document.createElement('label');
-    addressLabel.setAttribute("for", "address-line-input");
-    let addressLabelText = document.createTextNode("Address: ");
-    addressLabel.appendChild(addressLabelText);
-    addressDiv.appendChild(addressLabel);
-    let address = document.createElement("input");
-    address.setAttribute("name", "address-line-input");
-    address.setAttribute("id", "address-line-input");
-    address.type = "text";
-    addressDiv.appendChild(address);
-    addressInputDiv.appendChild(addressDiv);
+    //Address Line
+    createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
+    createTextInputElement("Address Line 2", document.getElementById("address-input-div"));
 
     //City
-    let cityDiv = document.createElement("div");
-    let cityLabel = document.createElement('label');
-    cityLabel.setAttribute("for", "city-input");
-    let cityLabelText = document.createTextNode("City: ");
-    cityLabel.appendChild(cityLabelText);
-    cityDiv.appendChild(cityLabel);
-    let city = document.createElement("input");
-    city.setAttribute("name", "city-input");
-    city.setAttribute("id", "city-input");
-    city.type = "text";
-    cityDiv.appendChild(city);
-    addressInputDiv.appendChild(cityDiv);
+    createTextInputElement("City", document.getElementById("address-input-div"));
 
     //State
     let stateDiv = document.createElement("div");
@@ -89,7 +67,7 @@ function loadAmericanAddress() {
     stateLabel.appendChild(stateLabelText);
     stateDiv.appendChild(stateLabel);
     let state = document.createElement("Select"); 
-    state.setAttribute("id", "state-input"); 
+    state.setAttribute("id", "State-input"); 
     state.setAttribute("name", "state-input"); 
 
     createOption("Alabama", state);
@@ -146,42 +124,24 @@ function loadAmericanAddress() {
     addressInputDiv.appendChild(stateDiv);
     
     //Zip Code
-    let zipDiv = document.createElement("div");
-    let zipLabel = document.createElement('label');
-    zipLabel.setAttribute("for", "zip-input");
-    let zipLabelText = document.createTextNode("Zip Code: ");
-    zipLabel.appendChild(zipLabelText);
-    zipDiv.appendChild(zipLabel);
-    let zip = document.createElement("input");
-    zip.setAttribute("id", "zip-input"); 
-    zip.setAttribute("name", "zip-input"); 
-    zip.type = "text";
-    zipDiv.appendChild(zip);
-    addressInputDiv.appendChild(zipDiv);
+    createTextInputElement("Postal", document.getElementById("address-input-div"));
 }
 
 function loadCanadianAddress() {
 
     //Address line
     let addressInputDiv = document.getElementById("address-input-div");
-    let addressDiv = document.createElement("div");
-    addressDiv.id = "address-div";
-    let addressLabel = document.createElement('label');
-    addressLabel.setAttribute("for", "address-line-input");
-    let addressLabelText = document.createTextNode("Address: ");
-    addressLabel.appendChild(addressLabelText);
-    addressDiv.appendChild(addressLabel);
-    let address = document.createElement("input");
-    address.setAttribute("name", "address-input");
-    address.setAttribute("id", "address-line-input"); 
-    address.type = "text";
-    addressDiv.appendChild(address);
-    addressInputDiv.appendChild(addressDiv);
+
+    createTextInputElement("Address Line 1", document.getElementById("address-input-div"));
+    createTextInputElement("Address Line 2", document.getElementById("address-input-div"));
+
+    //City
+    createTextInputElement("City", document.getElementById("address-input-div"));
 
     //Province
     let provinceDiv = document.createElement("div");
     let province = document.createElement("Select"); 
-    province.setAttribute("id", "province-input"); 
+    province.setAttribute("id", "Province-input"); 
     province.setAttribute("name", "province-input"); 
     let provinceLabel = document.createElement('label');
     provinceLabel.setAttribute("for", "state-input");
@@ -207,35 +167,8 @@ function loadCanadianAddress() {
     provinceDiv.appendChild(province);
     addressInputDiv.appendChild(provinceDiv);
 
-    //City
-    let cityDiv = document.createElement("div");
-    cityDiv.id = "city-div";
-    let cityLabel = document.createElement('label');
-    cityLabel.setAttribute("for", "city-input");
-    let cityLabelText = document.createTextNode("City: ");
-    cityLabel.appendChild(cityLabelText);
-    cityDiv.appendChild(cityLabel);
-    let city = document.createElement("input");
-    city.setAttribute("name", "city-input");
-    city.setAttribute("id", "city-input"); 
-    city.type = "text";
-    cityDiv.appendChild(city);
-    addressInputDiv.appendChild(cityDiv);
-
     //Postal Code
-    let postalDiv = document.createElement("div");
-    postalDiv.id = "city-div";
-    let postalLabel = document.createElement('label');
-    postalLabel.setAttribute("for", "postal-input");
-    let postalLabelText = document.createTextNode("Postal Code: ");
-    postalLabel.appendChild(postalLabelText);
-    postalDiv.appendChild(postalLabel);
-    let postal = document.createElement("input");
-    postal.setAttribute("name", "postal-input");
-    postal.setAttribute("id", "postal-input"); 
-    postal.type = "text";
-    postalDiv.appendChild(postal);
-    addressInputDiv.appendChild(postalDiv);
+    createTextInputElement("Postal", document.getElementById("address-input-div"));
     
 }
 
@@ -245,6 +178,21 @@ function createOption(optionValue, selectToAppend) {
     let optionText = document.createTextNode(optionValue);
     option.appendChild(optionText);
     selectToAppend.appendChild(option);
+}
+
+function createTextInputElement(inputElement, divToAppend) {
+    let inputDiv = document.createElement("div");
+    inputDiv.setAttribute("id", (inputElement + "-div"));
+    let inputLabel = document.createElement('label');
+    inputLabel.setAttribute("for", (inputElement + "-label"));
+    let inputLabelText = document.createTextNode(inputElement + ": ");
+    inputLabel.appendChild(inputLabelText);
+    inputDiv.appendChild(inputLabel);
+    let input = document.createElement("input");
+    input.type = "text";
+    input.setAttribute("id", (inputElement + "-input"));
+    inputDiv.appendChild(input);
+    divToAppend.appendChild(inputDiv);
 }
 
 function clearDiv(divToClear) {
@@ -277,25 +225,28 @@ countryInput.addEventListener('change', (event) => {
     }
 });
 
-function reconstructAddress(type) {
-    if (type == "American") {
-        let address = document.getElementById("address-line-input").value;
-        let city = document.getElementById("city-input").value;
-        let state = document.getElementById("state-input").value;
-        let zip = document.getElementById("zip-input").value;
-        let fullAddy = address + " " + city + ", " + state + " " + zip;
+function reconstructAddress() {
+    let country = document.getElementById("country-input").value;
+    if (country == "US") {
+        let addressLineOne = document.getElementById("Address Line 1-input").value;
+        let addressLineTwo = document.getElementById("Address Line 2-input").value;
+        let city = document.getElementById("City-input").value;
+        let state = document.getElementById("State-input").value;
+        let postal = document.getElementById("Postal-input").value;
+        let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + state + " " + postal;
         let geocoder = new google.maps.Geocoder();
 
-        codeAddress(geocoder, map, fullAddy);
-    } else {
-        let address = document.getElementById("address-line-input").value;
-        let province = document.getElementById("province-input").value;
-        let city = document.getElementById("city-input").value;
-        let postal = document.getElementById("postal-input").value;
-        let fullAddy = address + " " + city + ", " + province + " " + postal;
+        codeAddress(geocoder, map, fullAddress);
+    } else if (country == "CA") {
+        let addressLineOne = document.getElementById("Address Line 1-input").value;
+        let addressLineTwo = document.getElementById("Address Line 2-input").value;
+        let province = document.getElementById("Province-input").value;
+        let city = document.getElementById("City-input").value;
+        let postal = document.getElementById("Postal-input").value;
+        let fullAddress = addressLineOne + addressLineTwo + " " + city + ", " + province + " " + postal;
         let geocoder = new google.maps.Geocoder();
 
-        codeAddress(geocoder, map, fullAddy);
-    }
+        codeAddress(geocoder, map, fullAddress);
+    } 
 }
 

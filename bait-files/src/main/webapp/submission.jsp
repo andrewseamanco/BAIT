@@ -49,7 +49,8 @@
                 </div>
                 <div id="map">
                 </div>
-                <button type="button" onclick="reconstructAddress('Canadian')">Check Address Location</button>
+                <p>* Check address to determine if the address fields have been typed in correctly * </p>
+                <button type="button" onclick="reconstructAddress('American')">Check Address Location</button>
             </li>
 
             <li id='phone-input'>
