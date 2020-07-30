@@ -1,57 +1,63 @@
-  #bait-image {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 50%;
-  }
+body {
+  color: #3c4043;
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+}
 
-  #bait-mission {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-    width: 50%;
-  }
-
-  html, body {
-    background: linear-gradient(45deg, rgb(255,127,80), rgb(135,206,235));
-    height: 100%;
-  }
-
-  #login-body {
-    align-items: center;
-    display:flex;
-    height: 100%;
-    flex-direction: row;
-  }
-
-  #login-button {
-    background-color: transparent;
-    border: 7px solid black;
-    border-radius: 30px;
-    color: black;
+#start-button {
+    border-radius: 15%;
     cursor: pointer;
-    font-family: 'Hind', sans-serif;
     font-size: 14px;
-    padding: 1em;
     text-align: center;
-    width: 100%;
-  }
+}
 
-  #login-button:hover {
+#start-button:hover {
     background-color: white;
-    font-weight: bold;
   }
 
-  #login-image {
-    width: 80%;
-  }
+#welcome {
+    background-color: #a5d6a7;
+    float: left;
+    width: 70%;
+}
 
-  #login-title {
-    font-family: 'Hind', sans-serif;
-    font-size: 3.5em;
-  }
+#welcome-text {
+    margin: 20px 30px;
+    padding: 150px;
+    
+}
 
-  #login-subtitle {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
-  }
+#pros-list {
+    line-height: 400%;
+    list-style-type: none;
+    vertical-align: center;;
+}
+
+#login-title {
+    font-size: 35px;
+}
+
+#login-subtitle {
+    font-size: 25px;
+}
+
+.bait-pictures {
+    width: 150px;
+}
+
+#logo-text {
+    display: flex;
+    font-size: 20px;
+}
+
+#login {
+    margin-left: 30%;
+
+}
+
+#username-title {
+    font-size: 25px;
+    margin: 30px 50px;
+    margin-left: 15px;
+    padding: 60px;
+}
