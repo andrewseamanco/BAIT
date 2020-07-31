@@ -77,13 +77,12 @@ public class RequestServlet extends HttpServlet {
     if (countryCode.equals("CA")) {
       String postalCode = parameters.get(POSTAL_ZIP)[0];
       String province = parameters.get(STATE_PROVINCE)[0];
-      address = new Address(addressLine1, addressLine2, city, postalCode, /* zipCode= */ "",
-          /* state= */ "", province, countryCode);
+      address =
+          new Address(addressLine1, addressLine2, city, postalCode, "", "", province, countryCode);
     } else if (countryCode.equals("US")) {
       String state = parameters.get(STATE_PROVINCE)[0];
       String zipCode = parameters.get(POSTAL_ZIP)[0];
-      address = new Address(addressLine1, addressLine2, city, /* postalCode= */ "", zipCode, state,
-          /* province= */ "", countryCode);
+      address = new Address(addressLine1, addressLine2, city, "", zipCode, state, "", countryCode);
     }
 
     ObjectifyService.ofy()
