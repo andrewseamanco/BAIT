@@ -8,7 +8,7 @@ function checkFormInput() {
       .then((usernameTaken) => {
         if (usernameNotFilled()) {
           printError(
-              'Please choose a username!',
+              'Please choose a username',
               errorMessageDiv);
         } else if (usernameTaken) {
           printError(
@@ -38,4 +38,9 @@ function printError(errorMessage, errorMessageDiv) {
   let errorText = document.createTextNode(errorMessage);
   errorMessageElement.appendChild(errorText);
   errorMessageDiv.appendChild(errorText);
+}
+
+/** Scrolls to the top of the page when the button is clicked. */
+function scrollUp() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }

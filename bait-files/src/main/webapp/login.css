@@ -1,7 +1,6 @@
 body {
   color: #3c4043;
   font-family: 'Roboto', sans-serif;
-  text-align: left;
 }
 
 #start-button {
@@ -18,31 +17,55 @@ body {
 #welcome {
     background-color: #a5d6a7;
     float: left;
+    text-align: left;
     width: 70%;
 }
 
 #welcome-text {
-    margin: 20px 30px;
-    padding: 150px;
-    
+    padding: 120px;
+}
+
+#verify-list-item {
+    margin-left: 310px;
 }
 
 #pros-list {
-    line-height: 400%;
+    line-height: 200%;
     list-style-type: none;
-    vertical-align: center;;
+    vertical-align: center;
+    font-size: 30px;
 }
 
 #login-title {
-    font-size: 35px;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    border-right: .15em solid #0277bc;
+    font-size: 40px;
+    letter-spacing: .15em; 
+    margin: 0 auto; 
+    overflow: hidden;
+    white-space: nowrap; 
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #0277bc; }
 }
 
 #login-subtitle {
     font-size: 25px;
 }
 
+#pros-list-intro {
+    font-size: 20px;
+}
+
 .bait-pictures {
-    width: 150px;
+    width: 200px;
 }
 
 #logo-text {
@@ -51,13 +74,26 @@ body {
 }
 
 #login {
-    margin-left: 30%;
-
+    margin-left: 1170px;
+    margin-top:200px;
+    position: fixed;
+    text-align: center;
 }
 
 #username-title {
     font-size: 25px;
-    margin: 30px 50px;
-    margin-left: 15px;
-    padding: 60px;
+
+}
+
+#scroll-button {
+    background: none;
+    border: none;
+    border-radius: 5px; 
+    bottom: 20px;
+    position: fixed;
+    right: 40px;
+}
+
+#scroll-button:hover {
+    opacity: 0.7
 }
