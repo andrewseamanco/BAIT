@@ -4,7 +4,6 @@
     <title>Review</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="review.css">
-    <script src="review.js"></script>
   </head>
   <body onload="getRequest()">
     <content>
@@ -178,6 +177,8 @@
               <p class="sub-header">User API Results</p>
               <div id="address-api-container" class="indent"></div>
             </div>
+            <div id="address-map-view">
+            </div>
             <div id="address-tools">
               <p class="sub-header">Address Verification Tools</p>
               <ul class="tool-list"> 
@@ -270,4 +271,6 @@
       </section>
     </content>
   </body>
+  <script src="review.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initMap"></script>
 </html>

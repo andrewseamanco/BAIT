@@ -35,6 +35,17 @@ function getPanels() {
   }
 }
 
+function initMap() {
+  const haightAshbury = { lat: 37.769, lng: -122.446 };
+  map = new google.maps.Map(document.getElementById("address-map-view"), {
+    zoom: 12,
+    center: haightAshbury,
+    mapTypeId: "terrain"
+  });
+  
+  addMarker(haightAshbury);
+}
+
 function getRequest() {
   const queryString = window.location.search;
   const params = new URL(location.href).searchParams;
