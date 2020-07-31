@@ -49,7 +49,8 @@
 //       'Address Line 2', document.getElementById('address-input-div'));
 
 //   // City
-//   createTextInputElement('City', document.getElementById('address-input-div'));
+//   createTextInputElement('City',
+//   document.getElementById('address-input-div'));
 
 //   // State
 //   let stateDiv = document.createElement('div');
@@ -117,7 +118,7 @@
 //   stateDiv.appendChild(state);
 //   addressInputDiv.appendChild(stateDiv);
 
-  // Zip Code
+// Zip Code
 //   createTextInputElement(
 //       'Zip Code', document.getElementById('address-input-div'));
 // }
@@ -132,7 +133,8 @@
 //       'Address Line 2', document.getElementById('address-input-div'));
 
 //   // City
-//   createTextInputElement('City', document.getElementById('address-input-div'));
+//   createTextInputElement('City',
+//   document.getElementById('address-input-div'));
 
 //   // Province
 //   const provinceDiv = document.createElement('div');

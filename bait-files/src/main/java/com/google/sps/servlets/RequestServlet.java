@@ -26,6 +26,11 @@ public class RequestServlet extends HttpServlet {
   private static final String PHONE = "phone-input";
   private static final String NOTES = "notes-input";
   private static final String COUNTRY_CODE = "country";
+  private static final String CITY = "city-input";
+  private static final String ADDRESS_1 = "address-line-1-input";
+  private static final String ADDRESS_2 = "address-line-2-input";
+  private static final String POSTAL_ZIP = "postal-zip-code-input";
+  private static final String STATE_PROVINCE = "state-province-input";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -50,7 +55,7 @@ public class RequestServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
-    System.out.println(parameters);
+
     // get user id
     UserService userService = UserServiceFactory.getUserService();
     String userId = userService.getCurrentUser().getUserId();
@@ -63,28 +68,22 @@ public class RequestServlet extends HttpServlet {
     String notesInput = parameters.get(NOTES)[0];
 
     String countryCode = parameters.get(COUNTRY_CODE)[0];
-    String city = parameters.get("city-input")[0];
-    String addressLine1 = parameters.get("address-line-1-input")[0];
-    String addressLine2 = parameters.get("address-line-2-input")[0];
-
-    String province = "";
-    String postalCode = "";
-    String zipCode = "";
-    String state = "";
+    String city = parameters.get(CITY)[0];
+    String addressLine1 = parameters.get(ADDRESS_1)[0];
+    String addressLine2 = parameters.get(ADDRESS_2)[0];
 
     Address address = new Address();
 
-    if (countryCode == "CA") {
-      postalCode = parameters.get("postal-code-input")[0];
-      province = parameters.get("province-input")[0];
-    } else if (countryCode == "US") {
-      state = parameters.get("state-input")[0];
-      zipCode = parameters.get("zip-code-input")[0];
-    }
-
-    if (countryCode != "IDK") {
-      address = new Address(
-          addressLine1, addressLine2, city, postalCode, zipCode, state, province, countryCode);
+    if (countryCode.equals("CA")) {
+      String postalCode = parameters.get(POSTAL_ZIP)[0];
+      String province = parameters.get(STATE_PROVINCE)[0];
+      address = new Address(addressLine1, addressLine2, city, postalCode, /* zipCode= */ "",
+          /* state= */ "", province, countryCode);
+    } else if (countryCode.equals("US")) {
+      String state = parameters.get(STATE_PROVINCE)[0];
+      String zipCode = parameters.get(POSTAL_ZIP)[0];
+      address = new Address(addressLine1, addressLine2, city, /* postalCode= */ "", zipCode, state,
+          /* province= */ "", countryCode);
     }
 
     ObjectifyService.ofy()

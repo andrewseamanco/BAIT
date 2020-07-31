@@ -49,10 +49,9 @@ function getRequest() {
       .then((request) => {
         if (request.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
-          window.location.replace('/requests.html');
+          window.location.replace('/admin/requests.html');
           return;
         }
-        console.log(request);
         addRequestToPage(request);
       })
       .then(getPanels);
