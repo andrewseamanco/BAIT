@@ -113,7 +113,6 @@ public class RequestServlet extends HttpServlet {
 
   private String doGetAPI(String url) throws IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-    System.out.println("\n\n\nHELLO" + request.toString() + "\n\n\n\n");
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
     return response.body();
   }
