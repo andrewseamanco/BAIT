@@ -50,13 +50,13 @@ function getRequest() {
 
   fetch('/request' + queryString)
       .then(response => response.json())
+
       .then((userRequest) => {
         if (userRequest.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
           window.location.replace('/admin/requests.html');
           return;
         }
-        console.log(userRequest);
         addRequestToPage(userRequest.request);
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);

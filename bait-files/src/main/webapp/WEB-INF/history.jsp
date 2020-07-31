@@ -5,7 +5,7 @@
     <title>Request History</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../history.css">
-    <script src="../userHistory.js"></script>
+    <script src="../history.js"></script>
   </head>
   <body onload="fillTables()">
     <%@ page import="com.google.appengine.api.users.UserService" %>
@@ -44,7 +44,7 @@
       </div>
     </div>
         <p>Create a New Request</p>
-        <a href="https://step-bait-project-2020.uc.r.appspot.com/submission.html"><button>+</button></a>
+        <a href="https://step-bait-project-2020.uc.r.appspot.com/submission.jsp"><button>+</button></a>
       </div>
     </content>
   </body>

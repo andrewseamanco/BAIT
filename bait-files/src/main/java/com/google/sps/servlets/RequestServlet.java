@@ -69,32 +69,13 @@ public class RequestServlet extends HttpServlet {
         return;
       }
 
-      JsonObject phoneResults = new JsonObject();
-
       Url phoneUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
-      if (phoneUrl != null && !userRequest.phoneNum.isEmpty()) {
-        try {
-          phoneResults = JsonParser.parseString(doGetAPI(phoneUrl.url + userRequest.phoneNum))
-                             .getAsJsonObject();
-        } catch (InterruptedException e) {
-          phoneResults =
-              JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
-        }
-      }
+      JsonObject phoneResults = getPhoneApiResults(phoneUrl, userRequest.phoneNum);
 
       Url emailUrl =
           ObjectifyService.ofy().load().type(Url.class).filter("name", "email-api").first().now();
-      JsonObject emailResults = new JsonObject();
-      if (emailUrl != null && !userRequest.email.isEmpty()) {
-        try {
-          emailResults =
-              JsonParser.parseString(doGetAPI(emailUrl.url + userRequest.email)).getAsJsonObject();
-        } catch (InterruptedException e) {
-          phoneResults =
-              JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
-        }
-      }
+      JsonObject emailResults = getEmailApiResults(emailUrl, userRequest.email);
 
       response.setContentType("application/json;");
       response.getWriter().println(
@@ -130,9 +111,36 @@ public class RequestServlet extends HttpServlet {
     response.sendRedirect("/success.jsp");
   }
 
-  public String doGetAPI(String url) throws IOException, InterruptedException {
+  private String doGetAPI(String url) throws IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+    System.out.println("\n\n\nHELLO" + request.toString() + "\n\n\n\n");
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
     return response.body();
+  }
+
+  private JsonObject getPhoneApiResults(Url phoneUrl, String phoneNum) throws IOException {
+    JsonObject phoneResults = new JsonObject();
+
+    if (phoneUrl != null && !phoneNum.isEmpty()) {
+      try {
+        phoneResults = JsonParser.parseString(doGetAPI(phoneUrl + phoneNum)).getAsJsonObject();
+      } catch (InterruptedException e) {
+        phoneResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
+      }
+    }
+
+    return phoneResults;
+  }
+
+  private JsonObject getEmailApiResults(Url emailUrl, String email) throws IOException {
+    JsonObject emailResults = new JsonObject();
+    if (emailUrl != null && !email.isEmpty()) {
+      try {
+        emailResults = JsonParser.parseString(doGetAPI(emailUrl + email)).getAsJsonObject();
+      } catch (InterruptedException e) {
+        emailResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
+      }
+    }
+    return emailResults;
   }
 }

@@ -1,9 +1,11 @@
 package com.google.sps.servlets;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
 import com.google.sps.servlets.Request;
@@ -16,6 +18,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.concurrent.TimeoutException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -96,4 +100,5 @@ public final class RequestServletTest {
     String rawJsonResponse = stringWriter.toString();
     assertTrue(rawJsonResponse.startsWith("{\"redirect\":\"true\""));
   }
+
 }

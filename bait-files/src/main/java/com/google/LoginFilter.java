@@ -46,7 +46,8 @@ public class LoginFilter implements Filter {
     // Case: User is not logged in
     if (!userService.isUserLoggedIn()
         || !userIsRegistered(userService.getCurrentUser().getUserId())) {
-      if (!request.getRequestURI().endsWith("jsp")) {
+      if (request.getRequestURI().endsWith("register")
+          || request.getRequestURI().endsWith("usernameTaken")) {
         chain.doFilter(req, res);
         return;
       } else {
@@ -64,8 +65,7 @@ public class LoginFilter implements Filter {
           requestDispatcher.forward(request, response);
           return;
         } else {
-          RequestDispatcher requestDispatcher =
-              request.getRequestDispatcher("/admin/requests.html");
+          RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/requests.jsp");
           requestDispatcher.forward(request, response);
           return;
         }
