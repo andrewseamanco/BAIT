@@ -55,7 +55,6 @@ function getRequest() {
           window.location.replace('/requests.html');
           return;
         }
-        addRequestToPage(request);
       })
       .then(getPanels);
 }
