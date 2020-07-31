@@ -92,6 +92,5 @@ function addImageToPage(request) {
       picture.src = pic.url;
       document.getElementById(IMAGE_INPUT).append(picture);
     });
-  } else {
   }
 }
