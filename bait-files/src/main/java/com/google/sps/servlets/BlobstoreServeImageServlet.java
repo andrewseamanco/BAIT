@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/blobstore-get-image")
 public class BlobstoreServeImageServlet extends HttpServlet {
+  public BlobstoreServeImageServlet() {
+    this.blobstoreAccessor = new BlobstoreAccessor();
+  }
+
   public BlobstoreServeImageServlet(BlobstoreAccessor blobstoreAccessor) {
     this.blobstoreAccessor = blobstoreAccessor;
   }

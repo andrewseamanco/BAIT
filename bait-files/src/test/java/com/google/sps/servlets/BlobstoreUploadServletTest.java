@@ -53,7 +53,8 @@
 //   }
 
 //   @AfterClass
-//   public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException {
+//   public static void oneTimeTearDown() throws InterruptedException, IOException, TimeoutException
+//   {
 //     datastoreHelper.stop();
 //   }
 
@@ -73,4 +74,4 @@
 //     Mockito.verify(blobstore).serve("123", response);
 
 //   }
-// } 
+// }

@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/blobstore-upload")
 public class BlobstoreUploadServlet extends HttpServlet {
+  public BlobstoreUploadServlet() {
+    this.blobstoreAccessor = new BlobstoreAccessor();
+  }
+
   public BlobstoreUploadServlet(BlobstoreAccessor blobstoreAccessor) {
     this.blobstoreAccessor = blobstoreAccessor;
   }

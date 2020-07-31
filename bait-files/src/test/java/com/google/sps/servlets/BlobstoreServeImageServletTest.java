@@ -5,9 +5,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
-import com.google.sps.servlets.BlobstoreServeImageServlet;
 // import com.google.sps.servlets.User;
 import com.google.sps.servlets.BlobstoreAccessor;
+import com.google.sps.servlets.BlobstoreServeImageServlet;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.Closeable;
@@ -70,4 +70,4 @@ public final class BlobstoreServeImageServletTest {
     servlet.doGet(request, response);
     Mockito.verify(blobstoreAccessor).serve("123", response);
   }
-} 
+}
