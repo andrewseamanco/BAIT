@@ -6,10 +6,8 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: haightAshbury,
-    mapTypeId: "terrain"
+    mapTypeId: 'satellite'
   });
-  
-  addMarker(haightAshbury);
 }
 
 // Adds a marker to the map and push to the array.
@@ -190,6 +188,12 @@ function createTextInputElement(inputElement, divToAppend) {
     input.setAttribute("name", (makeIdFromInputName(inputElement) + "-input"));
     inputDiv.appendChild(input);
     divToAppend.appendChild(inputDiv);
+}
+
+function placeMarkerOnUserInputtedAddress() {
+    let country = document.getElementById("country-code-input").value;
+        codeAddress(geocoder, map, fullAddress);
+    } 
 }
 
 function makeIdFromInputName(name) {

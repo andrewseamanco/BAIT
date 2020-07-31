@@ -38,6 +38,10 @@ a, a:visited {
   content: "-";
 }
 
+#address-map-view {
+    height: 300px;
+}
+
 body {
   background-color: #ffffff;
   color: #3c4043;
