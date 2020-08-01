@@ -28,12 +28,13 @@
 //   setMapOnAll(null);
 // }
 
-// Shows any markers currently in the array.
+
+// // Shows any markers currently in the array.
 // function showMarkers() {
 //   setMapOnAll(map);
 // }
 
-// Deletes all markers in the array by removing references to them.
+// // Deletes all markers in the array by removing references to them.
 // function deleteMarkers() {
 //   clearMarkers();
 //   markers = [];
@@ -49,8 +50,7 @@
 //       'Address Line 2', document.getElementById('address-input-div'));
 
 //   // City
-//   createTextInputElement('City',
-//   document.getElementById('address-input-div'));
+//   createTextInputElement('City', document.getElementById('address-input-div'));
 
 //   // State
 //   let stateDiv = document.createElement('div');
@@ -118,7 +118,7 @@
 //   stateDiv.appendChild(state);
 //   addressInputDiv.appendChild(stateDiv);
 
-// Zip Code
+//   // Zip Code
 //   createTextInputElement(
 //       'Zip Code', document.getElementById('address-input-div'));
 // }
@@ -133,8 +133,7 @@
 //       'Address Line 2', document.getElementById('address-input-div'));
 
 //   // City
-//   createTextInputElement('City',
-//   document.getElementById('address-input-div'));
+//   createTextInputElement('City', document.getElementById('address-input-div'));
 
 //   // Province
 //   const provinceDiv = document.createElement('div');
@@ -178,25 +177,26 @@
 // }
 
 // function createTextInputElement(inputElement, divToAppend) {
-//     const inputDiv = document.createElement("div");
-//     inputDiv.setAttribute("id", (makeIdFromInputName(inputElement) +
-//     "-div")); const inputLabel = document.createElement('label');
-//     inputLabel.setAttribute("for", (makeIdFromInputName(inputElement) +
-//     "-input")); const inputLabelText = document.createTextNode(inputElement +
-//     ": "); inputLabel.appendChild(inputLabelText);
-//     inputDiv.appendChild(inputLabel);
-//     const input = document.createElement("input");
-//     input.type = "text";
-//     input.setAttribute("id", (makeIdFromInputName(inputElement) + "-input"));
-//     input.setAttribute("name", (makeIdFromInputName(inputElement) +
-//     "-input")); inputDiv.appendChild(input);
-//     divToAppend.appendChild(inputDiv);
+//   const inputDiv = document.createElement('div');
+//   inputDiv.setAttribute('id', (makeIdFromInputName(inputElement) + '-div'));
+//   const inputLabel = document.createElement('label');
+//   inputLabel.setAttribute(
+//       'for', (makeIdFromInputName(inputElement) + '-input'));
+//   const inputLabelText = document.createTextNode(inputElement + ': ');
+//   inputLabel.appendChild(inputLabelText);
+//   inputDiv.appendChild(inputLabel);
+//   const input = document.createElement('input');
+//   input.type = 'text';
+//   input.setAttribute('id', (makeIdFromInputName(inputElement) + '-input'));
+//   input.setAttribute('name', (makeIdFromInputName(inputElement) + '-input'));
+//   inputDiv.appendChild(input);
+//   divToAppend.appendChild(inputDiv);
 // }
 
 // function makeIdFromInputName(name) {
-//     name = name.replace(/\s/g, "-");
-//     name = name.toLowerCase();
-//     return name;
+//   name = name.replace(/\s/g, '-');
+//   name = name.toLowerCase();
+//   return name;
 // }
 
 // function clearDiv(divToClear) {
@@ -206,54 +206,55 @@
 // }
 
 // function codeAddress(geocoder, map, address) {
-//     clearMarkers();
-//     geocoder.geocode({'address': address}, function(results, status) {
-//         if (status === 'OK') {
-//             map.setCenter(results[0].geometry.location);
-//             addMarker(results[0].geometry.location);
-//         } else {
-//             alert('Geocode was not successful for the following reason: ' +
-//             status);
-//         }
-//     });
+//   clearMarkers();
+//   geocoder.geocode({'address': address}, function(results, status) {
+//     if (status === 'OK') {
+//       map.setCenter(results[0].geometry.location);
+//       addMarker(results[0].geometry.location);
+//     } else {
+//       alert('Geocode was not successful for the following reason: ' + status);
+//     }
+//   });
 // }
 
-// const countryInput = document.getElementById("country-code-input");
+// const countryInput = document.getElementById('country-code-input');
 // countryInput.addEventListener('change', (event) => {
-//     const addressInputDiv = document.getElementById("address-input-div");
-//     clearDiv(addressInputDiv);
-//     if (event.target.value == "US") {
-//         loadAmericanAddress();
-//     } else if (event.target.value == "CA"){
-//         loadCanadianAddress();
-//     }
+//   const addressInputDiv = document.getElementById('address-input-div');
+//   clearDiv(addressInputDiv);
+//   if (event.target.value == 'US') {
+//     loadAmericanAddress();
+//   } else if (event.target.value == 'CA') {
+//     loadCanadianAddress();
+//   }
 // });
 
 // function placeMarkerOnUserInputtedAddress() {
-//     let country = document.getElementById("country-code-input").value;
-//     if (country == "US") {
-//         const addressLineOne =
-//         document.getElementById("address-line-1-input").value; const
-//         addressLineTwo =
-//         document.getElementById("address-line-2-input").value; const city =
-//         document.getElementById("city-input").value; const state =
-//         document.getElementById("state-input").value; const zip =
-//         document.getElementById("zip-code-input").value; const fullAddress =
-//         addressLineOne + addressLineTwo + " " + city + ", " + state + " " +
-//         zip; const geocoder = new google.maps.Geocoder();
+//   let country = document.getElementById('country-code-input').value;
+//   if (country == 'US') {
+//     const addressLineOne =
+//         document.getElementById('address-line-1-input').value;
+//     const addressLineTwo =
+//         document.getElementById('address-line-2-input').value;
+//     const city = document.getElementById('city-input').value;
+//     const state = document.getElementById('state-input').value;
+//     const zip = document.getElementById('zip-code-input').value;
+//     const fullAddress =
+//         addressLineOne + addressLineTwo + ' ' + city + ', ' + state + ' ' + zip;
+//     const geocoder = new google.maps.Geocoder();
 
-//         codeAddress(geocoder, map, fullAddress);
-//     } else if (country == "CA") {
-//         const addressLineOne =
-//         document.getElementById("address-line-1-input").value; const
-//         addressLineTwo =
-//         document.getElementById("address-line-2-input").value; const province
-//         = document.getElementById("province-input").value; const city =
-//         document.getElementById("city-input").value; const postal =
-//         document.getElementById("postal-code-input").value; const fullAddress
-//         = addressLineOne + addressLineTwo + " " + city + ", " + province + "
-//         " + postal; const geocoder = new google.maps.Geocoder();
+//     codeAddress(geocoder, map, fullAddress);
+//   } else if (country == 'CA') {
+//     const addressLineOne =
+//         document.getElementById('address-line-1-input').value;
+//     const addressLineTwo =
+//         document.getElementById('address-line-2-input').value;
+//     const province = document.getElementById('province-input').value;
+//     const city = document.getElementById('city-input').value;
+//     const postal = document.getElementById('postal-code-input').value;
+//     const fullAddress = addressLineOne + addressLineTwo + ' ' + city + ', ' +
+//         province + ' ' + postal;
+//     const geocoder = new google.maps.Geocoder();
 
-//         codeAddress(geocoder, map, fullAddress);
-//     }
+//     codeAddress(geocoder, map, fullAddress);
+//   }
 // }
