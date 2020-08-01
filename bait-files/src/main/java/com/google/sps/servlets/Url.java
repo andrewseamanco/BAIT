@@ -10,7 +10,7 @@ public final class Url {
   String name;
   String url;
 
-  private Url() {}
+  public Url() {}
 
   public Url(Long id, String name, String url) {
     this.id = id;

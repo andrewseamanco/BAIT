@@ -62,4 +62,3 @@ function fillTables() {
   getPendingRequests();
   getCompletedRequests();
 }
-

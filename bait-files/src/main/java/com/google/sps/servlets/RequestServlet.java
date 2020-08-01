@@ -1,5 +1,7 @@
 package com.google.sps.servlets;
 
+import static java.util.stream.Collectors.toList;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
@@ -8,6 +10,7 @@ import com.google.gson.JsonParser;
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.Url;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.lang.String;
 import java.net.URI;
@@ -15,6 +18,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,13 +73,8 @@ public class RequestServlet extends HttpServlet {
         return;
       }
 
-      Url phoneUrl =
-          ObjectifyService.ofy().load().type(Url.class).filter("name", "phone-api").first().now();
-      JsonObject phoneResults = getPhoneApiResults(phoneUrl, userRequest.phoneNum);
-
-      Url emailUrl =
-          ObjectifyService.ofy().load().type(Url.class).filter("name", "email-api").first().now();
-      JsonObject emailResults = getEmailApiResults(emailUrl, userRequest.email);
+      JsonObject phoneResults = getPhoneApiResults(userRequest.phoneNum);
+      JsonObject emailResults = getEmailApiResults(userRequest.email);
 
       response.setContentType("application/json;");
       response.getWriter().println(
@@ -117,29 +116,41 @@ public class RequestServlet extends HttpServlet {
     return response.body();
   }
 
-  private JsonObject getPhoneApiResults(Url phoneUrl, String phoneNum) throws IOException {
+  private JsonObject getPhoneApiResults(String phoneNum) throws IOException {
+    Query<Url> query = ObjectifyService.ofy().load().type(Url.class);
+    List<Url> allUrls = query.list();
+    List<Url> phoneUrl = allUrls.stream().filter(url -> url.name == "phone-api").collect(toList());
     JsonObject phoneResults = new JsonObject();
+    if (phoneUrl.size() == 0 || phoneNum.isEmpty()) {
+      return phoneResults;
+    }
 
-    if (phoneUrl != null && !phoneNum.isEmpty()) {
-      try {
-        phoneResults = JsonParser.parseString(doGetAPI(phoneUrl + phoneNum)).getAsJsonObject();
-      } catch (InterruptedException e) {
-        phoneResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
-      }
+    Url url = phoneUrl.get(0);
+    try {
+      phoneResults = JsonParser.parseString(doGetAPI(url.url + phoneNum)).getAsJsonObject();
+    } catch (InterruptedException e) {
+      phoneResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
     }
 
     return phoneResults;
   }
 
-  private JsonObject getEmailApiResults(Url emailUrl, String email) throws IOException {
+  private JsonObject getEmailApiResults(String email) throws IOException {
+    Query<Url> query = ObjectifyService.ofy().load().type(Url.class);
+    List<Url> allUrls = query.list();
+    List<Url> emailUrl = allUrls.stream().filter(url -> url.name == "email-api").collect(toList());
     JsonObject emailResults = new JsonObject();
-    if (emailUrl != null && !email.isEmpty()) {
-      try {
-        emailResults = JsonParser.parseString(doGetAPI(emailUrl + email)).getAsJsonObject();
-      } catch (InterruptedException e) {
-        emailResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
-      }
+    if (emailUrl.size() == 0 || email.isEmpty()) {
+      return emailResults;
     }
+
+    Url url = emailUrl.get(0);
+    try {
+      emailResults = JsonParser.parseString(doGetAPI(url.url + email)).getAsJsonObject();
+    } catch (InterruptedException e) {
+      emailResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
+    }
+
     return emailResults;
   }
 }
