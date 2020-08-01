@@ -2,8 +2,8 @@ package com.google.sps.servlets;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
 import com.google.sps.servlets.Enums.Status;
