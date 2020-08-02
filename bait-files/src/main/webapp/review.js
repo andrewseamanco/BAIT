@@ -50,7 +50,6 @@ function getRequest() {
 
   fetch('/request' + queryString)
       .then(response => response.json())
-
       .then((userRequest) => {
         if (userRequest.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
@@ -79,7 +78,17 @@ function addRequestToPage(request) {
   addTextToPage(NAME_INPUT, request.name);
   addTextToPage(USERNAME_INPUT, request.username);
   addTextToPage(EMAIL_INPUT, request.email);
-  addTextToPage(ADDRESS_INPUT, request.address);
+  addTextToPage(ADDRESS_INPUT, 'Country Code: ' + request.address.countryCode);
+  addTextToPage(
+      ADDRESS_INPUT, 'Address Line 1: ' + request.address.addressLine1);
+  addTextToPage(
+      ADDRESS_INPUT, 'Address Line 2: ' + request.address.addressLine2);
+  addTextToPage(ADDRESS_INPUT, 'City: ' + request.address.city);
+  addTextToPage(ADDRESS_INPUT, 'Postal Code: ' + request.address.postalCode);
+  addTextToPage(ADDRESS_INPUT, 'Zip Code: ' + request.address.zipCode);
+  addTextToPage(ADDRESS_INPUT, 'State: ' + request.address.state);
+  addTextToPage(ADDRESS_INPUT, 'Province: ' + request.address.province);
+
   addTextToPage(NOTES_INPUT, request.notes);
   document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
   document.getElementById(REVIEW_USER_ID).value = request.userId;

@@ -5,8 +5,12 @@ import static java.util.stream.Collectors.toList;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+<<<<<<< HEAD
+import com.google.sps.servlets.Address;
+=======
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+>>>>>>> cd0bac2d4fbc440a43c72085e35d269d39b92ca7
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.Url;
 import com.googlecode.objectify.ObjectifyService;
@@ -35,6 +39,12 @@ public class RequestServlet extends HttpServlet {
   private static final String PICTURE = "picture-input";
   private static final String PHONE = "phone-input";
   private static final String NOTES = "notes-input";
+  private static final String COUNTRY_CODE = "country";
+  private static final String CITY = "city-input";
+  private static final String ADDRESS_1 = "address-line-1-input";
+  private static final String ADDRESS_2 = "address-line-2-input";
+  private static final String POSTAL_ZIP = "postal-zip-code-input";
+  private static final String STATE_PROVINCE = "state-province-input";
   private static final String API_ERROR = "The request to this API failed.";
   private static HttpClient client;
 
@@ -88,22 +98,38 @@ public class RequestServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
-
-    // get user id
+    
     UserService userService = UserServiceFactory.getUserService();
     String userId = userService.getCurrentUser().getUserId();
 
     String nameInput = parameters.get(NAME)[0];
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
-    String addressInput = parameters.get(ADDRESS)[0];
     String pictureInput = parameters.get(PICTURE)[0];
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
 
+    String countryCode = parameters.get(COUNTRY_CODE)[0];
+    String city = parameters.get(CITY)[0];
+    String addressLine1 = parameters.get(ADDRESS_1)[0];
+    String addressLine2 = parameters.get(ADDRESS_2)[0];
+
+    Address address = new Address();
+
+    if (countryCode.equals("CA")) {
+      String postalCode = parameters.get(POSTAL_ZIP)[0];
+      String province = parameters.get(STATE_PROVINCE)[0];
+      address =
+          new Address(addressLine1, addressLine2, city, postalCode, "", "", province, countryCode);
+    } else if (countryCode.equals("US")) {
+      String state = parameters.get(STATE_PROVINCE)[0];
+      String zipCode = parameters.get(POSTAL_ZIP)[0];
+      address = new Address(addressLine1, addressLine2, city, "", zipCode, state, "", countryCode);
+    }
+
     ObjectifyService.ofy()
         .save()
-        .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, addressInput,
+        .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, address,
             pictureInput, phoneInput, notesInput))
         .now();
 
