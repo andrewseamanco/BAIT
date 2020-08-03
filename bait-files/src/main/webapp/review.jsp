@@ -42,10 +42,6 @@
               <p class="sub-header">Provided Name</p>
               <div id="name-input-container" class="indent"></div>
           </div>
-          <div id="name-api">
-            <p class="sub-header">Name API Results</p>
-            <div id="name-api-container" class="indent"></div>                  
-          </div>
           <div id="name-tools">
             <p class="sub-header">Name Verification Tools</p>
             <ul class="tool-list"> 
@@ -107,10 +103,6 @@
           <div id="username-input">
             <p class="sub-header">Provided Username</p>
             <div id="username-input-container" class="indent"></div>
-          </div>
-          <div id="username-api">
-            <p class="sub-header">Username API Results</p>
-            <div id="username-api-container" class="indent"></div>
           </div>
           <div id="username-tools">
             <p class="sub-header">Username Verification Tools</p>
@@ -175,7 +167,7 @@
               <div id="address-input-container" class="indent"></div>
             </div>
             <div id="address-api">
-              <p class="sub-header">User API Results</p>
+              <p class="sub-header">Address API Results</p>
               <div id="address-api-container" class="indent"></div>
             </div>
             <div id="address-tools">

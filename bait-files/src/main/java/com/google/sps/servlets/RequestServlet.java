@@ -5,12 +5,9 @@ import static java.util.stream.Collectors.toList;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
-<<<<<<< HEAD
-import com.google.sps.servlets.Address;
-=======
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
->>>>>>> cd0bac2d4fbc440a43c72085e35d269d39b92ca7
+import com.google.sps.servlets.Address;
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.Url;
 import com.googlecode.objectify.ObjectifyService;
@@ -61,11 +58,14 @@ public class RequestServlet extends HttpServlet {
     Request request;
     JsonObject phoneResults;
     JsonObject emailResults;
+    JsonObject addressResults;
 
-    private RequestWrapper(Request request, JsonObject phoneResults, JsonObject emailResults) {
+    private RequestWrapper(Request request, JsonObject phoneResults, JsonObject emailResults,
+        JsonObject addressResults) {
       this.request = request;
       this.phoneResults = phoneResults;
       this.emailResults = emailResults;
+      this.addressResults = addressResults;
     }
   }
 
@@ -85,10 +85,11 @@ public class RequestServlet extends HttpServlet {
 
       JsonObject phoneResults = getPhoneApiResults(userRequest.phoneNum);
       JsonObject emailResults = getEmailApiResults(userRequest.email);
+      JsonObject addressResults = getAddressApiResults(userRequest.address);
 
       response.setContentType("application/json;");
-      response.getWriter().println(
-          new Gson().toJson(new RequestWrapper(userRequest, phoneResults, emailResults)));
+      response.getWriter().println(new Gson().toJson(
+          new RequestWrapper(userRequest, phoneResults, emailResults, addressResults)));
     } catch (NumberFormatException e) {
       response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
@@ -98,7 +99,7 @@ public class RequestServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Map<String, String[]> parameters = request.getParameterMap();
     Long requestId = null;
-    
+
     UserService userService = UserServiceFactory.getUserService();
     String userId = userService.getCurrentUser().getUserId();
 
@@ -112,7 +113,11 @@ public class RequestServlet extends HttpServlet {
     String countryCode = parameters.get(COUNTRY_CODE)[0];
     String city = parameters.get(CITY)[0];
     String addressLine1 = parameters.get(ADDRESS_1)[0];
+    addressLine1 = addressLine1.replaceAll("\\s+", "");
+    addressLine1 = addressLine1.trim();
     String addressLine2 = parameters.get(ADDRESS_2)[0];
+    addressLine2 = addressLine2.replaceAll("\\s+", "");
+    addressLine2 = addressLine2.trim();
 
     Address address = new Address();
 
@@ -145,7 +150,8 @@ public class RequestServlet extends HttpServlet {
   private JsonObject getPhoneApiResults(String phoneNum) throws IOException {
     Query<Url> query = ObjectifyService.ofy().load().type(Url.class);
     List<Url> allUrls = query.list();
-    List<Url> phoneUrl = allUrls.stream().filter(url -> url.name == "phone-api").collect(toList());
+    List<Url> phoneUrl =
+        allUrls.stream().filter(url -> url.name.equals("phone-api")).collect(toList());
     JsonObject phoneResults = new JsonObject();
     if (phoneUrl.size() == 0 || phoneNum.isEmpty()) {
       return phoneResults;
@@ -164,7 +170,8 @@ public class RequestServlet extends HttpServlet {
   private JsonObject getEmailApiResults(String email) throws IOException {
     Query<Url> query = ObjectifyService.ofy().load().type(Url.class);
     List<Url> allUrls = query.list();
-    List<Url> emailUrl = allUrls.stream().filter(url -> url.name == "email-api").collect(toList());
+    List<Url> emailUrl =
+        allUrls.stream().filter(url -> url.name.equals("email-api")).collect(toList());
     JsonObject emailResults = new JsonObject();
     if (emailUrl.size() == 0 || email.isEmpty()) {
       return emailResults;
@@ -178,5 +185,35 @@ public class RequestServlet extends HttpServlet {
     }
 
     return emailResults;
+  }
+
+  private JsonObject getAddressApiResults(Address address) throws IOException {
+    Query<Url> query = ObjectifyService.ofy().load().type(Url.class);
+    List<Url> allUrls = query.list();
+    List<Url> addressUrl =
+        allUrls.stream().filter(url -> url.name.equals("address-api")).collect(toList());
+    JsonObject addressResults = new JsonObject();
+    if (addressUrl.size() == 0 || address.countryCode.isEmpty()) {
+      return addressResults;
+    }
+
+    Url url = addressUrl.get(0);
+    String urlString = url.url + "&street_line_1=" + address.addressLine1 + "&street_line_2="
+        + address.addressLine2 + "&city=" + address.city + "&state_code=" + address.state
+        + "&postal_code=" + address.zipCode + "&country_code=" + address.countryCode;
+
+    if (address.countryCode.equals("CA")) {
+      urlString = url.url + "&street_line_1=" + address.addressLine1 + "&street_line_2="
+          + address.addressLine2 + "&city=" + address.city + "&state_code=" + address.province
+          + "&postal_code=" + address.postalCode + "&country_code=" + address.countryCode;
+    }
+
+    try {
+      addressResults = JsonParser.parseString(doGetAPI(urlString)).getAsJsonObject();
+    } catch (InterruptedException e) {
+      addressResults = JsonParser.parseString("{\"results_unavailable\": true}").getAsJsonObject();
+    }
+
+    return addressResults;
   }
 }

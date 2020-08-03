@@ -50,7 +50,8 @@
 //       'Address Line 2', document.getElementById('address-input-div'));
 
 //   // City
-//   createTextInputElement('City', document.getElementById('address-input-div'));
+//   createTextInputElement('City',
+//   document.getElementById('address-input-div'));
 
 //   // State
 //   let stateDiv = document.createElement('div');
@@ -133,7 +134,8 @@
 //       'Address Line 2', document.getElementById('address-input-div'));
 
 //   // City
-//   createTextInputElement('City', document.getElementById('address-input-div'));
+//   createTextInputElement('City',
+//   document.getElementById('address-input-div'));
 
 //   // Province
 //   const provinceDiv = document.createElement('div');
@@ -212,7 +214,8 @@
 //       map.setCenter(results[0].geometry.location);
 //       addMarker(results[0].geometry.location);
 //     } else {
-//       alert('Geocode was not successful for the following reason: ' + status);
+//       alert('Geocode was not successful for the following reason: ' +
+//       status);
 //     }
 //   });
 // }
@@ -239,7 +242,8 @@
 //     const state = document.getElementById('state-input').value;
 //     const zip = document.getElementById('zip-code-input').value;
 //     const fullAddress =
-//         addressLineOne + addressLineTwo + ' ' + city + ', ' + state + ' ' + zip;
+//         addressLineOne + addressLineTwo + ' ' + city + ', ' + state + ' ' +
+//         zip;
 //     const geocoder = new google.maps.Geocoder();
 
 //     codeAddress(geocoder, map, fullAddress);

@@ -49,7 +49,7 @@ function getReview() {
         addDataToPage(EMAIL_INPUT, getInputString(result.request.email));
         addDataToPage(USERNAME_INPUT, getInputString(result.request.username));
         addDataToPage(PHONE_INPUT, getInputString(result.request.phoneNum));
-        if (result.request.address.countryCode != 'IDK') {
+        if (result.request.address.countryCode != '') {
           addDataToPage(
               ADDRESS_INPUT,
               'Country Code: ' + result.request.address.countryCode);
