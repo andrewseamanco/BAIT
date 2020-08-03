@@ -66,7 +66,6 @@ function getRequest() {
           window.location.replace('/admin/requests.html');
           return;
         }
-        console.log(userRequest)
         addRequestToPage(userRequest.request);
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
