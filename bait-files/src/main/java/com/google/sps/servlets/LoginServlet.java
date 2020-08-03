@@ -23,6 +23,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/register")
 public class LoginServlet extends HttpServlet {
+  private final UserAccessor userAccessor;
+
+  public LoginServlet() {
+    this.userAccessor = new UserAccessor();
+  }
+
+  public LoginServlet(UserAccessor userAccessor) {
+    this.userAccessor = userAccessor;
+  }
+
   /**
    * Adds a new user with form submitted fields to database
    * @param request contains form fields and used to instantiate new user fields
@@ -31,15 +41,10 @@ public class LoginServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-    UserService userService = UserServiceFactory.getUserService();
+    String userId = userAccessor.getUserId();
+    String username = request.getParameter("username");
+    User newUser = new User(userId, username, Permission.USER);
 
-    String userId = userService.getCurrentUser().getUserId();
-    String username = request.getParameter(USERNAME_PARAMETER);
-    String firstName = request.getParameter(FIRST_NAME_PARAMETER);
-    String lastName = request.getParameter(LAST_NAME_PARAMETER);
-    Permission userPermission = Permission.USER;
-
-    User newUser = new User(userId, username, firstName, lastName, userPermission);
     ObjectifyService.ofy().save().entities(newUser).now();
 
     response.sendRedirect("/history.jsp");

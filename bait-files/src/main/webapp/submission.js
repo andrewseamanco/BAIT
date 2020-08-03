@@ -1,4 +1,5 @@
-/** Do not allow spaces in username input */
+
+/** Do not allow spaces in input */
 function checkSpace(event) {
   if (event.key === ' ') {
     event.preventDefault();
@@ -7,7 +8,7 @@ function checkSpace(event) {
   return true;
 }
 
-/** Only allow letter for name input */
+/** Only allow letters for name input */
 function keyIsValidForName(event) {
   return /[a-z, ]/i.test(event.key);
 }
@@ -21,4 +22,15 @@ function keyIsValidForPhoneNumber(event) {
   }
 
   return true;
+}
+
+function fetchBlobstoreUrl() {
+  fetch('/blobstore-upload')
+      .then(response => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const submissionForm = document.getElementById('submission-form');
+        submissionForm.action = imageUploadUrl;
+      });
 }

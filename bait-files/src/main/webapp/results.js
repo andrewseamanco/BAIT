@@ -49,7 +49,31 @@ function getReview() {
         addDataToPage(EMAIL_INPUT, getInputString(result.request.email));
         addDataToPage(USERNAME_INPUT, getInputString(result.request.username));
         addDataToPage(PHONE_INPUT, getInputString(result.request.phoneNum));
-        addDataToPage(ADDRESS_INPUT, getInputString(result.request.address));
+        if (result.request.address.countryCode != '') {
+          addDataToPage(
+              ADDRESS_INPUT,
+              'Country Code: ' + result.request.address.countryCode);
+          addDataToPage(
+              ADDRESS_INPUT,
+              'Address Line 1: ' + result.request.address.addressLine1);
+          addDataToPage(
+              ADDRESS_INPUT,
+              'Address Line 2: ' + result.request.address.addressLine2);
+          addDataToPage(ADDRESS_INPUT, 'City: ' + result.request.address.city);
+          if (result.request.address.countryCode == 'US') {
+            addDataToPage(
+                ADDRESS_INPUT, 'Zip Code: ' + result.request.address.zipCode);
+            addDataToPage(
+                ADDRESS_INPUT, 'State: ' + result.request.address.state);
+          } else if (result.request.address.countryCode == 'CA') {
+            addDataToPage(
+                ADDRESS_INPUT,
+                'Postal Code: ' + result.request.address.postalCode);
+            addDataToPage(
+                ADDRESS_INPUT, 'Province: ' + result.request.address.province);
+          }
+        }
+
         addDataToPage(IMAGE_INPUT, getInputString(result.request.image));
         addDataToPage(
             REVIEWER_NOTES, getInputString(result.review.reviewerNotes));
@@ -100,5 +124,7 @@ function getValidityString(validity) {
 }
 
 function addDataToPage(container, data) {
-  document.getElementById(container).appendChild(document.createTextNode(data));
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(data));
+  document.getElementById(container).appendChild(div);
 }

@@ -44,27 +44,14 @@ public class LoginFilter implements Filter {
     UserService userService = UserServiceFactory.getUserService();
 
     // Case: User is not logged in
-    if (!userService.isUserLoggedIn()) {
-      if (request.getRequestURI().endsWith("login")) {
+    if (!userService.isUserLoggedIn()
+        || !userIsRegistered(userService.getCurrentUser().getUserId())) {
+      if (request.getRequestURI().endsWith("register")
+          || request.getRequestURI().endsWith("usernameTaken")) {
         chain.doFilter(req, res);
         return;
       } else {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/login.jsp");
-        requestDispatcher.forward(request, response);
-        return;
-      }
-    }
-    // Case: User is logged in but not registered
-    else if (!userIsRegistered(userService.getCurrentUser().getUserId())
-        && !request.getRequestURI().startsWith("/_ah/")) {
-      // Case: Sending a request to a register servlet (disallows requests to html or jsp pages)
-      if (!request.getRequestURI().endsWith("jsp") && !request.getRequestURI().endsWith("html")) {
-        chain.doFilter(req, res);
-        return;
-      }
-      // Case: User is not registered and is trying to access restricted material
-      else {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/register.jsp");
         requestDispatcher.forward(request, response);
         return;
       }
@@ -78,8 +65,7 @@ public class LoginFilter implements Filter {
           requestDispatcher.forward(request, response);
           return;
         } else {
-          RequestDispatcher requestDispatcher =
-              request.getRequestDispatcher("/admin/requests.html");
+          RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/requests.jsp");
           requestDispatcher.forward(request, response);
           return;
         }

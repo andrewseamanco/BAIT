@@ -1,3 +1,17 @@
+#address-input-div > div {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#map {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 a:visited, a:link {
   color: #3c4043;
   text-decoration: none;
@@ -24,7 +38,7 @@ ul {
   padding: 0;
 }
 
-form li + li {
+form li + li, li div {
   margin: 48px;
 }
 
@@ -72,4 +86,8 @@ nav {
 
 #title-text {
   margin-bottom: 30px;
+}
+
+#map {
+    height: 300px;
 }

@@ -73,6 +73,11 @@ content {
   flex-direction: column;
 }
 
+img {
+  max-width: 600px;
+  height: auto;
+}
+
 .indent {
   padding-left: 24px;
 }
@@ -86,6 +91,7 @@ nav {
   justify-content: space-between;
   margin: 0 0 20px 0;
   padding: 10px 50px;
+  text-decoration: none;
   width: 100%;
 }
 
@@ -136,4 +142,8 @@ textarea {
   height: 150px;
   resize: none;
   width: 100%;
+}
+
+.tool-list a {
+    text-decoration: underline;
 }
