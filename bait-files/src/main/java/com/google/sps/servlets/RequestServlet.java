@@ -1,20 +1,18 @@
 package com.google.sps.servlets;
 
+import static java.util.stream.Collectors.toList;
+
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import static java.util.stream.Collectors.toList;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.sps.servlets.Address;
-import com.google.sps.servlets.Address;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.Url;
 import com.googlecode.objectify.ObjectifyService;
@@ -22,9 +20,6 @@ import com.googlecode.objectify.cmd.Query;
 import java.io.IOException;
 import java.lang.String;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +27,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 /** Servlet responsible for creating requests. */
 @WebServlet("/request")
@@ -51,13 +54,13 @@ public class RequestServlet extends HttpServlet {
   private static final String POSTAL_ZIP = "postal-zip-code-input";
   private static final String STATE_PROVINCE = "state-province-input";
   private static final String API_ERROR = "The request to this API failed.";
-  private static HttpClient client;
+  private CloseableHttpClient client = HttpClients.createDefault();
 
   public RequestServlet() {
-    this.client = HttpClient.newHttpClient();
+    this.client = HttpClients.createDefault();
   }
 
-  public RequestServlet(HttpClient client) {
+  public RequestServlet(CloseableHttpClient client) {
     this.client = client;
   }
 
@@ -110,15 +113,12 @@ public class RequestServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     String userId = userService.getCurrentUser().getUserId();
-
     String nameInput = parameters.get(NAME)[0];
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
     String blobKeyString = getUploadedFileUrl(request);
-    String pictureInput = parameters.get(PICTURE)[0];
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
-
     String countryCode = parameters.get(COUNTRY_CODE)[0];
     String city = parameters.get(CITY)[0];
     String addressLine1 = parameters.get(ADDRESS_1)[0];
@@ -144,7 +144,7 @@ public class RequestServlet extends HttpServlet {
     ObjectifyService.ofy()
         .save()
         .entity(new Request(requestId, userId, nameInput, usernameInput, emailInput, address,
-            pictureInput, phoneInput, notesInput))
+            blobKeyString, phoneInput, notesInput))
         .now();
 
     response.sendRedirect("/success.jsp");
@@ -174,9 +174,28 @@ public class RequestServlet extends HttpServlet {
   }
 
   private String doGetAPI(String url) throws IOException, InterruptedException {
-    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-    return response.body();
+    client = HttpClients.createDefault();
+    try {
+      HttpGet httpget = new HttpGet(url);
+      ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+        @Override
+        public String handleResponse(final HttpResponse response)
+            throws ClientProtocolException, IOException {
+          int status = response.getStatusLine().getStatusCode();
+          if (status >= 200 && status < 300) {
+            HttpEntity entity = response.getEntity();
+            return entity != null ? EntityUtils.toString(entity) : null;
+          } else {
+            throw new ClientProtocolException("Unexpected response status: " + status);
+          }
+        }
+      };
+      String responseBody = client.execute(httpget, responseHandler);
+      client.close();
+      return responseBody;
+    } catch (Exception e) {
+      return "{\"results_unavailable\": true}";
+    }
   }
 
   private JsonObject getPhoneApiResults(String phoneNum) throws IOException {

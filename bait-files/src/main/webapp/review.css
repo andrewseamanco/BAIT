@@ -73,6 +73,11 @@ content {
   flex-direction: column;
 }
 
+img {
+  max-width: 600px;
+  height: auto;
+}
+
 .indent {
   padding-left: 24px;
 }

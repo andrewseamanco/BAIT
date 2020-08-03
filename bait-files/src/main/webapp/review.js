@@ -65,11 +65,14 @@ function getRequest() {
           window.location.replace('/admin/requests.html');
           return;
         }
+        console.log(userRequest)
         addRequestToPage(userRequest.request);
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
         addAddressResultsToPage(userRequest.addressResults);
-        addImageToPage(request);
+        if (userRequest.request.image) {
+          addImageToPage(userRequest.request);
+        }
       })
       .then(getPanels);
 }
@@ -237,4 +240,4 @@ function addResident(containerId, resident) {
   addTextToPage(containerId, 'resident\'s age range: ' + resident.age_range);
   addTextToPage(containerId, 'resident\'s gender: ' + resident.gender);
   addTextToPage(containerId, 'resident type: ' + resident.type);
-  }
+}
