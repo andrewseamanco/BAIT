@@ -122,12 +122,7 @@ public class RequestServlet extends HttpServlet {
     String countryCode = parameters.get(COUNTRY_CODE)[0];
     String city = parameters.get(CITY)[0];
     String addressLine1 = parameters.get(ADDRESS_1)[0];
-    addressLine1 = addressLine1.replaceAll("\\s+", "");
-    addressLine1 = addressLine1.trim();
     String addressLine2 = parameters.get(ADDRESS_2)[0];
-    addressLine2 = addressLine2.replaceAll("\\s+", "");
-    addressLine2 = addressLine2.trim();
-
     Address address = new Address();
 
     if (countryCode.equals("CA")) {
@@ -249,14 +244,17 @@ public class RequestServlet extends HttpServlet {
     }
 
     Url url = addressUrl.get(0);
-    String urlString = url.url + "&street_line_1=" + address.addressLine1 + "&street_line_2="
-        + address.addressLine2 + "&city=" + address.city + "&state_code=" + address.state
-        + "&postal_code=" + address.zipCode + "&country_code=" + address.countryCode;
+    String urlString = url.url + "&street_line_1=" + address.addressLine1.replaceAll("\\s+", "")
+        + "&street_line_2=" + address.addressLine2.replaceAll("\\s+", "") + "&city=" + address.city
+        + "&state_code=" + address.state.replaceAll("\\s+", "") + "&postal_code="
+        + address.postalCode.replaceAll("\\s+", "") + "&country_code=" + address.countryCode;
 
     if (address.countryCode.equals("CA")) {
-      urlString = url.url + "&street_line_1=" + address.addressLine1 + "&street_line_2="
-          + address.addressLine2 + "&city=" + address.city + "&state_code=" + address.province
-          + "&postal_code=" + address.postalCode + "&country_code=" + address.countryCode;
+      urlString = url.url + "&street_line_1=" + address.addressLine1.replaceAll("\\s+", "")
+          + "&street_line_2=" + address.addressLine2.replaceAll("\\s+", "")
+          + "&city=" + address.city + "&state_code=" + address.province.replaceAll("\\s+", "")
+          + "&postal_code=" + address.postalCode.replaceAll("\\s+", "")
+          + "&country_code=" + address.countryCode;
     }
 
     try {
