@@ -25,17 +25,17 @@
             <ul id="pros-list">
                 <li>
                     <img src="../images/undraw_private_data_7q35.svg" class="bait-pictures"></img>
-                    Communicate with Confidence
+                    <p>&nbsp;Communicate with confidence</p>
                 </li>
                 <br>
                 <li id="verify-list-item">        
-                    Verify with Ease     
+                    Verify with ease&nbsp;&nbsp;     
                     <img src="../images/undraw_modern_design_v3wv.svg" class="bait-pictures"></img>
                 </li>
                 <br>
                 <li>
                     <img src="../images/undraw_profile_6l1l.svg" class="bait-pictures"></img>
-                    Make informed decsisions
+                    &nbsp;Make informed decsisions
                 </li>
             </ul>
         </div>       
@@ -44,12 +44,12 @@
         <h3 id="username-title">Create your username</h3> <br>
             <% UserService userService = UserServiceFactory.getUserService();
         if (!userService.isUserLoggedIn()) { %>
-        <button id="start-button" onclick=document.location.href="<%=UserServiceFactory.getUserService().createLoginURL("/register.jsp")%>">Get Started</button>
+        <button class="button-login" onclick=document.location.href="<%=UserServiceFactory.getUserService().createLoginURL("/register.jsp")%>">Get Started</button>
         <% } else { %>
             <div id="error-message-div"></div>
                 <form name="registration-form" id="registration-form" action="/register" method="POST">
                     <input name="username" id="username-input" type="text"/>
-                    <button type="button" onclick="checkFormInput()">Submit</button>
+                    <button class="button-login" onclick="checkFormInput()">Submit</button>
                 </form>
         <% } %>
     </div>
