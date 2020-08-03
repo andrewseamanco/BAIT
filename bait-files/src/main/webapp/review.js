@@ -126,9 +126,17 @@ function addPhoneResultsToPage(results) {
     return;
   }
 
-  addTextToPage(PHONE_RESULTS, 'carrier: ' + results.carrier);
-  addTextToPage(PHONE_RESULTS, COUNTRY_CODE + results.country_calling_code);
-  addTextToPage(PHONE_RESULTS, 'line type: ' + results.line_type);
+  addTextToPage(
+      PHONE_RESULTS,
+      (results.carrier ? 'carrier: ' + results.carrier : 'carrier: null'));
+  addTextToPage(
+      PHONE_RESULTS,
+      (results.country_calling_code ?
+           COUNTRY_CODE + results.country_calling_code :
+           'country: null'));
+  addTextToPage(
+      PHONE_RESULTS,
+      (results.line_type ? results.line_type : 'line type: null'));
 
   addOwner(PHONE_RESULTS, (results.belongs_to ? results.belongs_to : ''));
   addCurrentAddress(
