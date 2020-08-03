@@ -127,6 +127,8 @@ function addPhoneResultsToPage(results) {
   }
 
   addTextToPage(
+      PHONE_RESULTS, IS_VALID + results.is_valid);
+  addTextToPage(
       PHONE_RESULTS,
       (results.carrier ? 'carrier: ' + results.carrier : 'carrier: null'));
   addTextToPage(
