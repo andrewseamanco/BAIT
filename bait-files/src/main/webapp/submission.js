@@ -6,3 +6,13 @@ function keyIsValidForUsername(event) {
   }
   return true;
 }
+
+/** Only allow letter for name input */
+function keyIsValidForName(event) {
+  return /[a-z, ]/i.test(event.key);
+}
+
+/** Only allow numbers or hypens for phone number input */
+function keyIsValidForPhoneNumber(event) {
+  return /[a-z, ]/i.test(event.key);
+}
