@@ -25,6 +25,7 @@ const COUNTRY_CODE = 'country: ';
 const CITY = 'city: ';
 const STREET_LINE_1 = 'street line 1: ';
 const STREET_LINE_2 = 'street line 2: ';
+const NOT_VERIFIED = 'invalid';
 
 
 function getPanels() {
@@ -171,15 +172,26 @@ function addAddressResultsToPage(results) {
       ADDRESS_RESULTS,
       (results.current_residents ? results.current_residents : ''));
   addOwner(ADDRESS_RESULTS, (results.owners ? results.owners : ''));
-  addTextToPage(ADDRESS_RESULTS, STREET_LINE_1 + results.street_line_1);
   addTextToPage(
       ADDRESS_RESULTS,
-      (results.street_line_2 ?
-           STREET_LINE_2 + results.street_line_2 :
-           'street line 2: This value could not be verified.'));
-  addTextToPage(ADDRESS_RESULTS, POSTAL_CODE + results.postal_code);
-  addTextToPage(ADDRESS_RESULTS, STATE_CODE + results.state_code);
-  addTextToPage(ADDRESS_RESULTS, COUNTRY_CODE + results.country_code);
+      (results.street_line_1 ? STREET_LINE_1 + results.street_line_1 :
+                               STREET_LINE_1 + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.street_line_2 ? STREET_LINE_2 + results.street_line_2 :
+                               STREET_LINE_2 + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.postal_code ? POSTAL_CODE + results.postal_code :
+                             POSTAL_CODE + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.state_code ? STATE_CODE + results.state_code :
+                            STATE_CODE + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.country_code ? COUNTRY_CODE + results.country_code :
+                              COUNTRY_CODE + NOT_VERIFIED));
   addTextToPage(
       ADDRESS_RESULTS,
       (results.warnings.length > 0 ? 'warnings: ' + results.warnings[0] :
