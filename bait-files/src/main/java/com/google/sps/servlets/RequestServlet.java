@@ -1,16 +1,18 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import static java.util.stream.Collectors.toList;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
-<<<<<<< HEAD
 import com.google.sps.servlets.Address;
-=======
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
->>>>>>> cd0bac2d4fbc440a43c72085e35d269d39b92ca7
 import com.google.sps.servlets.Request;
 import com.google.sps.servlets.Url;
 import com.googlecode.objectify.ObjectifyService;
@@ -39,6 +41,7 @@ public class RequestServlet extends HttpServlet {
   private static final String PICTURE = "picture-input";
   private static final String PHONE = "phone-input";
   private static final String NOTES = "notes-input";
+  private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
   private static final String COUNTRY_CODE = "country";
   private static final String CITY = "city-input";
   private static final String ADDRESS_1 = "address-line-1-input";
@@ -105,6 +108,7 @@ public class RequestServlet extends HttpServlet {
     String nameInput = parameters.get(NAME)[0];
     String usernameInput = parameters.get(USERNAME)[0];
     String emailInput = parameters.get(EMAIL)[0];
+    String blobKeyString = getUploadedFileUrl(request);
     String pictureInput = parameters.get(PICTURE)[0];
     String phoneInput = parameters.get(PHONE)[0];
     String notesInput = parameters.get(NOTES)[0];
@@ -136,6 +140,27 @@ public class RequestServlet extends HttpServlet {
     response.sendRedirect("/success.jsp");
   }
 
+  /** Gets the URL of the file the user uploaded and checks for no file uploaded */
+  private String getUploadedFileUrl(HttpServletRequest request) {
+    Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+    List<BlobKey> blobKeys = blobs.get(PICTURE);
+
+    // User submitted form without selecting a file, so we can't get a URL. (dev server)
+    if (blobKeys == null || blobKeys.isEmpty()) {
+      return null;
+    }
+
+    // Our form only contains a single file input, so get the first index.
+    BlobKey blobKey = blobKeys.get(0);
+
+    // User submitted form without selecting a file, so we can't get a URL. (live server)
+    BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+    if (blobInfo.getSize() == 0) {
+      blobstoreService.delete(blobKey);
+      return null;
+    }
+
+    return blobKey.getKeyString();
   private String doGetAPI(String url) throws IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

@@ -4,24 +4,25 @@
     <title>Submission Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="submission.css">
+    <script src="submission.js"></script>
   </head>
-  <body>
-      <nav>
-        <div id="nav-title">Bait</div>
-        <div id="nav-links">
-          <a href="https://step-bait-project-2020.uc.r.appspot.com/history.jsp" class="nav-item">History</a>
-          <a href="#" class="nav-item">Log Out</a>
+  <body onload="fetchBlobstoreUrl()">
+    <nav>
+      <div>BAIT</div>
+        <div>
+            <a href="https://step-bait-project-2020.uc.r.appspot.com/requests.html" class="nav-item">Requests</a>
+            <a href="https://step-bait-project-2020.uc.r.appspot.com/history.html" class="nav-item">History</a>
+            <a href="#" class="nav-item">Log Out</a>
         </div>
-      </nav>
+    </nav>
       
       <div id="title-text">
         <br></br>
         <h2>What do you know about this person?</h2>
-        <i>Fill out as many fields as you can with the information that you have.</i>
+        <i>Fill out as many fields as possible with the information that you have.</i>
         <br></br>
       </div>
-
-      <form action="/request" method="POST">
+      <form id="submission-form" method="post" enctype="multipart/form-data">
         <ul>
             <li id='name-input'>
                 <label for="name">Full Name:</label><br>
