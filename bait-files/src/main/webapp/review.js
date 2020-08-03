@@ -10,6 +10,7 @@ const USERNAME_INPUT = 'username-input-container';
 const EMAIL_INPUT = 'email-input-container';
 const EMAIL_RESULTS = 'email-api-container'
 const ADDRESS_INPUT = 'address-input-container';
+const IMAGE_INPUT = 'image-input-container';
 const NOTES_INPUT = 'notes-input-container';
 const REVIEW_REQUEST_ID = 'review-request-id';
 const REVIEW_USER_ID = 'review-user-id';
@@ -68,6 +69,7 @@ function getRequest() {
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
         addAddressResultsToPage(userRequest.addressResults);
+        addImageToPage(request);
       })
       .then(getPanels);
 }
@@ -191,6 +193,19 @@ function addTextToPage(containerId, text) {
 }
 
 
+function addImageToPage(request) {
+  let blobKeyString = request.image;
+  if (blobKeyString != undefined) {
+    fetch('/blobstore-serve-image?blobKey=' + blobKeyString).then((pic) => {
+      // append picture element to page
+      let picture = document.createElement('img');
+      picture.src = pic.url;
+      document.getElementById(IMAGE_INPUT).append(picture);
+    });
+  }
+}
+
+
 function addCurrentAddress(containerId, address) {
   if (address == '') {
     addTextToPage(containerId, 'current address: null');
@@ -222,4 +237,4 @@ function addResident(containerId, resident) {
   addTextToPage(containerId, 'resident\'s age range: ' + resident.age_range);
   addTextToPage(containerId, 'resident\'s gender: ' + resident.gender);
   addTextToPage(containerId, 'resident type: ' + resident.type);
-}
+  }
