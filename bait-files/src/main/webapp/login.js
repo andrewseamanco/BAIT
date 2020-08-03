@@ -7,9 +7,7 @@ function checkFormInput() {
       .then(response => response.json())
       .then((usernameTaken) => {
         if (usernameNotFilled()) {
-          printError(
-              'Please choose a username',
-              errorMessageDiv);
+          printError('Please choose a username', errorMessageDiv);
         } else if (usernameTaken) {
           printError(
               'This username is already taken.  Please select a new one to continue.',
