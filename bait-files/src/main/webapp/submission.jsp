@@ -26,15 +26,15 @@
         <ul>
             <li id='name-input'>
                 <label for="name">Full Name:</label><br>
-                <input type="text" id="name-input" name="name-input">
+                <input type="text" id="name-input" name="name-input" onkeydown="return keyIsValidForName(event)">
             </li>
             <li id='username-input'>
                 <label for="username">Username:</label><br>
-                <input type="text" id="username-input" name="username-input">
+                <input type="text" id="username-input" name="username-input" placeholder="@" onkeypress="return checkSpace(event)">
             </li>
             <li id='email-input'>
                 <label for="email">Email:</label><br>
-                <input type="email" id="email-input" name="email-input">
+                <input type="email" id="email-input" name="email-input" onkeydown="return checkSpace(event)">
             </li>
             <li>
               <div id="address-input-div">
@@ -136,7 +136,7 @@
 
             <li id='phone-input'>
                 <label for="phone">Phone Number:</label><br>
-                <input type="phone" id="phone-input" name="phone-input">
+                <input type="phone" id="phone-input" name="phone-input" onkeydown="return keyIsValidForPhoneNumber(event)">
             </li>
 
             <li id='pic-input'>
