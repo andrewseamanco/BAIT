@@ -51,6 +51,21 @@ function initMap() {
   addMarker(haightAshbury);
 }
 
+function codeAddress(geocoder, map, address) {
+    clearMarkers();
+    geocoder.geocode({'address': address}, function(results, status) {
+        if (status === 'OK') {
+            map.setCenter(results[0].geometry.location);
+            addMarker(results[0].geometry.location);
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+
+(results.current_addresses.length > 0 ? results.current_addresses[0] :
+                                              ''));
+
 function getRequest() {
   const queryString = window.location.search;
   const params = new URL(location.href).searchParams;
@@ -66,8 +81,8 @@ function getRequest() {
         addRequestToPage(request);
         addImageToPage(request);
         if (request.redirect) {
-      .then((userRequest) => {
-        if (userRequest.redirect) {
+            .then((userRequest) => {
+                if (userRequest.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
           window.location.replace('/admin/requests.html');
           return;
@@ -169,15 +184,14 @@ function addImageToPage(request) {
       picture.src = pic.url;
       document.getElementById(IMAGE_INPUT).append(picture);
     });
-  }
-}
-  if (text == '') {
+  } if (text == '') {
     text = 'N/A';
   }
   let div = document.createElement('div');
   div.appendChild(document.createTextNode(text));
   document.getElementById(containerId).appendChild(div);
 }
+
 
 
 function addCurrentAddress(containerId, address) {
