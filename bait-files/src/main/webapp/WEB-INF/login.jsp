@@ -25,26 +25,26 @@
             <ul id="pros-list">
                 <li>
                     <img src="../images/undraw_private_data_7q35.svg" class="bait-pictures"></img>
-                    <p>&nbsp;Communicate with confidence</p>
+                    Communicate with confidence
                 </li>
                 <br>
                 <li id="verify-list-item">        
-                    Verify with ease&nbsp;&nbsp;     
+                    Verify with ease
                     <img src="../images/undraw_modern_design_v3wv.svg" class="bait-pictures"></img>
                 </li>
                 <br>
                 <li>
                     <img src="../images/undraw_profile_6l1l.svg" class="bait-pictures"></img>
-                    &nbsp;Make informed decsisions
+                    Make informed decisions
                 </li>
             </ul>
         </div>       
     </div>
     <div id="login">
         <h3 id="username-title">Create your username</h3> <br>
-            <% UserService userService = UserServiceFactory.getUserService();
+        <% UserService userService = UserServiceFactory.getUserService();
         if (!userService.isUserLoggedIn()) { %>
-        <button class="button-login" onclick=document.location.href="<%=UserServiceFactory.getUserService().createLoginURL("/register.jsp")%>">Get Started</button>
+        <button class="button-login" onclick=document.location.href="<%=UserServiceFactory.getUserService().createLoginURL("/login.jsp")%>">Get Started</button>
         <% } else { %>
             <div id="error-message-div"></div>
                 <form name="registration-form" id="registration-form" action="/register" method="POST">

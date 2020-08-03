@@ -18,15 +18,19 @@ import com.googlecode.objectify.util.Closeable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -78,7 +82,7 @@ public final class RequestServletTest {
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
-    HttpClient client = mock(HttpClient.class);
+    CloseableHttpClient client = mock(CloseableHttpClient.class);
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(response.getWriter()).thenReturn(writer);
@@ -109,7 +113,7 @@ public final class RequestServletTest {
       throws IOException, ServletException, InterruptedException {
     ObjectifyService.ofy()
         .save()
-        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
+        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", new Address(),
             "no_image", "555-555-5555", "some notes"))
         .now();
 
@@ -119,20 +123,18 @@ public final class RequestServletTest {
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
-    HttpClient client = mock(HttpClient.class);
-    HttpResponse<String> httpResponse = mock(HttpResponse.class);
-    HttpRequest req =
-        HttpRequest.newBuilder().uri(URI.create("http://www.phoneapi.com/555-555-5555")).build();
+    CloseableHttpClient client = mock(CloseableHttpClient.class);
+    ResponseHandler<String> ResponseHandler = mock(ResponseHandler.class);
+    HttpGet httpget = new HttpGet(url.url);
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(response.getWriter()).thenReturn(writer);
-    when(httpResponse.body()).thenReturn("{\"testing\":\"true\"}");
-    when(client.send(req, HttpResponse.BodyHandlers.ofString())).thenReturn(httpResponse);
+    when(ResponseHandler.handleResponse(any())).thenReturn("null");
+    when(client.execute(httpget, ResponseHandler)).thenReturn("{\"testing\":\"true\"}");
 
     new RequestServlet(client).doGet(request, response);
 
     String rawJsonResponse = stringWriter.toString();
-    verify(client).send(req, HttpResponse.BodyHandlers.ofString());
     assertTrue(rawJsonResponse.startsWith("{\"request\":{\"requestId\":14,"));
   }
 
@@ -141,7 +143,7 @@ public final class RequestServletTest {
       throws IOException, ServletException, InterruptedException {
     ObjectifyService.ofy()
         .save()
-        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", "2930 pearl street",
+        .entity(new Request(14L, "4", "human", "human47", "human47@gmail.com", new Address(),
             "no_image", "555-555-5555", "some notes"))
         .now();
 
@@ -151,21 +153,18 @@ public final class RequestServletTest {
 
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
-    HttpClient client = mock(HttpClient.class);
-    HttpResponse<String> httpResponse = mock(HttpResponse.class);
-    HttpRequest req = HttpRequest.newBuilder()
-                          .uri(URI.create("http://www.emailapi.com/human47@gmail.com"))
-                          .build();
+    CloseableHttpClient client = mock(CloseableHttpClient.class);
+    ResponseHandler<String> ResponseHandler = mock(ResponseHandler.class);
+    HttpGet httpget = new HttpGet(url.url);
 
     when(request.getParameter("requestId")).thenReturn("14");
     when(response.getWriter()).thenReturn(writer);
-    when(httpResponse.body()).thenReturn("{\"testing\":\"true\"}");
-    when(client.send(req, HttpResponse.BodyHandlers.ofString())).thenReturn(httpResponse);
+    when(ResponseHandler.handleResponse(any())).thenReturn("null");
+    when(client.execute(httpget, ResponseHandler)).thenReturn("{\"testing\":\"true\"}");
 
     new RequestServlet(client).doGet(request, response);
 
     String rawJsonResponse = stringWriter.toString();
-    verify(client).send(req, HttpResponse.BodyHandlers.ofString());
     assertTrue(rawJsonResponse.startsWith("{\"request\":{\"requestId\":14,"));
   }
 }
