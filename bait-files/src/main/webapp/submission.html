@@ -31,12 +31,12 @@
 
             <li id='username-input'>
                 <label for="username">Username:</label><br>
-                <input type="text" id="username-input" name="username-input" placeholder="@" onkeypress="return keyIsValidForUsername(event)">
+                <input type="text" id="username-input" name="username-input" placeholder="@" onkeypress="return checkSpace(event)">
             </li>
 
             <li id='email-input'>
                 <label for="email">Email:</label><br>
-                <input type="email" id="email-input" name="email-input" onkeydown="keyIsValidForUsername(event)">
+                <input type="email" id="email-input" name="email-input" onkeydown="return checkSpace(event)">
             </li>
 
             <li id='address-input'>
@@ -46,7 +46,7 @@
 
             <li id='phone-input'>
                 <label for="phone">Phone Number:</label><br>
-                <input type="tel" placeholder="123-456-7890" id="phone-input" name="phone-input" onkeydown="keyIsValidForPhoneNumber(event)">
+                <input type="tel" placeholder="1234567890" id="phone-input" name="phone-input" onkeydown="return keyIsValidForPhoneNumber(event)">
             </li>
 
             <li id='pic-input'>
