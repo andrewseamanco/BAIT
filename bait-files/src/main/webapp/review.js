@@ -18,6 +18,15 @@ const IS_VALID = 'is valid: ';
 const IS_COMMERCIAL = 'is commercial: ';
 const WARNING = 'Invalid Input';
 const API_ERROR = 'Unable to load API results.';
+const ADDRESS_RESULTS = 'address-api-container';
+const POSTAL_CODE = 'postal/zip code: ';
+const STATE_CODE = 'province/state: ';
+const COUNTRY_CODE = 'country: ';
+const CITY = 'city: ';
+const STREET_LINE_1 = 'street line 1: ';
+const STREET_LINE_2 = 'street line 2: ';
+const NOT_VERIFIED = 'invalid';
+
 
 function getPanels() {
   const accordion = document.getElementsByClassName('accordion');
@@ -51,20 +60,19 @@ function getRequest() {
 
   fetch('/request' + queryString)
       .then(response => response.json())
-      .then((request) => {
-        addRequestToPage(request);
-        addImageToPage(request);
-        if (request.redirect) {
       .then((userRequest) => {
         if (userRequest.redirect) {
           alert('RequestId invalid. Redirecting to request portal.');
           window.location.replace('/admin/requests.html');
           return;
         }
-
         addRequestToPage(userRequest.request);
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
+        addAddressResultsToPage(userRequest.addressResults);
+        if (userRequest.request.image) {
+          addImageToPage(userRequest.request);
+        }
       })
       .then(getPanels);
 }
@@ -84,16 +92,23 @@ function addRequestToPage(request) {
   addTextToPage(NAME_INPUT, request.name);
   addTextToPage(USERNAME_INPUT, request.username);
   addTextToPage(EMAIL_INPUT, request.email);
-  addTextToPage(ADDRESS_INPUT, 'Country Code: ' + request.address.countryCode);
-  addTextToPage(
-      ADDRESS_INPUT, 'Address Line 1: ' + request.address.addressLine1);
-  addTextToPage(
-      ADDRESS_INPUT, 'Address Line 2: ' + request.address.addressLine2);
-  addTextToPage(ADDRESS_INPUT, 'City: ' + request.address.city);
-  addTextToPage(ADDRESS_INPUT, 'Postal Code: ' + request.address.postalCode);
-  addTextToPage(ADDRESS_INPUT, 'Zip Code: ' + request.address.zipCode);
-  addTextToPage(ADDRESS_INPUT, 'State: ' + request.address.state);
-  addTextToPage(ADDRESS_INPUT, 'Province: ' + request.address.province);
+
+  if (request.address.countryCode != '') {
+    addTextToPage(ADDRESS_INPUT, COUNTRY_CODE + request.address.countryCode);
+    addTextToPage(ADDRESS_INPUT, STREET_LINE_1 + request.address.addressLine1);
+    addTextToPage(ADDRESS_INPUT, STREET_LINE_2 + request.address.addressLine2);
+    addTextToPage(ADDRESS_INPUT, CITY + request.address.city);
+    if (request.address.countryCode == 'US') {
+      addTextToPage(ADDRESS_INPUT, 'zip code: ' + request.address.zipCode);
+      addTextToPage(ADDRESS_INPUT, 'state: ' + request.address.state);
+    } else if (request.address.countryCode == 'CA') {
+      addTextToPage(
+          ADDRESS_INPUT, 'postal code: ' + request.address.postalCode);
+      addTextToPage(ADDRESS_INPUT, 'province: ' + request.address.province);
+    }
+  } else {
+    addTextToPage(ADDRESS_INPUT, '');
+  }
 
   addTextToPage(NOTES_INPUT, request.notes);
   document.getElementById(REVIEW_REQUEST_ID).value = request.requestId;
@@ -111,9 +126,17 @@ function addPhoneResultsToPage(results) {
     return;
   }
 
-  addTextToPage(PHONE_RESULTS, 'carrier: ' + results.carrier);
-  addTextToPage(PHONE_RESULTS, 'country code: ' + results.country_calling_code);
-  addTextToPage(PHONE_RESULTS, 'line type: ' + results.line_type);
+  addTextToPage(
+      PHONE_RESULTS,
+      (results.carrier ? 'carrier: ' + results.carrier : 'carrier: null'));
+  addTextToPage(
+      PHONE_RESULTS,
+      (results.country_calling_code ?
+           COUNTRY_CODE + results.country_calling_code :
+           'country: null'));
+  addTextToPage(
+      PHONE_RESULTS,
+      (results.line_type ? results.line_type : 'line type: null'));
 
   addOwner(PHONE_RESULTS, (results.belongs_to ? results.belongs_to : ''));
   addCurrentAddress(
@@ -144,10 +167,53 @@ function addEmailResultsToPage(results) {
 }
 
 
-function addTextToPage(containerId, text) {
-  document.getElementById(containerId)
-      .appendChild(document.createTextNode(text));
+function addAddressResultsToPage(results) {
+  if (results.is_valid == undefined || results.results_unavailable ||
+      results.error) {
+    addTextToPage(ADDRESS_RESULTS, API_ERROR);
+    return;
+  }
+
+  addTextToPage(ADDRESS_RESULTS, IS_VALID + results.is_valid);
+  addResident(
+      ADDRESS_RESULTS,
+      (results.current_residents ? results.current_residents : ''));
+  addOwner(ADDRESS_RESULTS, (results.owners ? results.owners : ''));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.street_line_1 ? STREET_LINE_1 + results.street_line_1 :
+                               STREET_LINE_1 + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.street_line_2 ? STREET_LINE_2 + results.street_line_2 :
+                               STREET_LINE_2 + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.postal_code ? POSTAL_CODE + results.postal_code :
+                             POSTAL_CODE + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.state_code ? STATE_CODE + results.state_code :
+                            STATE_CODE + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.country_code ? COUNTRY_CODE + results.country_code :
+                              COUNTRY_CODE + NOT_VERIFIED));
+  addTextToPage(
+      ADDRESS_RESULTS,
+      (results.warnings.length > 0 ? 'warnings: ' + results.warnings[0] :
+                                     'N/A'));
 }
+
+function addTextToPage(containerId, text) {
+  if (text == '') {
+    text = 'N/A';
+  }
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(text));
+  document.getElementById(containerId).appendChild(div);
+}
+
 
 function addImageToPage(request) {
   let blobKeyString = request.image;
@@ -160,13 +226,6 @@ function addImageToPage(request) {
     });
   }
 }
-  if (text == '') {
-    text = 'N/A';
-  }
-  let div = document.createElement('div');
-  div.appendChild(document.createTextNode(text));
-  document.getElementById(containerId).appendChild(div);
-}
 
 
 function addCurrentAddress(containerId, address) {
@@ -174,10 +233,10 @@ function addCurrentAddress(containerId, address) {
     addTextToPage(containerId, 'current address: null');
     return;
   }
-  addTextToPage(containerId, 'postal code: ' + address.postal_code);
-  addTextToPage(containerId, 'city: ' + address.city);
-  addTextToPage(containerId, 'state code: ' + address.state_code);
-  addTextToPage(containerId, 'country code: ' + address.country_code);
+  addTextToPage(containerId, POSTAL_CODE + address.postal_code);
+  addTextToPage(containerId, CITY + address.city);
+  addTextToPage(containerId, STATE_CODE + address.state_code);
+  addTextToPage(containerId, COUNTRY_CODE + address.country_code);
 }
 
 function addOwner(containerId, owner) {
@@ -189,4 +248,15 @@ function addOwner(containerId, owner) {
   addTextToPage(containerId, 'owner\'s age range: ' + owner.age_range);
   addTextToPage(containerId, 'owner\'s gender: ' + owner.gender);
   addTextToPage(containerId, 'owner type: ' + owner.type);
+}
+
+function addResident(containerId, resident) {
+  if (resident == '') {
+    addTextToPage(containerId, 'resident information: null');
+    return;
+  }
+  addTextToPage(containerId, 'resident\'s name: : ' + resident.name);
+  addTextToPage(containerId, 'resident\'s age range: ' + resident.age_range);
+  addTextToPage(containerId, 'resident\'s gender: ' + resident.gender);
+  addTextToPage(containerId, 'resident type: ' + resident.type);
 }
