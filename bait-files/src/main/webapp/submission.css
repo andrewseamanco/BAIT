@@ -24,7 +24,6 @@ body {
   text-align: center;
 }
 
-
 form {
   border: 1px solid #CCC;
   border-radius: 1em;  
@@ -39,7 +38,7 @@ ul {
   padding: 0;
 }
 
-form li + li {
+form li + li, li div {
   margin: 48px;
 }
 
