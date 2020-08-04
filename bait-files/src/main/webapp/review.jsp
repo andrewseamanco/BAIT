@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <title>Review</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="review.js"></script>
     <link rel="stylesheet" href="review.css">
   </head>
   <body onload="getRequest()">
@@ -41,10 +42,6 @@
               <p class="sub-header">Provided Name</p>
               <div id="name-input-container" class="indent"></div>
           </div>
-          <div id="name-api">
-            <p class="sub-header">Name API Results</p>
-            <div id="name-api-container" class="indent"></div>                  
-          </div>
           <div id="name-tools">
             <p class="sub-header">Name Verification Tools</p>
             <ul class="tool-list"> 
@@ -67,6 +64,35 @@
           </div> 
           <div class="card-end"></div> 
         </div>
+
+        <button type="button" class="accordion">Username</button>
+        <div id="username" class="panel">
+          <div id="username-input">
+            <p class="sub-header">Provided Username</p>
+            <div id="username-input-container" class="indent"></div>
+          </div>
+          <div id="username-tools">
+            <p class="sub-header">Username Verification Tools</p>
+            <ul class="tool-list"> 
+              <li>
+                <a href="https://namechk.com/" target="_blank">Namechk</a>
+              </li>
+              <li>
+                  <a href="https://www.google.com/" target="_blank">Google</a>
+              </li>
+            </ul>
+          </div>
+          <div id="username-verify" class="card-end">
+            <p class="sub-header">Username Verification</p>
+            <label for="username-validity" class="indent">Verify username:</label>
+            <select name="username-validity" id="username-validity">
+              <option></option>
+              <option value="invalid">invalid</option>
+              <option value="valid">valid</option>
+            </select>
+            <div class="card-end"></div>
+          </div>
+        </div> 
 
         <button type="button" class="accordion">Email</button>
         <div id="email" class="panel">
@@ -100,40 +126,7 @@
             <div class="card-end"></div>
           </div>  
         </div>
-
-        <button type="button" class="accordion">Username</button>
-        <div id="username" class="panel">
-          <div id="username-input">
-            <p class="sub-header">Provided Username</p>
-            <div id="username-input-container" class="indent"></div>
-          </div>
-          <div id="username-api">
-            <p class="sub-header">Username API Results</p>
-            <div id="username-api-container" class="indent"></div>
-          </div>
-          <div id="username-tools">
-            <p class="sub-header">Username Verification Tools</p>
-            <ul class="tool-list"> 
-              <li>
-                <a href="https://namechk.com/" target="_blank">Namechk</a>
-              </li>
-              <li>
-                  <a href="https://www.google.com/" target="_blank">Google</a>
-              </li>
-            </ul>
-          </div>
-          <div id="username-verify" class="card-end">
-            <p class="sub-header">Username Verification</p>
-            <label for="username-validity" class="indent">Verify username:</label>
-            <select name="username-validity" id="username-validity">
-              <option></option>
-              <option value="invalid">invalid</option>
-              <option value="valid">valid</option>
-            </select>
-            <div class="card-end"></div>
-          </div>
-        </div> 
-
+        
         <button type="button" class="accordion">Phone Number</button>
         <div id="phone" class="panel">
           <div id="phone-input">
@@ -174,7 +167,7 @@
               <div id="address-input-container" class="indent"></div>
             </div>
             <div id="address-api">
-              <p class="sub-header">User API Results</p>
+              <p class="sub-header">Address API Results</p>
               <div id="address-api-container" class="indent"></div>
             </div>
             <div id="address-map-view">
@@ -271,6 +264,5 @@
       </section>
     </content>
   </body>
-  <script src="review.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initMap"></script>
 </html>
