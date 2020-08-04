@@ -26,6 +26,7 @@ const CITY = 'city: ';
 const STREET_LINE_1 = 'street line 1: ';
 const STREET_LINE_2 = 'street line 2: ';
 const NOT_VERIFIED = 'invalid';
+let userAddress;
 
 
 function getPanels() {
@@ -67,6 +68,8 @@ function getRequest() {
           return;
         }
         addRequestToPage(userRequest.request);
+        userAddress = userRequest.request.address;
+        
         addPhoneResultsToPage(userRequest.phoneResults);
         addEmailResultsToPage(userRequest.emailResults);
         addAddressResultsToPage(userRequest.addressResults);
@@ -262,3 +265,51 @@ function addResident(containerId, resident) {
   addTextToPage(containerId, 'resident\'s gender: ' + resident.gender);
   addTextToPage(containerId, 'resident type: ' + resident.type);
 }
+
+function initMap() {
+    console.log(userAddress);
+    if(!userAddress.countryCode) {
+        document.getElementById("address-view").style.height = "0px";
+        return;
+    }
+  let geocoder = new google.maps.Geocoder();
+  let latitude;
+  let longitude;
+  geocoder.geocode({ 'address' : getAddressString(userAddress) }, function(results, status) {
+  var c = results[0].geometry.location;
+  latitude = c.lat();
+  longitude = c.lng();        
+});
+  const address = { lat: latitude, lng: longitude };
+  map = new google.maps.Map(document.getElementById("address-map-view"), {
+    zoom: 12,
+    center: address,
+    mapTypeId: "satellite"
+  });
+}
+
+// function codeAddress(geocoder, map, userAddress) {
+//     if(!userAddress) {
+//         return;
+//     }
+//     clearMarkers();
+//     geocoder.geocode({'address': userAddress}, function(results, status) {
+//         if (status === 'OK') {
+//             map.setCenter(results[0].geometry.location);
+//             // addMarker(results[0].geometry.location);
+//         } else {
+//             alert('Geocode was not successful for the following reason: ' + status);
+//         }
+//     });
+// }
+
+function getAddressString(userAddress) {
+    if(userAddress.countryCode == 'CA') {
+        return userAddress.countryCode + userAddress.addressLine1 + userAddress.addressLine2 + userAddress.city + userAddress.province + userAddress.postalCode;
+    }
+    else if(userAddress.countryCode == 'US') {
+        return userAddress.countryCode + userAddress.addressLine1 + userAddress.addressLine2 + userAddress.city + userAddress.state + userAddress.postalCode;
+    }
+
+}
+

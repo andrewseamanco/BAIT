@@ -168,7 +168,9 @@
             </div>
             <div id="address-api">
               <p class="sub-header">Address API Results</p>
-              <div id="address-api-container" class="indent"></div>
+              <div id="address-api-container" class="indent">
+                 <div id="address-map-view"></div>
+              </div>
             </div>
             <div id="address-tools">
               <p class="sub-header">Address Verification Tools</p>
@@ -261,5 +263,6 @@
         </form>
       </section>
     </content>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initMap"></script>
   </body>
 </html>

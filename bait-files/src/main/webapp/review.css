@@ -3,6 +3,11 @@ a, a:visited {
   text-decoration: none;
 }
 
+#address-map-view {
+    height: 300px;
+    padding-bottom: 10px;
+    width: auto;
+}
 .accordion {
   background-color: #0277bc;
   border-radius: 8px;
