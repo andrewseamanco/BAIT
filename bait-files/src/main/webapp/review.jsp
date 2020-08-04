@@ -263,6 +263,7 @@
         </form>
       </section>
     </content>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initMap"></script>
   </body>
+  <script src="reviewMap.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3dpUXSZW5eYTxffD1-atEdQeXFPB_5XM&callback=initialize"></script>
 </html>
