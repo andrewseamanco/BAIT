@@ -224,6 +224,7 @@ function addTextToPage(containerId, text) {
 
 function addImageToPage(request) {
   let blobKeyString = request.image;
+  console.log(blobKeyString);
   if (blobKeyString != undefined) {
     fetch('/blobstore-serve-image?blobKey=' + blobKeyString).then((pic) => {
       // append picture element to page

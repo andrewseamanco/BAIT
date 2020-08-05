@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="requests.css">
   </head>
   <body onload="getRequests()">
+    <%@ page import="com.google.appengine.api.users.UserService" %>
+    <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+
     <content>
       <nav>
         <div id="nav-title">Bait</div>
         <div id="nav-links">
           <a href="https://step-bait-project-2020.uc.r.appspot.com/history.jsp" class="nav-item">History</a>
-          <a href="#" class="nav-item">Log Out</a>
+          <a href="<%=UserServiceFactory.getUserService().createLoginURL("/login.jsp")%>" class="nav-item">Log Out</a>
         </div>
       </nav>
 

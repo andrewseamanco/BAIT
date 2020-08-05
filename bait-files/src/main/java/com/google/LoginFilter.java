@@ -42,12 +42,12 @@ public class LoginFilter implements Filter {
     HttpSession session = request.getSession(false);
 
     UserService userService = UserServiceFactory.getUserService();
-
-    // Case: User is not logged in
+    
     if (!userService.isUserLoggedIn()
         || !userIsRegistered(userService.getCurrentUser().getUserId())) {
       if (request.getRequestURI().endsWith("register")
-          || request.getRequestURI().endsWith("usernameTaken")) {
+          || request.getRequestURI().endsWith("usernameTaken")
+          || request.getRequestURI().endsWith("login")) {
         chain.doFilter(req, res);
         return;
       } else {
