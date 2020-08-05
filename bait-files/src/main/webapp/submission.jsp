@@ -7,12 +7,13 @@
     <script src="submission.js"></script>
   </head>
   <body onload="fetchBlobstoreUrl()">
+  <%@ page import="com.google.appengine.api.users.UserService" %>
+  <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
     <nav>
       <div>BAIT</div>
         <div>
-            <a href="https://step-bait-project-2020.uc.r.appspot.com/requests.html" class="nav-item">Requests</a>
-            <a href="https://step-bait-project-2020.uc.r.appspot.com/history.html" class="nav-item">History</a>
-            <a href="#" class="nav-item">Log Out</a>
+            <a href="https://step-bait-project-2020.uc.r.appspot.com/history.jsp" class="nav-item">History</a>
+            <a href="<%=UserServiceFactory.getUserService().createLogoutURL("/login.jsp")%>" class="nav-item">Log Out</a>
         </div>
     </nav>
       

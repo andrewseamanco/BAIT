@@ -43,6 +43,8 @@ public class LoginFilter implements Filter {
 
     UserService userService = UserServiceFactory.getUserService();
     
+    
+
     if (!userService.isUserLoggedIn()
         || !userIsRegistered(userService.getCurrentUser().getUserId())) {
       if (request.getRequestURI().endsWith("register")
@@ -65,7 +67,7 @@ public class LoginFilter implements Filter {
           requestDispatcher.forward(request, response);
           return;
         } else {
-          RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/requests.jsp");
+          RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/");
           requestDispatcher.forward(request, response);
           return;
         }
