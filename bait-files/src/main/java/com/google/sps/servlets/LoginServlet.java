@@ -25,6 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
   private final UserAccessor userAccessor;
 
+  public LoginServlet() {
+    this.userAccessor = new UserAccessor();
+  }
+
   public LoginServlet(UserAccessor userAccessor) {
     this.userAccessor = userAccessor;
   }
@@ -39,9 +43,7 @@ public class LoginServlet extends HttpServlet {
       throws IOException, ServletException {
     String userId = userAccessor.getUserId();
     String username = request.getParameter("username");
-    String firstName = request.getParameter("first-name");
-    String lastName = request.getParameter("last-name");
-    User newUser = new User(userId, username, firstName, lastName, Permission.USER);
+    User newUser = new User(userId, username, Permission.USER);
 
     ObjectifyService.ofy().save().entities(newUser).now();
 

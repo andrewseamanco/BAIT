@@ -1,57 +1,113 @@
-  #bait-image {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    width: 50%;
-  }
+body {
+  color: #3c4043;
+  font-family: 'Roboto', sans-serif;
+  margin: 0px 0px 0px 0px;
+}
 
-  #bait-mission {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-    width: 50%;
-  }
-
-  html, body {
-    background: linear-gradient(45deg, rgb(255,127,80), rgb(135,206,235));
-    height: 100%;
-  }
-
-  #login-body {
-    align-items: center;
-    display:flex;
-    height: 100%;
-    flex-direction: row;
-  }
-
-  #login-button {
-    background-color: transparent;
-    border: 7px solid black;
-    border-radius: 30px;
-    color: black;
+#start-button {
+    border-radius: 15%;
     cursor: pointer;
-    font-family: 'Hind', sans-serif;
     font-size: 14px;
-    padding: 1em;
     text-align: center;
-    width: 100%;
-  }
+}
 
-  #login-button:hover {
+#start-button:hover {
     background-color: white;
-    font-weight: bold;
   }
 
-  #login-image {
-    width: 80%;
-  }
+#welcome {
+    background-color: #a5d6a7;
+    float: left;
+    text-align: left;
+    width: 70%;
+}
 
-  #login-title {
-    font-family: 'Hind', sans-serif;
-    font-size: 3.5em;
-  }
+#welcome-text {
+    padding: 120px;
+}
 
-  #login-subtitle {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.5em;
-  }
+#verify-list-item {
+    margin-left: 310px;
+}
+
+#pros-list {
+    font-size: 25px;
+    line-height: 200%;
+    list-style-type: none;
+}
+
+#login-title {
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    border-right: .15em solid #0277bc;
+    font-size: 40px;
+    letter-spacing: .15em; 
+    margin: 0 auto; 
+    overflow: hidden;
+    white-space: nowrap; 
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #0277bc; }
+}
+
+#login-subtitle {
+    font-size: 25px;
+}
+
+#pros-list-intro {
+    font-size: 20px;
+}
+
+.bait-pictures {
+    width: 200px;
+}
+
+#logo-text {
+    display: flex;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+#login {
+    margin-left: 1170px;
+    margin-top:200px;
+    position: fixed;
+    text-align: center;
+}
+
+#username-title {
+    font-size: 25px;
+
+}
+
+#scroll-button {
+    background: none;
+    border: none;
+    border-radius: 5px; 
+    bottom: 20px;
+    position: fixed;
+    right: 40px;
+}
+
+#scroll-button:hover {
+    opacity: 0.7
+}
+
+.button-login {
+    background: #0277bc;
+    border-radius: 5px; 
+    color: white;
+    font-size: 20px;
+}
+
+.button-login:hover {
+    background: transparent;
+    border-color: #0277bc;
+    color: #3c4043;
+}

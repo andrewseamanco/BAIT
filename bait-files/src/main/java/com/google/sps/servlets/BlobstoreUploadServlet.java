@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/blobstore-upload")
 public class BlobstoreUploadServlet extends HttpServlet {
+  private final BlobstoreAccessor blobstoreAccessor;
+
   public BlobstoreUploadServlet() {
     this.blobstoreAccessor = new BlobstoreAccessor();
   }
@@ -25,7 +27,7 @@ public class BlobstoreUploadServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String uploadUrl = blobstoreAccessor.createUploadUrl("/request");
+    String uploadUrl = blobstoreAccessor.createUploadUrl();
 
     response.setContentType("text/html");
     response.getWriter().println(uploadUrl);

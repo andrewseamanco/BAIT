@@ -42,6 +42,7 @@
     <filter-name>loginFilter</filter-name>
     <filter-class>com.google.LoginFilter</filter-class>
   </filter>
+
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -57,4 +58,14 @@
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
   
+  <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>com.google.sps.servlets.BlobstoreUploadServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/submission.html</url-pattern>
+  </servlet-mapping>
+
 </web-app>

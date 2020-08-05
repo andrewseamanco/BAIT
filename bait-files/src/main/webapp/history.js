@@ -1,5 +1,5 @@
 const url =
-    'https://step-bait-project-2020.uc.r.appspot.com/results.html?reviewId=';
+    'https://step-bait-project-2020.uc.r.appspot.com/results.jsp?reviewId=';
 
 const PENDING_TABLE = 'pending-table';
 const COMPLETED_TABLE = 'completed-table';

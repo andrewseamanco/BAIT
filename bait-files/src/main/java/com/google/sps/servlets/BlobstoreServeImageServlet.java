@@ -1,9 +1,8 @@
 package com.googl.sps.servlets;
-
-import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.sps.servlets.BlobstoreAccessor;
+import com.google.appengine.api.blobstore.BlobKey;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Serves the image file corresponding to the given blob key
  */
-@WebServlet("/blobstore-get-image")
+@WebServlet("/blobstore-serve-image")
 public class BlobstoreServeImageServlet extends HttpServlet {
-  public BlobstoreServeImageServlet() {
-    this.blobstoreAccessor = new BlobstoreAccessor();
-  }
+  private final BlobstoreAccessor blobstoreAccessor;
+
+//   public BlobstoreServeImageServlet() {
+//     this.blobstoreAccessor = new BlobstoreAccessor();
+//   }
 
   public BlobstoreServeImageServlet(BlobstoreAccessor blobstoreAccessor) {
     this.blobstoreAccessor = blobstoreAccessor;
