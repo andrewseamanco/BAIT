@@ -24,11 +24,12 @@ public class Bootstrapper implements ServletContextListener {
         .addMapping("/register");
     context
         .addServlet(
-            "BlobstoreServeImageServlet", new BlobstoreServeImageServlet(new BlobstoreAccessor()))
-        .addMapping("/blobstore-get-image");
+            "BlobstoreServeImageServlet", new BlobstoreServeImageServlet(new
+            BlobstoreAccessor()))
+        .addMapping("/blobstore-serve-image");
     context
-        .addServlet("BlobstoreUploadServlet", new BlobstoreUploadServlet(new BlobstoreAccessor()))
-        .addMapping("/blobstore-upload");
+        .addServlet("BlobstoreUploadServlet", new BlobstoreUploadServlet(new
+        BlobstoreAccessor())) .addMapping("/blobstore-upload");
     context.addServlet("RequestServlet", new RequestServlet(HttpClients.createDefault()));
   }
 

@@ -2,10 +2,11 @@ package com.google.sps.servlets;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+import org.mockito.Mockito;
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
-// import com.google.sps.servlets.User;
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.sps.servlets.BlobstoreAccessor;
 import com.google.sps.servlets.BlobstoreServeImageServlet;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -17,6 +18,8 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
@@ -63,11 +66,12 @@ public final class BlobstoreServeImageServletTest {
     HttpServletResponse response = mock(HttpServletResponse.class);
     BlobstoreAccessor blobstoreAccessor = mock(BlobstoreAccessor.class);
 
+    BlobKey blobKey = new BlobKey("123");
     when(request.getParameter("blobKey")).thenReturn("123");
 
-    new BlobstoreServeImageServlet(blobstoreAccessor).doGet(request, response);
+    BlobstoreServeImageServlet serveImageServlet = new BlobstoreServeImageServlet(blobstoreAccessor);
 
-    servlet.doGet(request, response);
-    Mockito.verify(blobstoreAccessor).serve("123", response);
+    serveImageServlet.doGet(request, response);
+    Mockito.verify(blobstoreAccessor).serve(blobKey, response);
   }
 }
