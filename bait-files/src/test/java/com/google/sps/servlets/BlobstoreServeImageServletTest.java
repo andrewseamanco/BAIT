@@ -61,7 +61,7 @@ public final class BlobstoreServeImageServletTest {
   }
 
   @Test
-  public void doGet_givenBlobkey_BlobstoreServes() throws IOException, ServletException {
+  public void doGet_givenBlobkey_blobstoreServes() throws IOException, ServletException {
     HttpServletRequest request = mock(HttpServletRequest.class);
     HttpServletResponse response = mock(HttpServletResponse.class);
     BlobstoreAccessor blobstoreAccessor = mock(BlobstoreAccessor.class);
