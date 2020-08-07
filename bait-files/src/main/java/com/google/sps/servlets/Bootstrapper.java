@@ -1,5 +1,4 @@
 package com.google.sps.servlets;
-import com.google.sps.servlets.UserAccessor;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import javax.servlet.ServletContext;
@@ -18,6 +17,14 @@ public class Bootstrapper implements ServletContextListener {
     ServletContext context = event.getServletContext();
     context.addServlet("LoginServlet", new LoginServlet(new UserAccessor()))
         .addMapping("/register");
+    context
+        .addServlet(
+            "BlobstoreServeImageServlet", new BlobstoreServeImageServlet(new
+            BlobstoreAccessor()))
+        .addMapping("/blobstore-serve-image");
+    context
+        .addServlet("BlobstoreUploadServlet", new BlobstoreUploadServlet(new
+        BlobstoreAccessor())) .addMapping("/blobstore-upload");
     context.addServlet("RequestServlet", new RequestServlet(HttpClients.createDefault()));
   }
 

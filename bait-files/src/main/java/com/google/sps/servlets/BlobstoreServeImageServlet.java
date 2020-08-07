@@ -1,8 +1,8 @@
-package com.googl.sps.servlets;
-
+package com.google.sps.servlets;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.sps.servlets.BlobstoreAccessor;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/blobstore-serve-image")
 public class BlobstoreServeImageServlet extends HttpServlet {
-  private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+  private final BlobstoreAccessor blobstoreAccessor;
+
+  public BlobstoreServeImageServlet() {
+    this.blobstoreAccessor = new BlobstoreAccessor();
+  }
+
+  public BlobstoreServeImageServlet(BlobstoreAccessor blobstoreAccessor) {
+    this.blobstoreAccessor = blobstoreAccessor;
+  }
 
   /**
    * Gets a URL that can dynamically serve the image stored as a blob by passing the blobkey to
@@ -23,6 +31,6 @@ public class BlobstoreServeImageServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     BlobKey blobKey = new BlobKey(request.getParameter("blobKey"));
-    blobstoreService.serve(blobKey, response);
+    blobstoreAccessor.serve(blobKey, response);
   }
 }

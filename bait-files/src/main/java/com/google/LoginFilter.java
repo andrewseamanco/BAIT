@@ -47,7 +47,8 @@ public class LoginFilter implements Filter {
     if (!userService.isUserLoggedIn()
         || !userIsRegistered(userService.getCurrentUser().getUserId())) {
       if (request.getRequestURI().endsWith("register")
-          || request.getRequestURI().endsWith("usernameTaken") || request.getRequestURI().endsWith("login")) {
+          || request.getRequestURI().endsWith("usernameTaken")
+          || request.getRequestURI().endsWith("login")) {
         chain.doFilter(req, res);
         return;
       } else {

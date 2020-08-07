@@ -78,7 +78,6 @@ public final class UsernameTakenTest {
   @Test
   public void doGet_whenDifferentUsernameInDb_returnsFalse() throws IOException, ServletException {
     // add a User object
-
     ObjectifyService.ofy().save().entity(new User("1234321", "Drew", Permission.USER)).now();
 
     HttpServletRequest request = mock(HttpServletRequest.class);
